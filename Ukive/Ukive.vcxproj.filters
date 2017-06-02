@@ -258,7 +258,6 @@
     <ClCompile Include="TestWindow.cpp">
       <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="LICENSE" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UApplication.h" />
@@ -549,6 +548,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README" />
   </ItemGroup>
 </Project>

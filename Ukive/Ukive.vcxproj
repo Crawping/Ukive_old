@@ -149,9 +149,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="LICENSE">
-      <FileType>Document</FileType>
-    </Text>
     <ClCompile Include="TextWindow.cpp" />
     <ClCompile Include="BaseLayoutParams.cpp" />
     <ClCompile Include="ClipboardManager.cpp" />
@@ -412,7 +409,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
