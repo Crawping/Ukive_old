@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="direct3d">
+      <UniqueIdentifier>{f38ddc5f-a3a8-49ab-97d4-394369159f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{65a147b1-bd51-420e-85b9-bb6dd2a6a30e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\drawable">
+      <UniqueIdentifier>{012697a4-ebef-441d-bc9a-d98b9c072e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\widget">
+      <UniqueIdentifier>{e59780b4-f3bd-4e79-a82d-0e5d6a02f8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\animator">
+      <UniqueIdentifier>{2f2b9a84-1866-4bb9-869d-96cc0234747e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\text">
+      <UniqueIdentifier>{15e8abfd-c519-4347-9765-2fc96011b8cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lod">
+      <UniqueIdentifier>{c28d7e20-8b14-40cd-91f4-9fde11c430d1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="UApplication.cpp" />
+    <ClCompile Include="UBitmapFactory.cpp" />
+    <ClCompile Include="UCanvas.cpp" />
+    <ClCompile Include="UColor.cpp" />
+    <ClCompile Include="UCycler.cpp" />
+    <ClCompile Include="UDeviceManager.cpp" />
+    <ClCompile Include="UDouble.cpp" />
+    <ClCompile Include="UFloat.cpp" />
+    <ClCompile Include="UInnerWindow.cpp" />
+    <ClCompile Include="UInputEvent.cpp" />
+    <ClCompile Include="UMath.cpp" />
+    <ClCompile Include="UNumber.cpp" />
+    <ClCompile Include="URenderer.cpp" />
+    <ClCompile Include="UScroller.cpp" />
+    <ClCompile Include="USystemClock.cpp" />
+    <ClCompile Include="UAssistConfigure.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UWindowClass.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UWindowManager.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="WICManager.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UMenuImpl.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UMenuItemImpl.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UMessage.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UMessageLooper.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UMessageQueue.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectSpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="InlineObjectSpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractableSpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimationManager.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimationManagerEventHandler.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimationTimerHandler.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimationVariableChangeHandler.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimator.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UAnimatorStateHandler.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearLayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="RestrainLayout.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="RestrainLayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="TextSpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UBaseLayout.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UWidget.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UWidgetAnimator.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UWidgetGroup.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UDirect3DView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UFrameLayout.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UImageView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="ULayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="ULinearLayout.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UListView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UScrollView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="USeekBar.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="USpinnerView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UTextView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UTextKeyListener.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UTextDrawingEffect.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="USpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UTextRenderer.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UEditable.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UBitmapDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="UColorDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="UDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="UEditTextDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="ULayerDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="URippleDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="UShapeDrawable.cpp">
+      <Filter>ui\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="UCamera.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UDrawingObjectManager.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UGraphCreator.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UModelConfigure.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UScene.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UTerrainConfigure.cpp">
+      <Filter>direct3d</Filter>
+    </ClCompile>
+    <ClCompile Include="UnderlineSpan.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UTsfEditor.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UTsfManager.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="ULanguageDetector.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UWordBreaker.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="UButton.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UTextBlink.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UInputConnection.cpp" />
+    <ClCompile Include="ClipboardManager.cpp" />
+    <ClCompile Include="UTransition.cpp">
+      <Filter>ui\animator</Filter>
+    </ClCompile>
+    <ClCompile Include="QTreeNode.cpp">
+      <Filter>lod</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainScene.cpp">
+      <Filter>lod</Filter>
+    </ClCompile>
+    <ClCompile Include="ULodGenerator.cpp">
+      <Filter>lod</Filter>
+    </ClCompile>
+    <ClCompile Include="TextActionMode.cpp">
+      <Filter>ui\text</Filter>
+    </ClCompile>
+    <ClCompile Include="USwitchView.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="TextWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="LodWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="TestWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UApplication.h" />
+    <ClInclude Include="UBitmapFactory.h" />
+    <ClInclude Include="UCanvas.h" />
+    <ClInclude Include="UColor.h" />
+    <ClInclude Include="UCommon.h" />
+    <ClInclude Include="UComPtr.h" />
+    <ClInclude Include="UCycler.h" />
+    <ClInclude Include="UDeviceManager.h" />
+    <ClInclude Include="UDouble.h" />
+    <ClInclude Include="UExecutable.h" />
+    <ClInclude Include="UFloat.h" />
+    <ClInclude Include="UInnerWindow.h" />
+    <ClInclude Include="UInputConnection.h" />
+    <ClInclude Include="UInputEvent.h" />
+    <ClInclude Include="UMath.h" />
+    <ClInclude Include="UNumber.h" />
+    <ClInclude Include="URenderer.h" />
+    <ClInclude Include="UScroller.h" />
+    <ClInclude Include="USystemClock.h" />
+    <ClInclude Include="UTags.h" />
+    <ClInclude Include="UThreadLocal.hpp" />
+    <ClInclude Include="UUtility.h" />
+    <ClInclude Include="IDeviceLostNotifier.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="IDirect3DRenderListener.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="ISwapChainResizeNotifier.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UAssistConfigure.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="WICManager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UWindowClass.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UWindowManager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMenu.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMenuCallback.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMenuImpl.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMenuItem.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMenuItemImpl.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMessage.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMessageLooper.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UMessageQueue.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectSpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="InlineObjectSpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractableSpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimationManager.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimationManagerEventHandler.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimationTimerHandler.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimationVariableChangeHandler.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimator.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="UAnimatorStateHandler.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLayoutParams.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearLayoutParams.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="RestrainLayout.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="RestrainLayoutParams.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="OnClickListener.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="TextSpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UBaseLayout.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UWidget.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UWidgetAnimator.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UWidgetGroup.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UDirect3DView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UFrameLayout.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UImageView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="ULayoutParams.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="ULinearLayout.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UListView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UScrollView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="USeekBar.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="USpinnerView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UTextView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UTextKeyListener.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UTextDrawingEffect.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="USpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UTextRenderer.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UEditable.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UBitmapDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="UColorDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="UDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="UEditTextDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="ULayerDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="URippleDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="UShapeDrawable.h">
+      <Filter>ui\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="UCamera.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UDrawingObjectManager.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UGraphCreator.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UModelConfigure.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UScene.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UTerrainConfigure.h">
+      <Filter>direct3d</Filter>
+    </ClInclude>
+    <ClInclude Include="UnderlineSpan.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UTsfEditor.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UTsfManager.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="ULanguageDetector.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UWordBreaker.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="UButton.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UTextBlink.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="ClipboardManager.h" />
+    <ClInclude Include="UTransition.h">
+      <Filter>ui\animator</Filter>
+    </ClInclude>
+    <ClInclude Include="OnSeekValueChangedListener.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="QTreeNode.h">
+      <Filter>lod</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainScene.h">
+      <Filter>lod</Filter>
+    </ClInclude>
+    <ClInclude Include="ULodGenerator.h">
+      <Filter>lod</Filter>
+    </ClInclude>
+    <ClInclude Include="TextActionMode.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextActionModeCallback.h">
+      <Filter>ui\text</Filter>
+    </ClInclude>
+    <ClInclude Include="USwitchView.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="LodWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="TestWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="AssistPixelShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+    <FxCompile Include="AssistVertexShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+    <FxCompile Include="ModelPixelShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+    <FxCompile Include="ModelVertexShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+    <FxCompile Include="TerrainPixelShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+    <FxCompile Include="TerrainVertexShader.hlsl">
+      <Filter>direct3d</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README" />
+  </ItemGroup>
+</Project>
