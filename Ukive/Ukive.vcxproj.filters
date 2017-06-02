@@ -549,6 +549,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" />
-    <None Include="..\README" />
+    <None Include="..\README.md" />
   </ItemGroup>
 </Project>
