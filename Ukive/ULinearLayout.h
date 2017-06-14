@@ -21,10 +21,13 @@ private:
 	void measureWeightedChildren(
 		int totalWeight,
 		int parentWidth, int parentHeight,
-		int parentWidthSpec, int parentHeightSpec);
+		int parentWidthMode, int parentHeightMode);
+	void measureSequenceChildren(
+		int parentWidth, int parentHeight,
+		int parentWidthMode, int parentHeightMode);
 	void measureLinearLayoutChildren(
 		int parentWidth, int parentHeight,
-		int parentWidthSpec, int parentHeightSpec);
+		int parentWidthMode, int parentHeightMode);
 
 	void measureVertical(int width, int height, int widthSpec, int heightSpec);
 	void measureHorizontal(int width, int height, int widthSpec, int heightSpec);

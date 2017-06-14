@@ -172,8 +172,96 @@ void UWidgetGroup::addWidget(std::size_t index, UWidget *widget, ULayoutParams *
 	this->invalidate();
 }
 
+void UWidgetGroup::addWidget(std::shared_ptr<UWidget> widget)
+{
+	this->addWidget(widget, nullptr);
+}
+
+void UWidgetGroup::addWidget(std::shared_ptr<UWidget> widget, ULayoutParams *params)
+{
+	this->addWidget(mWidgetList.size(), widget, params);
+}
+
+void UWidgetGroup::addWidget(std::size_t index, std::shared_ptr<UWidget> widget, ULayoutParams *params)
+{
+	if (widget == nullptr)
+		throw std::invalid_argument(
+			"UWidgetGroup-addWidget(): You cannot add a null Widget to UWidgetGroup.");
+	if (index > mWidgetList.size())
+		throw std::invalid_argument(
+			"UWidgetGroup-addWidget(): invalid index");
+
+	for (auto it = mWidgetList.begin();
+		it != mWidgetList.end();
+		++it)
+	{
+		if ((*it)->getId() == widget->getId())
+			return;
+	}
+
+	if (params == nullptr)
+	{
+		params = widget->getLayoutParams();
+		if (params == nullptr)
+		{
+			params = this->generateDefaultLayoutParams();
+			if (params == nullptr)
+				throw std::logic_error(
+					"UWidgetGroup-addWidget(): You cannot add a null Widget to UWidgetGroup.");
+		}
+	}
+
+	if (!checkLayoutParams(params))
+		params = this->generateLayoutParams(params);
+
+	widget->setParent(this);
+	widget->setLayoutParams(params);
+
+	if (index == mWidgetList.size())
+		mWidgetList.push_back(widget);
+	else
+	{
+		mWidgetList.insert(
+			mWidgetList.begin() + index,
+			widget);
+	}
+
+	if (!widget->isAttachedToWindow() && mIsAttachdToWindow)
+		widget->onAttachedToWindow();
+
+	this->requestLayout();
+	this->invalidate();
+}
+
 
 void UWidgetGroup::removeWidget(UWidget *widget)
+{
+	if (widget == nullptr)
+		throw std::invalid_argument(
+			"UWidgetGroup-removeWidget(): You cannot remove a null Widget from UWidgetGroup.");
+
+	for (auto it = mWidgetList.begin();
+		it != mWidgetList.end();
+		++it)
+	{
+		if ((*it)->getId() == widget->getId())
+		{
+			widget->discardFocus();
+			widget->discardPendingOperations();
+
+			if (widget->isAttachedToWindow() && mIsAttachdToWindow)
+				widget->onDetachedFromWindow();
+
+			mWidgetList.erase(it);
+
+			this->requestLayout();
+			this->invalidate();
+			return;
+		}
+	}
+}
+
+void UWidgetGroup::removeWidget(std::shared_ptr<UWidget> widget)
 {
 	if (widget == nullptr)
 		throw std::invalid_argument(

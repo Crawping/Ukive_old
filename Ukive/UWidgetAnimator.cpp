@@ -37,7 +37,7 @@ UWidgetAnimator *UWidgetAnimator::setDuration(double duration)
 }
 
 
-UWidgetAnimator *UWidgetAnimator::x(float x)
+UWidgetAnimator *UWidgetAnimator::x(double x)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -51,7 +51,7 @@ UWidgetAnimator *UWidgetAnimator::x(float x)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::y(float y)
+UWidgetAnimator *UWidgetAnimator::y(double y)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -65,7 +65,7 @@ UWidgetAnimator *UWidgetAnimator::y(float y)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::alpha(float value)
+UWidgetAnimator *UWidgetAnimator::alpha(double value)
 {
 	mAnimator->addVariable(
 		UWIDGET_ANIM_ALPHA, mOwningWidget->getAlpha(), 0, 1);
@@ -76,7 +76,7 @@ UWidgetAnimator *UWidgetAnimator::alpha(float value)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::scaleX(float value)
+UWidgetAnimator *UWidgetAnimator::scaleX(double value)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -90,7 +90,7 @@ UWidgetAnimator *UWidgetAnimator::scaleX(float value)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::scaleY(float value)
+UWidgetAnimator *UWidgetAnimator::scaleY(double value)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -104,7 +104,7 @@ UWidgetAnimator *UWidgetAnimator::scaleY(float value)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::translateX(float value)
+UWidgetAnimator *UWidgetAnimator::translateX(double value)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -118,7 +118,7 @@ UWidgetAnimator *UWidgetAnimator::translateX(float value)
 	return this;
 }
 
-UWidgetAnimator *UWidgetAnimator::translateY(float value)
+UWidgetAnimator *UWidgetAnimator::translateY(double value)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -141,9 +141,9 @@ UWidgetAnimator *UWidgetAnimator::setListener(UAnimator::OnAnimatorListener *l)
 
 
 UAnimator *UWidgetAnimator::createRectReveal(
-	UWidget *widget, float centerX, float centerY,
-	float startWidthRadius, float endWidthRadius,
-	float startHeightRadius, float endHeightRadius)
+	UWidget *widget, double centerX, double centerY,
+	double startWidthRadius, double endWidthRadius,
+	double startHeightRadius, double endHeightRadius)
 {
 	typedef std::numeric_limits<double> dLimit;
 
@@ -221,7 +221,7 @@ UAnimator *UWidgetAnimator::createRectReveal(
 }
 
 UAnimator *UWidgetAnimator::createCirculeReveal(
-	UWidget *widget, float centerX, float centerY, float startRadius, float endRadius)
+	UWidget *widget, double centerX, double centerY, double startRadius, double endRadius)
 {
 	typedef std::numeric_limits<double> dLimit;
 

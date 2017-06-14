@@ -4,11 +4,16 @@
 
 class UWindow;
 class ULayoutParams;
-class BaseLayoutParams;
-class UInnerWindow;
+class ULinearLayout;
 
 class UBaseLayout : public UFrameLayout
 {
+private:
+	std::shared_ptr<UFrameLayout> mShadeLayout;
+	std::shared_ptr<ULinearLayout> mContentLayout;
+
+	void initBaseLayout();
+
 protected:
 	virtual ULayoutParams *generateLayoutParams(ULayoutParams *lp) override;
 	virtual ULayoutParams *generateDefaultLayoutParams() override;
@@ -19,5 +24,10 @@ public:
 	UBaseLayout(UWindow *wnd, int id);
 	~UBaseLayout();
 
-	bool hasContent();
+	void addShade(UWidget *shade);
+	void removeShade(UWidget *shade);
+
+	void addContent(UWidget *content);
+
+	virtual UWidget *findWidgetById(int id) override;
 };

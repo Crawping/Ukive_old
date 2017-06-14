@@ -45,7 +45,11 @@ public:
 	void addWidget(UWidget *widget);
 	void addWidget(UWidget *widget, ULayoutParams *params);
 	void addWidget(std::size_t index, UWidget *widget, ULayoutParams *params);
+	void addWidget(std::shared_ptr<UWidget> widget);
+	void addWidget(std::shared_ptr<UWidget> widget, ULayoutParams *params);
+	void addWidget(std::size_t index, std::shared_ptr<UWidget> widget, ULayoutParams *params);
 	void removeWidget(UWidget *widget);
+	void removeWidget(std::shared_ptr<UWidget> widget);
 	void removeWidget(std::size_t index);
 
 	virtual UWidget *findWidgetById(int id) override;

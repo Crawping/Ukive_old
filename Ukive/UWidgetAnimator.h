@@ -33,22 +33,22 @@ public:
 	void cancel();
 	UWidgetAnimator *setDuration(double duration);
 
-	UWidgetAnimator *x(float x);
-	UWidgetAnimator *y(float y);
-	UWidgetAnimator *alpha(float value);
-	UWidgetAnimator *scaleX(float value);
-	UWidgetAnimator *scaleY(float value);
-	UWidgetAnimator *translateX(float value);
-	UWidgetAnimator *translateY(float value);
+	UWidgetAnimator *x(double x);
+	UWidgetAnimator *y(double y);
+	UWidgetAnimator *alpha(double value);
+	UWidgetAnimator *scaleX(double value);
+	UWidgetAnimator *scaleY(double value);
+	UWidgetAnimator *translateX(double value);
+	UWidgetAnimator *translateY(double value);
 
 	UWidgetAnimator *setListener(UAnimator::OnAnimatorListener *l);
 
 	static UAnimator *createRectReveal(
-		UWidget *widget, float centerX, float centerY, 
-		float startWidthRadius, float endWidthRadius, 
-		float startHeightRadius, float endHeightRadius);
+		UWidget *widget, double centerX, double centerY, 
+		double startWidthRadius, double endWidthRadius, 
+		double startHeightRadius, double endHeightRadius);
 	static UAnimator *createCirculeReveal(
-		UWidget *widget, float centerX, float centerY, float startRadius, float endRadius);
+		UWidget *widget, double centerX, double centerY, double startRadius, double endRadius);
 
 	void onValueChanged(
 		unsigned int varIndex,

@@ -1,12 +1,14 @@
 ﻿#include "UCommon.h"
 #include "UTags.h"
+#include "UColor.h"
+#include "UCanvas.h"
 #include "UApplication.h"
 #include "UWindowManager.h"
 #include "UWindowClass.h"
 #include "UDeviceManager.h"
 #include "UInputEvent.h"
 #include "UBaseLayout.h"
-#include "UCanvas.h"
+#include "UBaseLayoutParams.h"
 #include "ULayoutParams.h"
 #include "UInputConnection.h"
 #include "UTsfManager.h"
@@ -17,6 +19,10 @@
 #include "URenderer.h"
 #include "TextActionMode.h"
 #include "TextActionModeCallback.h"
+#include "UContextMenu.h"
+#include "UContextMenuCallback.h"
+#include "UColorDrawable.h"
+#include "UWindowSlave.h"
 #include "UWindow.h"
 
 
@@ -39,7 +45,7 @@ UWindow::UWindow(UApplication *app, int id)
 	mCursor = ::LoadCursorW(nullptr, IDC_ARROW);
 
 	mIsCreated = false;
-	mIsShowed = false;
+	mIsShowing = false;
 
 	mPrevX = mX = 0;
 	mPrevY = mY = 0;
@@ -69,6 +75,8 @@ UWindow::UWindow(UApplication *app, int id)
 	mRenderer = nullptr;
 	mBitmapFactory = nullptr;
 	mTextActionMode = nullptr;
+	mContextMenu = nullptr;
+	mSlave = nullptr;
 }
 
 
@@ -222,8 +230,7 @@ void UWindow::setCurrentCursor(LPCWSTR cursor)
 
 void UWindow::setContentView(UWidget *content)
 {
-	if (!mBaseLayout->hasContent())
-		mBaseLayout->addWidget(content);
+	mBaseLayout->addContent(content);
 }
 
 void UWindow::setBackgroundColor(D2D1_COLOR_F color)
@@ -375,14 +382,78 @@ UWidget *UWindow::getKeyboardHolder()
 }
 
 
-float UWindow::calculateDip(float value)
+UContextMenu *UWindow::startContextMenu(
+	UContextMenuCallback *callback, UWidget *anchor, UGravity gravity)
 {
-	float dpiX;
-	float dpiY;
-	UDeviceManager::sD2DFactory->GetDesktopDpi(&dpiX, &dpiY);
-	return (dpiX / 96.f)*value;
-}
+	UContextMenu *contextMenu
+		= new UContextMenu(this, callback);
 
+	if (!callback->onCreateContextMenu(
+		contextMenu, contextMenu->getMenu()))
+	{
+		delete contextMenu;
+		return nullptr;
+	}
+
+	callback->onPrepareContextMenu(
+		contextMenu, contextMenu->getMenu());
+
+	if (contextMenu->getMenu()->getItemCount() == 0)
+	{
+		delete contextMenu;
+		return nullptr;
+	}
+
+	mContextMenu = contextMenu;
+
+	int x, y;
+	URect rect = anchor->getBoundInWindow();
+
+	y = rect.bottom + 1;
+
+	switch (gravity)
+	{
+	case LEFT:
+		x = rect.left;
+		break;
+
+	case RIGHT:
+		x = rect.right - 92;
+		break;
+
+	case CENTER:
+		x = rect.left - (92 - rect.width()) / 2.f;
+		break;
+
+	default:
+		x = rect.left;
+	}
+
+	//异步打开TextActionMode菜单，以防止在输入事件处理流程中
+	//打开菜单时出现问题。
+	class UContextMenuWorker
+		: public UExecutable
+	{
+	private:
+		int mX, mY;
+		UWindow *window;
+	public:
+		UContextMenuWorker(UWindow *w, int x, int y)
+		{
+			mX = x;
+			mY = y;
+			window = w;
+		}
+		void run() override
+		{
+			window->mContextMenu->show(mX, mY);
+		}
+	}*worker = new UContextMenuWorker(this, x, y);
+
+	mLabourCycler->post(worker);
+
+	return contextMenu;
+}
 
 TextActionMode *UWindow::startTextActionMode(
 	TextActionModeCallback *callback)
@@ -439,7 +510,7 @@ bool UWindow::isCreated()
 
 bool UWindow::isShowed()
 {
-	return mIsShowed;
+	return mIsShowing;
 }
 
 bool UWindow::isStartupWindow()
@@ -486,7 +557,7 @@ void UWindow::show()
 			mIsCreated = true;
 			mApplication->getWindowManager()->addWindow(this);
 			if (this->onRequestShow(true))
-				mIsShowed = true;
+				mIsShowing = true;
 			else
 				throw std::runtime_error("UWindow-show(): request show failed.");
 		}
@@ -495,20 +566,25 @@ void UWindow::show()
 	}
 	else
 	{
+		if (mIsShowing)
+			return;
+
 		if (this->onRequestShow(true))
-			mIsShowed = true;
+			mIsShowing = true;
 		else
 			throw std::runtime_error("UWindow-show(): request show failed.");
 	}
+
+	//mSlave->sync();
 }
 
 void UWindow::hide()
 {
-	if (!mIsCreated || !mIsShowed)
+	if (!mIsCreated || !mIsShowing)
 		return;
 
 	if (this->onRequestShow(false))
-		mIsShowed = false;
+		mIsShowing = false;
 	else
 		throw std::runtime_error("UWindow-hide(): request hide failed.");
 }
@@ -536,7 +612,7 @@ void UWindow::close(bool notify)
 		if (this->onRequestClose())
 		{
 			mIsCreated = false;
-			mIsShowed = false;
+			mIsShowing = false;
 			mApplication->getWindowManager()->removeWindow(this);
 		}
 		else
@@ -575,6 +651,13 @@ void UWindow::notifyWindowLocationChanged(int x, int y)
 	mX = x;
 	mPrevY = mY;
 	mY = y;
+
+	RECT slaveRect;
+	::GetWindowRect(mSlave->getWindowHandle(), &slaveRect);
+
+	int slaveWidth = slaveRect.right - slaveRect.left;
+	int slaveHeight = slaveRect.bottom - slaveRect.top;
+	::MoveWindow(mSlave->getWindowHandle(), x - 7, y - 7, slaveWidth, slaveHeight, FALSE);
 
 	this->onMove(x, y);
 }
@@ -766,6 +849,7 @@ bool UWindow::onRequestClose()
 
 void UWindow::onCreate()
 {
+	mSlave = new UWindowSlave(this);
 	mLabourCycler = new UpdateCycler(this);
 
 	mBaseLayout = new UBaseLayout(this, UWidgetId::ROOT_LAYOUT);
@@ -773,6 +857,12 @@ void UWindow::onCreate()
 		new ULayoutParams(
 			ULayoutParams::MATCH_PARENT,
 			ULayoutParams::MATCH_PARENT));
+
+	/*UFrameLayout *titleBar = new UFrameLayout(this);
+	titleBar->setBackground(new UColorDrawable(this, UColor::Blue100));
+	UBaseLayoutParams *titleBarLp = new UBaseLayoutParams(
+		UBaseLayoutParams::MATCH_PARENT, 50);
+	mBaseLayout->addContent(titleBar, titleBarLp);*/
 
 	mAnimationManager = new UAnimationManager();
 	HRESULT hr = mAnimationManager->init();
@@ -947,6 +1037,7 @@ void UWindow::onDestroy()
 	mAnimationManager->close();
 	delete mAnimationManager;
 	delete mLabourCycler;
+	delete mSlave;
 }
 
 void UWindow::onInputEvent(UInputEvent *e)
@@ -961,7 +1052,9 @@ void UWindow::onInputEvent(UInputEvent *e)
 	{
 		//若有之前捕获过鼠标的Widget存在，则直接将所有事件
 		//直接发送至该Widget。
-		if (mMouseHolder)
+		if (mMouseHolder
+			&& mMouseHolder->getVisibility() == UWidget::VISIBLE
+			&& mMouseHolder->isEnabled())
 		{
 			UInputEvent saved(e);
 

@@ -33,7 +33,6 @@
     <ClCompile Include="UDeviceManager.cpp" />
     <ClCompile Include="UDouble.cpp" />
     <ClCompile Include="UFloat.cpp" />
-    <ClCompile Include="UInnerWindow.cpp" />
     <ClCompile Include="UInputEvent.cpp" />
     <ClCompile Include="UMath.cpp" />
     <ClCompile Include="UNumber.cpp" />
@@ -96,12 +95,6 @@
     </ClCompile>
     <ClCompile Include="UAnimatorStateHandler.cpp">
       <Filter>ui\animator</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseLayoutParams.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="LinearLayoutParams.cpp">
-      <Filter>ui\widget</Filter>
     </ClCompile>
     <ClCompile Include="RestrainLayout.cpp">
       <Filter>ui\widget</Filter>
@@ -258,6 +251,19 @@
     <ClCompile Include="TestWindow.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="UInnerWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UContextMenu.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UWindowSlave.cpp" />
+    <ClCompile Include="UBaseLayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="ULinearLayoutParams.cpp">
+      <Filter>ui\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UApplication.h" />
@@ -271,7 +277,6 @@
     <ClInclude Include="UDouble.h" />
     <ClInclude Include="UExecutable.h" />
     <ClInclude Include="UFloat.h" />
-    <ClInclude Include="UInnerWindow.h" />
     <ClInclude Include="UInputConnection.h" />
     <ClInclude Include="UInputEvent.h" />
     <ClInclude Include="UMath.h" />
@@ -356,12 +361,6 @@
     </ClInclude>
     <ClInclude Include="UAnimatorStateHandler.h">
       <Filter>ui\animator</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseLayoutParams.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="LinearLayoutParams.h">
-      <Filter>ui\widget</Filter>
     </ClInclude>
     <ClInclude Include="RestrainLayout.h">
       <Filter>ui\widget</Filter>
@@ -525,6 +524,22 @@
     </ClInclude>
     <ClInclude Include="TestWindow.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UContextMenuCallback.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UInnerWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UContextMenu.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UWindowSlave.h" />
+    <ClInclude Include="UBaseLayoutParams.h">
+      <Filter>ui\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="ULinearLayoutParams.h">
+      <Filter>ui\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

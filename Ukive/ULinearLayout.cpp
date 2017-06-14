@@ -1,7 +1,7 @@
 ﻿#include "UCommon.h"
 #include "UMath.h"
 #include "ULayoutParams.h"
-#include "LinearLayoutParams.h"
+#include "ULinearLayoutParams.h"
 #include "ULinearLayout.h"
 
 
@@ -26,33 +26,33 @@ ULinearLayout::~ULinearLayout()
 ULayoutParams *ULinearLayout::generateLayoutParams(
 	ULayoutParams *lp)
 {
-	return new LinearLayoutParams(lp);
+	return new ULinearLayoutParams(lp);
 }
 
 ULayoutParams *ULinearLayout::generateDefaultLayoutParams()
 {
-	return new LinearLayoutParams(
+	return new ULinearLayoutParams(
 		ULayoutParams::FIT_CONTENT,
 		ULayoutParams::FIT_CONTENT);
 }
 
 bool ULinearLayout::checkLayoutParams(ULayoutParams *lp)
 {
-	return typeid(*lp) == typeid(LinearLayoutParams);
+	return typeid(*lp) == typeid(ULinearLayoutParams);
 }
 
 
 void ULinearLayout::measureWeightedChildren(
 	int totalWeight,
 	int parentWidth, int parentHeight,
-	int parentWidthSpec, int parentHeightSpec)
+	int parentWidthMode, int parentHeightMode)
 {
 	for (unsigned int i = 0; i < this->getChildCount(); ++i)
 	{
 		UWidget *child = this->getChildAt(i);
 		if (child->getVisibility() != UWidget::VANISHED)
 		{
-			LinearLayoutParams *childParams = (LinearLayoutParams*)child->getLayoutParams();
+			ULinearLayoutParams *childParams = (ULinearLayoutParams*)child->getLayoutParams();
 
 			int horizontalPadding = mPaddingLeft + mPaddingRight;
 			int verticalPadding = mPaddingTop + mPaddingBottom;
@@ -66,12 +66,12 @@ void ULinearLayout::measureWeightedChildren(
 			int childHeightSpec;
 
 			this->getChildMeasure(
-				parentWidth, parentWidthSpec,
+				parentWidth, parentWidthMode,
 				horizontalMargins + horizontalPadding,
 				childParams->width, &childWidth, &childWidthSpec);
 
 			this->getChildMeasure(
-				parentHeight, parentHeightSpec,
+				parentHeight, parentHeightMode,
 				verticalMargins + verticalPadding,
 				childParams->height, &childHeight, &childHeightSpec);
 
@@ -93,9 +93,62 @@ void ULinearLayout::measureWeightedChildren(
 	}
 }
 
+void ULinearLayout::measureSequenceChildren(
+	int parentWidth, int parentHeight,
+	int parentWidthMode, int parentHeightMode)
+{
+	for (std::size_t i = 0; i < getChildCount(); ++i)
+	{
+		UWidget *child = getChildAt(i);
+		if (child->getVisibility() != UWidget::VANISHED)
+		{
+			ULayoutParams *childParams = child->getLayoutParams();
+
+			int horizontalPadding = mPaddingLeft + mPaddingRight;
+			int verticalPadding = mPaddingTop + mPaddingBottom;
+
+			int horizontalMargins = childParams->leftMargin + childParams->rightMargin;
+			int verticalMargins = childParams->topMargin + childParams->bottomMargin;
+
+			int childWidth;
+			int childWidthSpec;
+			int childHeight;
+			int childHeightSpec;
+
+			this->getChildMeasure(
+				parentWidth, parentWidthMode,
+				horizontalMargins + horizontalPadding,
+				childParams->width, &childWidth, &childWidthSpec);
+
+			this->getChildMeasure(
+				parentHeight, parentHeightMode,
+				verticalMargins + verticalPadding,
+				childParams->height, &childHeight, &childHeightSpec);
+
+			child->measure(childWidth, childHeight, childWidthSpec, childHeightSpec);
+
+			if (i + 1 < getChildCount())
+			{
+				if (mOrientation == VERTICAL)
+				{
+					parentHeight -= childHeight;
+					if (parentHeight <= 0)
+						break;
+				}
+				else if (mOrientation == HORIZONTAL)
+				{
+					parentWidth -= childWidth;
+					if (parentWidth <= 0)
+						break;
+				}
+			}
+		}
+	}
+}
+
 void ULinearLayout::measureLinearLayoutChildren(
 	int parentWidth, int parentHeight,
-	int parentWidthSpec, int parentHeightSpec)
+	int parentWidthMode, int parentHeightMode)
 {
 	int totalWeight = 0;
 	for (std::size_t i = 0; i < this->getChildCount(); ++i)
@@ -103,7 +156,7 @@ void ULinearLayout::measureLinearLayoutChildren(
 		UWidget *child = getChildAt(i);
 		if (child->getVisibility() != UWidget::VANISHED)
 		{
-			LinearLayoutParams *lp = (LinearLayoutParams*)child->getLayoutParams();
+			ULinearLayoutParams *lp = (ULinearLayoutParams*)child->getLayoutParams();
 			totalWeight += lp->weight;
 		}
 	}
@@ -112,11 +165,13 @@ void ULinearLayout::measureLinearLayoutChildren(
 		measureWeightedChildren(
 			totalWeight, 
 			parentWidth, parentHeight, 
-			parentWidthSpec, parentHeightSpec);
+			parentWidthMode, parentHeightMode);
 	else
-		measureChildrenWithMargins(
-			parentWidth, parentHeight, 
-			parentWidthSpec, parentHeightSpec);
+	{
+		measureSequenceChildren(
+			parentWidth, parentHeight,
+			parentWidthMode, parentHeightMode);
+	}
 }
 
 

@@ -54,4 +54,6 @@ public:
 
 	UComPtr<ID3D11Device> getD3DDevice();
 	UComPtr<ID3D11DeviceContext> getD3DDeviceContext();
+
+	static float dip(float value);
 };

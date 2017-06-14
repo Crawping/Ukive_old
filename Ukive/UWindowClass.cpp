@@ -13,7 +13,7 @@ UWindowClass::UWindowClass(UApplication *app)
 		throw std::logic_error(
 			"UWindowClass-Constructor(): null param.");
 
-	vtr = this;
+	sUWCVtr = this;
 
 	mApplication = app;
 	mInputEvent = new UInputEvent();
@@ -248,9 +248,6 @@ LRESULT CALLBACK UWindowClass::messageHandler(HWND hWnd, UINT uMsg, WPARAM wPara
 			break;
 		}
 
-		case WM_ERASEBKGND:
-			return TRUE;
-
 		case WM_MOVE:
 			window->notifyWindowLocationChanged(LOWORD(lParam), HIWORD(lParam));
 			return 0;
@@ -333,9 +330,9 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 		// Extend the frame into the client area.
 		MARGINS margins;
 
-		margins.cxLeftWidth = 20;
-		margins.cxRightWidth = 20;
-		margins.cyBottomHeight = 20;
+		margins.cxLeftWidth = 0;
+		margins.cxRightWidth = 0;
+		margins.cyBottomHeight = 0;
 		margins.cyTopHeight = 50;
 
 		hr = DwmExtendFrameIntoClientArea(hWnd, &margins);
@@ -356,15 +353,18 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 	}
 
 	// Handle the non-client size message.
-	if ((message == WM_NCCALCSIZE) && (wParam == TRUE))
+	if (message == WM_NCCALCSIZE && wParam == TRUE)
 	{
 		// Calculate new NCCALCSIZE_PARAMS based on custom NCA inset.
-		NCCALCSIZE_PARAMS *pncsp = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
+		/*NCCALCSIZE_PARAMS *pncsp = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
 
-		pncsp->rgrc[0].left = pncsp->rgrc[0].left + 20;
-		pncsp->rgrc[0].top = pncsp->rgrc[0].top + 50;
-		pncsp->rgrc[0].right = pncsp->rgrc[0].right - 20;
-		pncsp->rgrc[0].bottom = pncsp->rgrc[0].bottom - 20;
+		RECT newW, oldW, oldWC;
+		CopyRect(&newW, &pncsp->rgrc[0]);
+		//new window client.
+		pncsp->rgrc[0].left = newW.left + 0;
+		pncsp->rgrc[0].top = newW.top + 0;
+		pncsp->rgrc[0].right = newW.right - 0;
+		pncsp->rgrc[0].bottom = newW.bottom - 0;*/
 
 		lRet = 0;
 
@@ -375,7 +375,7 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 	// Handle hit testing in the NCA if not handled by DwmDefWindowProc.
 	if ((message == WM_NCHITTEST) && (lRet == 0))
 	{
-		lRet = HitTestNCA(hWnd, wParam, lParam, 8, 27, 8, 8);
+		lRet = HitTestNCA(hWnd, wParam, lParam, 8, 50, 0, 0);
 
 		if (lRet != HTNOWHERE)
 		{
@@ -399,18 +399,18 @@ LRESULT UWindowClass::HitTestNCA(HWND hWnd, WPARAM wParam, LPARAM lParam,
 	GetWindowRect(hWnd, &rcWindow);
 
 	// Get the frame rectangle, adjusted for the style without a caption.
-	RECT rcFrame = { 0 };
-	AdjustWindowRectEx(&rcFrame, WS_OVERLAPPEDWINDOW & ~WS_CAPTION, FALSE, NULL);
+	//RECT rcFrame = { 0 };
+	//AdjustWindowRectEx(&rcFrame, WS_OVERLAPPEDWINDOW & ~WS_CAPTION, FALSE, NULL);
 
 	// Determine if the hit test is for resizing. Default middle (1,1).
 	USHORT uRow = 1;
 	USHORT uCol = 1;
-	bool fOnResizeBorder = false;
+	//bool fOnResizeBorder = false;
 
 	// Determine if the point is at the top or bottom of the window.
 	if (ptMouse.y >= rcWindow.top && ptMouse.y < rcWindow.top + topExt)
 	{
-		fOnResizeBorder = (ptMouse.y < (rcWindow.top - rcFrame.top));
+		//fOnResizeBorder = (ptMouse.y < (rcWindow.top - rcFrame.top));
 		uRow = 0;
 	}
 	else if (ptMouse.y < rcWindow.bottom && ptMouse.y >= rcWindow.bottom - bottomExt)
@@ -431,7 +431,7 @@ LRESULT UWindowClass::HitTestNCA(HWND hWnd, WPARAM wParam, LPARAM lParam,
 	// Hit test (HTTOPLEFT, ... HTBOTTOMRIGHT)
 	LRESULT hitTests[3][3] =
 	{
-		{ HTTOPLEFT,    fOnResizeBorder ? HTTOP : HTCAPTION,    HTTOPRIGHT },
+		{ HTTOPLEFT,    HTCAPTION,    HTTOPRIGHT },
 		{ HTLEFT,       HTNOWHERE,     HTRIGHT },
 		{ HTBOTTOMLEFT, HTBOTTOM, HTBOTTOMRIGHT },
 	};
@@ -447,17 +447,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	LRESULT lRet = 0;
 	HRESULT hr = S_OK;
 
-	/*// Winproc worker for custom frame issues.
-	hr = DwmIsCompositionEnabled(&dwmEnabled);
+	// Winproc worker for custom frame issues.
+	/*hr = DwmIsCompositionEnabled(&dwmEnabled);
 	if (SUCCEEDED(hr))
 	{
-		lRet = vtr->processDWMProc(hWnd, uMsg, wParam, lParam, &callDWP);
+		lRet = sUWCVtr->processDWMProc(hWnd, uMsg, wParam, lParam, &callDWP);
 	}*/
 
 	// Winproc worker for the rest of the application.
 	if (callDWP)
 	{
-		lRet = vtr->messageHandler(hWnd, uMsg, wParam, lParam);
+		lRet = sUWCVtr->messageHandler(hWnd, uMsg, wParam, lParam);
 	}
 
 	return lRet;

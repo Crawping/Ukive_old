@@ -115,6 +115,8 @@ void TextActionMode::close()
 
 	mIsFinished = true;
 
+	mMenu->setEnabled(false);
+
 	mCallback->onDestroyActionMode(this);
 
 	//异步关闭TextActionMode菜单，以防止在输入事件处理流程中

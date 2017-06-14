@@ -10,7 +10,7 @@ class ULayoutParams;
 class OnClickListener;
 class UWidgetAnimator;
 
-enum Gravity
+enum UGravity
 {
 	LEFT,
 	TOP,
@@ -33,22 +33,22 @@ public:
 	const static int VANISHED = 2;
 
 private:
-	//动画变量
-	float mAlpha;
-	float mScaleX;
-	float mScaleY;
-	float mTranslateX;
-	float mTranslateY;
-	float mPivotX, mPivotY;
+	//普通动画变量。
+	double mAlpha;
+	double mScaleX;
+	double mScaleY;
+	double mTranslateX;
+	double mTranslateY;
+	double mPivotX, mPivotY;
 
 	//揭露动画变量。
 	int mRevealType;
 	bool mHasReveal;
-	float mRevealRadius;
-	float mRevealCenterX;
-	float mRevealCenterY;
-	float mRevealWidthRadius;
-	float mRevealHeightRadius;
+	double mRevealRadius;
+	double mRevealCenterX;
+	double mRevealCenterY;
+	double mRevealWidthRadius;
+	double mRevealHeightRadius;
 
 	UWidget *mParent;
 	ULayoutParams *mLayoutParams;
@@ -106,6 +106,7 @@ protected:
 	bool mIsFocusable;
 	bool mIsLayouted;
 	bool mIsReceiveOutsideInputEvent;
+	bool mCanConsumeMouseEvent;
 
 	UWindow *mWindow;
 	UDrawable *mBackgroundDrawable;
@@ -130,23 +131,23 @@ public:
 
 	UWidgetAnimator *animate();
 
-	void setX(float x);
-	void setY(float y);
-	void setAlpha(float alpha);
-	void setScaleX(float sx);
-	void setScaleY(float sy);
-	void setTranslateX(float tx);
-	void setTranslateY(float ty);
-	void setPivotX(float px);
-	void setPivotY(float py);
+	void setX(double x);
+	void setY(double y);
+	void setAlpha(double alpha);
+	void setScaleX(double sx);
+	void setScaleY(double sy);
+	void setTranslateX(double tx);
+	void setTranslateY(double ty);
+	void setPivotX(double px);
+	void setPivotY(double py);
 
 	void setRevealType(int type);
 	void setHasReveal(bool reveal);
-	void setRevealRadius(float radius);
-	void setRevealCenterX(float cx);
-	void setRevealCenterY(float cy);
-	void setRevealWidthRadius(float widthRadius);
-	void setRevealHeightRadius(float heightRadius);
+	void setRevealRadius(double radius);
+	void setRevealCenterX(double cx);
+	void setRevealCenterY(double cy);
+	void setRevealWidthRadius(double widthRadius);
+	void setRevealHeightRadius(double heightRadius);
 
 	void setScrollX(int x);
 	void setScrollY(int y);
@@ -162,6 +163,7 @@ public:
 	void setFocusable(bool focusable);
 	void setElevation(float elevation);
 	void setReceiveOutsideInputEvent(bool receive);
+	void setCanConsumeMouseEvent(bool enable);
 
 	void setMinimumWidth(int width);
 	void setMinimumHeight(int height);
@@ -171,15 +173,15 @@ public:
 	//设置该Widget的父Widget，该方法由框架调用。
 	void setParent(UWidget *parent);
 
-	float getX();
-	float getY();
-	float getAlpha();
-	float getScaleX();
-	float getScaleY();
-	float getTranslateX();
-	float getTranslateY();
-	float getPivotX();
-	float getPivotY();
+	double getX();
+	double getY();
+	double getAlpha();
+	double getScaleX();
+	double getScaleY();
+	double getTranslateX();
+	double getTranslateY();
+	double getPivotX();
+	double getPivotY();
 
 	int getId();
 	int getScrollX();
@@ -226,6 +228,7 @@ public:
 	bool isMouseInThis(UInputEvent *e);
 	bool isGroupMouseInThis(UInputEvent *e);
 	bool isReceiveOutsideInputEvent();
+	bool canConsumeMouseEvent();
 
 	void scrollTo(int x, int y);
 	void scrollBy(int dx, int dy);

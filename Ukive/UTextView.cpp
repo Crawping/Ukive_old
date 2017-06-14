@@ -244,8 +244,7 @@ float UTextView::getTextHeight()
 }
 
 bool UTextView::getLineInfo(
-	uint32_t position,
-	uint32_t *line, float *height, uint32_t *count)
+	uint32_t position, uint32_t *line, float *height, uint32_t *count)
 {
 	uint32_t lineCount;
 	HRESULT hr = mTextLayout->GetLineMetrics(nullptr, 0, &lineCount);

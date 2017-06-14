@@ -238,7 +238,8 @@ void UDirect3DView::onClear()
 
 void UDirect3DView::onRender()
 {
-	mScene->onSceneRender();
+	if (isAttachedToWindow())
+		mScene->onSceneRender();
 }
 
 void UDirect3DView::onSwapChainResize()
@@ -314,10 +315,17 @@ void UDirect3DView::onLayout(
 {
 	if (changed)
 	{
-		setViewports((float)left, (float)top, 
-			(float)(right - left), (float)(bottom - top));
+		URect rect = getBoundInWindow();
+		int _left = rect.left + getPaddingLeft();
+		int _top = rect.top + getPaddingTop();
+		int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+		int height = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+
+		setViewports(
+			static_cast<float>(_left), static_cast<float>(_top),
+			static_cast<float>(width), static_cast<float>(height));
 		if (sizeChanged)
-			mScene->onSceneResize(right - left, bottom - top);
+			mScene->onSceneResize(width, height);
 	}
 }
 

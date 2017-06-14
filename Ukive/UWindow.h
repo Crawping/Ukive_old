@@ -5,7 +5,7 @@
 #include "UAnimationManager.h"
 #include "UMenuCallback.h"
 
-enum Gravity;
+enum UGravity;
 
 class UCanvas;
 class UWidget;
@@ -20,6 +20,9 @@ class UBitmapFactory;
 class TextActionMode;
 class TextActionModeCallback;
 class UMenuCallback;
+class UContextMenu;
+class UContextMenuCallback;
+class UWindowSlave;
 
 class UWindow
 {
@@ -32,7 +35,9 @@ private:
 	UAnimationManager::OnStateChangedListener *mStateChangedListener;
 
 	UBaseLayout *mBaseLayout;
+	UContextMenu *mContextMenu;
 	TextActionMode *mTextActionMode;
+	UWindowSlave *mSlave;
 
 	UCanvas *mCanvas;
 	UBitmapFactory *mBitmapFactory;
@@ -83,7 +88,7 @@ private:
 
 protected:
 	bool mIsCreated;
-	bool mIsShowed;
+	bool mIsShowing;
 	bool mIsEnableMouseTrack;
 
 	int mX, mY;
@@ -174,8 +179,9 @@ public:
 	void releaseKeyboard();
 	UWidget *getKeyboardHolder();
 
-	float calculateDip(float value);
 
+	UContextMenu *startContextMenu(
+		UContextMenuCallback *callback, UWidget *anchor, UGravity gravity);
 	TextActionMode *startTextActionMode(TextActionModeCallback *callback);
 
 	bool isCreated();

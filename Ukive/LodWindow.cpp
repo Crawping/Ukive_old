@@ -10,7 +10,7 @@
 #include "UFrameLayout.h"
 #include "ULinearLayout.h"
 #include "UWidgetAnimator.h"
-#include "LinearLayoutParams.h"
+#include "ULinearLayoutParams.h"
 #include "UEditTextDrawable.h"
 #include "RestrainLayout.h"
 #include "RestrainLayoutParams.h"
@@ -33,18 +33,20 @@ void LodWindow::onCreate()
 
 	//3d view.
 	UDirect3DView *d3dView = new UDirect3DView(this);
-	LinearLayoutParams *d3dViewLp = new LinearLayoutParams(
+	ULinearLayoutParams *d3dViewLp = new ULinearLayoutParams(
 		0, ULayoutParams::MATCH_PARENT);
 	d3dViewLp->leftMargin = d3dViewLp->topMargin 
 		= d3dViewLp->rightMargin = d3dViewLp->bottomMargin = 8;
 	d3dViewLp->weight = 2;
 	d3dView->setLayoutParams(d3dViewLp);
+	d3dView->setBackground(new UColorDrawable(this, UColor::White));
+	d3dView->setElevation(2);
 
 	mDirect3DView = d3dView;
 
 	//right view.
 	RestrainLayout *rightLayout = new RestrainLayout(this, ID_RIGHT_RESTRAIN);
-	LinearLayoutParams *rightViewLp = new LinearLayoutParams(
+	ULinearLayoutParams *rightViewLp = new ULinearLayoutParams(
 		0, ULayoutParams::MATCH_PARENT);
 	rightViewLp->weight = 1;
 	rightLayout->setLayoutParams(rightViewLp);
@@ -253,7 +255,6 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 	submitBT->setText(L"提交");
 	submitBT->setTextSize(12.f);
 	submitBT->setOnClickListener(this);
-	submitBT->setButtonColor(UColor::argb(0, 0, 0, 0));
 
 	RestrainLayoutParams *submitBTLp = new RestrainLayoutParams(
 		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
@@ -311,7 +312,7 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	//帮助说明
 	UTextView *helperTV = new UTextView(this);
-	helperTV->setIsEditable(false);
+	helperTV->setIsEditable(true);
 	helperTV->setIsSelectable(true);
 	helperTV->setText(
 		L"►拖动滑条，点击提交按钮来更改参数。\
@@ -319,6 +320,8 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 		\n►按住Shift键和鼠标左键拖动可旋转摄像机。\
 		\n►按住Ctrl键和鼠标左键拖动可移动摄像机");
 	helperTV->setTextSize(14.f);
+	helperTV->setBackground(new UEditTextDrawable(this));
+	helperTV->setPadding(4, 4, 4, 4);
 
 	RestrainLayoutParams *helperTVLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);

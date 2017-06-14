@@ -5,6 +5,7 @@
 #include "UWindow.h"
 #include "UCanvas.h"
 #include "UApplication.h"
+#include "UDeviceManager.h"
 #include "UTextBlink.h"
 
 
@@ -18,7 +19,7 @@ UTextBlink::UTextBlink(UWidget *widget)
 	mCancelled = true;
 	mBlinkMask = false;
 
-	mThickness = widget->getWindow()->calculateDip(2);
+	mThickness = UDeviceManager::dip(2);
 }
 
 UTextBlink::~UTextBlink()

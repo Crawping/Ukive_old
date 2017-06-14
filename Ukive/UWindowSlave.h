@@ -1,31 +1,27 @@
-﻿#pragma once
+#pragma once
 
 class UWindow;
-class UInputEvent;
 
-class UWindowClass
+class UWindowSlave
 {
 private:
-	std::wstring mWindowClassName;
-	WNDCLASSEXW mWindowClassNative;
+	HWND mHandle;
+	UWindow *mMaster;
 
-	UInputEvent *mInputEvent;
-	UApplication *mApplication;
-
-	bool createWindowClass(std::wstring className);
-	void processInputEvent(UWindow *window, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	void initSlave();
 
 public:
-	UWindowClass(UApplication *app);
-	~UWindowClass();
+	UWindowSlave(UWindow *master);
+	~UWindowSlave();
 
-	std::wstring getWindowClassName();
+	void sync();
+
+	HWND getWindowHandle();
 
 	LRESULT CALLBACK messageHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	LRESULT processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, bool *pfCallDWP);
 	LRESULT HitTestNCA(HWND hWnd, WPARAM wParam, LPARAM lParam, int leftExt, int topExt, int rightExt, int bottomExt);
 };
 
-
-static UWindowClass *sUWCVtr;
+static UWindowSlave *sUWSVtr;
 static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

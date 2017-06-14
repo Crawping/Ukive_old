@@ -27,18 +27,18 @@ UWidget::UWidget(UWindow *wnd, int id)
 		throw std::invalid_argument(
 			"UWidget-Constructor(): null UWindow* param");
 
-	mAlpha = 1.f;
-	mScaleX = 1.f;
-	mScaleY = 1.f;
+	mAlpha = 1;
+	mScaleX = 1;
+	mScaleY = 1;
 	mTranslateX = 0;
 	mTranslateY = 0;
 	mPivotX = mPivotY = 0;
 
 	mRevealType = UWidgetAnimator::REVEAL_CIRCULE;
 	mHasReveal = false;
-	mRevealRadius = 0.f;
-	mRevealCenterX = mRevealCenterY = 0.f;
-	mRevealWidthRadius = mRevealHeightRadius = 0.f;
+	mRevealRadius = 0;
+	mRevealCenterX = mRevealCenterY = 0;
+	mRevealWidthRadius = mRevealHeightRadius = 0;
 
 	mId = id;
 	mLeft = mRight = mTop = mBottom = 0;
@@ -59,6 +59,7 @@ UWidget::UWidget(UWindow *wnd, int id)
 	mIsFocusable = false;
 	mIsLayouted = false;
 	mIsReceiveOutsideInputEvent = false;
+	mCanConsumeMouseEvent = true;
 
 	mWindow = wnd;
 	mLayoutParams = 0;
@@ -91,47 +92,47 @@ UWidgetAnimator *UWidget::animate()
 	return mAnimator;
 }
 
-void UWidget::setX(float x)
+void UWidget::setX(double x)
 {
 	setTranslateX(x - mLeft);
 }
 
-void UWidget::setY(float y)
+void UWidget::setY(double y)
 {
 	setTranslateY(y - mTop);
 }
 
-void UWidget::setAlpha(float alpha)
+void UWidget::setAlpha(double alpha)
 {
 	mAlpha = alpha;
 }
 
-void UWidget::setScaleX(float sx)
+void UWidget::setScaleX(double sx)
 {
 	mScaleX = sx;
 }
 
-void UWidget::setScaleY(float sy)
+void UWidget::setScaleY(double sy)
 {
 	mScaleY = sy;
 }
 
-void UWidget::setTranslateX(float tx)
+void UWidget::setTranslateX(double tx)
 {
 	mTranslateX = tx;
 }
 
-void UWidget::setTranslateY(float ty)
+void UWidget::setTranslateY(double ty)
 {
 	mTranslateY = ty;
 }
 
-void UWidget::setPivotX(float px)
+void UWidget::setPivotX(double px)
 {
 	mPivotX = px;
 }
 
-void UWidget::setPivotY(float py)
+void UWidget::setPivotY(double py)
 {
 	mPivotY = py;
 }
@@ -146,27 +147,27 @@ void UWidget::setHasReveal(bool reveal)
 	mHasReveal = reveal;
 }
 
-void UWidget::setRevealRadius(float radius)
+void UWidget::setRevealRadius(double radius)
 {
 	mRevealRadius = radius;
 }
 
-void UWidget::setRevealCenterX(float cx)
+void UWidget::setRevealCenterX(double cx)
 {
 	mRevealCenterX = cx;
 }
 
-void UWidget::setRevealCenterY(float cy)
+void UWidget::setRevealCenterY(double cy)
 {
 	mRevealCenterY = cy;
 }
 
-void UWidget::setRevealWidthRadius(float widthRadius)
+void UWidget::setRevealWidthRadius(double widthRadius)
 {
 	mRevealWidthRadius = widthRadius;
 }
 
-void UWidget::setRevealHeightRadius(float heightRadius)
+void UWidget::setRevealHeightRadius(double heightRadius)
 {
 	mRevealHeightRadius = heightRadius;
 }
@@ -320,6 +321,14 @@ void UWidget::setReceiveOutsideInputEvent(bool receive)
 	mIsReceiveOutsideInputEvent = receive;
 }
 
+void UWidget::setCanConsumeMouseEvent(bool enable)
+{
+	mCanConsumeMouseEvent = enable;
+
+	if(!enable)
+		mWindow->releaseMouse();
+}
+
 void UWidget::setParent(UWidget *parent)
 {
 	mParent = parent;
@@ -346,47 +355,47 @@ int UWidget::getId()
 	return mId;
 }
 
-float UWidget::getX()
+double UWidget::getX()
 {
 	return mLeft + getTranslateX();
 }
 
-float UWidget::getY()
+double UWidget::getY()
 {
 	return mTop + getTranslateY();
 }
 
-float UWidget::getAlpha()
+double UWidget::getAlpha()
 {
 	return mAlpha;
 }
 
-float UWidget::getScaleX()
+double UWidget::getScaleX()
 {
 	return mScaleX;
 }
 
-float UWidget::getScaleY()
+double UWidget::getScaleY()
 {
 	return mScaleY;
 }
 
-float UWidget::getTranslateX()
+double UWidget::getTranslateX()
 {
 	return mTranslateX;
 }
 
-float UWidget::getTranslateY()
+double UWidget::getTranslateY()
 {
 	return mTranslateY;
 }
 
-float UWidget::getPivotX()
+double UWidget::getPivotX()
 {
 	return mPivotX;
 }
 
-float UWidget::getPivotY()
+double UWidget::getPivotY()
 {
 	return mPivotY;
 }
@@ -615,6 +624,11 @@ bool UWidget::isReceiveOutsideInputEvent()
 	return mIsReceiveOutsideInputEvent;
 }
 
+bool UWidget::canConsumeMouseEvent()
+{
+	return mCanConsumeMouseEvent;
+}
+
 
 void UWidget::scrollTo(int x, int y)
 {
@@ -648,7 +662,9 @@ void UWidget::draw(UCanvas *canvas)
 	canvas->save();
 	canvas->setOpacity(mAlpha*canvas->getOpacity());
 	canvas->scale(mScaleX, mScaleY, mLeft + mPivotX, mTop + mPivotY);
-	canvas->translate(mTranslateX, mTranslateY);
+	canvas->translate(
+		static_cast<float>(mTranslateX), 
+		static_cast<float>(mTranslateY));
 
 	//将背景绘制到bgBitmap上。
 	UComPtr<ID2D1Bitmap> bgBitmap;
@@ -1000,7 +1016,8 @@ bool UWidget::onInputEvent(UInputEvent *e)
 	switch (e->getEvent())
 	{
 	case UInputEvent::EVENT_MOUSE_KEY_DOWN:
-		mWindow->captureMouse(this);
+		if (mCanConsumeMouseEvent)
+			mWindow->captureMouse(this);
 		if (mIsFocusable)
 			this->requestFocus();
 		if (e->getMouseKey() == UInputEvent::KEY_MOUSE_LEFT)
@@ -1019,7 +1036,7 @@ bool UWidget::onInputEvent(UInputEvent *e)
 		}
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 
 	case UInputEvent::EVENT_MOUSE_MOVE:
 		if (!isPressed())
@@ -1037,7 +1054,7 @@ bool UWidget::onInputEvent(UInputEvent *e)
 		}
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 
 	case UInputEvent::EVENT_MOUSE_SCROLL_ENTER:
 		if (mForegroundDrawable)
@@ -1046,7 +1063,7 @@ bool UWidget::onInputEvent(UInputEvent *e)
 			shouldRefresh = mBackgroundDrawable->setState(UDrawable::STATE_HOVERED);
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 
 	case UInputEvent::EVENT_MOUSE_LEAVE:
 		if (mForegroundDrawable)
@@ -1055,10 +1072,11 @@ bool UWidget::onInputEvent(UInputEvent *e)
 			shouldRefresh = mBackgroundDrawable->setState(UDrawable::STATE_NONE);
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 
 	case UInputEvent::EVENT_MOUSE_KEY_UP:
-		mWindow->releaseMouse();
+		if (mCanConsumeMouseEvent)
+			mWindow->releaseMouse();
 		if (e->getMouseKey() == UInputEvent::KEY_MOUSE_LEFT)
 		{
 			bool pressed = false;
@@ -1097,10 +1115,11 @@ bool UWidget::onInputEvent(UInputEvent *e)
 		}
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 
 	case UInputEvent::EVENT_CANCEL:
-		mWindow->releaseMouse();
+		if (mCanConsumeMouseEvent)
+			mWindow->releaseMouse();
 		this->setPressed(false);
 		if (mForegroundDrawable)
 			shouldRefresh = mForegroundDrawable->setState(UDrawable::STATE_NONE);
@@ -1108,7 +1127,7 @@ bool UWidget::onInputEvent(UInputEvent *e)
 			shouldRefresh = mBackgroundDrawable->setState(UDrawable::STATE_NONE);
 		if (shouldRefresh)
 			invalidate();
-		return true;
+		return mCanConsumeMouseEvent;
 	}
 
 	return false;

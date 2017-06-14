@@ -2,21 +2,26 @@
 #include "UMath.h"
 #include "UWindow.h"
 #include "ULayoutParams.h"
-#include "BaseLayoutParams.h"
+#include "UBaseLayoutParams.h"
 #include "UMenuImpl.h"
 #include "UInputEvent.h"
 #include "UInnerWindow.h"
+#include "UFrameLayout.h"
+#include "ULinearLayout.h"
+#include "ULinearLayoutParams.h"
 #include "UBaseLayout.h"
 
 
 UBaseLayout::UBaseLayout(UWindow *wnd)
 	:UFrameLayout(wnd)
 {
+	initBaseLayout();
 }
 
 UBaseLayout::UBaseLayout(UWindow *wnd, int id)
 	: UFrameLayout(wnd, id)
 {
+	initBaseLayout();
 }
 
 
@@ -25,34 +30,65 @@ UBaseLayout::~UBaseLayout()
 }
 
 
+void UBaseLayout::initBaseLayout()
+{
+	mContentLayout = std::make_shared<ULinearLayout>(getWindow());
+	mContentLayout->setOrientation(ULinearLayout::VERTICAL);
+	mContentLayout->setLayoutParams(
+		new ULinearLayoutParams(
+			ULinearLayoutParams::MATCH_PARENT,
+			ULinearLayoutParams::MATCH_PARENT));
+	addWidget(mContentLayout);
+
+	mShadeLayout = std::make_shared<UFrameLayout>(getWindow());
+	mShadeLayout->setCanConsumeMouseEvent(false);
+	mShadeLayout->setLayoutParams(
+		new ULayoutParams(
+			ULayoutParams::MATCH_PARENT,
+			ULayoutParams::MATCH_PARENT));
+}
+
+
 ULayoutParams *UBaseLayout::generateLayoutParams(
 	ULayoutParams *lp)
 {
-	return new BaseLayoutParams(lp);
+	return new UBaseLayoutParams(lp);
 }
 
 ULayoutParams *UBaseLayout::generateDefaultLayoutParams()
 {
-	return new BaseLayoutParams(
-		BaseLayoutParams::FIT_CONTENT,
-		BaseLayoutParams::FIT_CONTENT);
+	return new UBaseLayoutParams(
+		UBaseLayoutParams::FIT_CONTENT,
+		UBaseLayoutParams::FIT_CONTENT);
 }
 
 bool UBaseLayout::checkLayoutParams(ULayoutParams *lp)
 {
-	return typeid(*lp) == typeid(BaseLayoutParams);
+	return typeid(*lp) == typeid(UBaseLayoutParams);
 }
 
 
-bool UBaseLayout::hasContent()
+void UBaseLayout::addShade(UWidget *shade)
 {
-	for (std::size_t i = 0; i < getChildCount(); ++i)
-	{
-		BaseLayoutParams *lp
-			= (BaseLayoutParams*)getChildAt(i)->getLayoutParams();
-		if (lp->viewType == BaseLayoutParams::TYPE_NORMAL)
-			return true;
-	}
+	mShadeLayout->addWidget(shade);
+	if (mShadeLayout->getChildCount() == 1)
+		addWidget(mShadeLayout);
+}
 
-	return false;
+void UBaseLayout::removeShade(UWidget *shade)
+{
+	mShadeLayout->removeWidget(shade);
+	if (mShadeLayout->getChildCount() == 0)
+		removeWidget(mShadeLayout);
+}
+
+void UBaseLayout::addContent(UWidget *content)
+{
+	mContentLayout->addWidget(content);
+}
+
+
+UWidget *UBaseLayout::findWidgetById(int id)
+{
+	return mContentLayout->findWidgetById(id);
 }

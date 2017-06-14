@@ -180,3 +180,12 @@ UComPtr<ID2D1DeviceContext> UDeviceManager::getD2DDeviceContext() { return mD2DD
 UComPtr<ID3D11Device> UDeviceManager::getD3DDevice() { return mD3DDevice; }
 
 UComPtr<ID3D11DeviceContext> UDeviceManager::getD3DDeviceContext() { return mD3DDeviceContext; }
+
+
+float UDeviceManager::dip(float value)
+{
+	float dpiX;
+	float dpiY;
+	sD2DFactory->GetDesktopDpi(&dpiX, &dpiY);
+	return (dpiX / 96.f)*value;
+}

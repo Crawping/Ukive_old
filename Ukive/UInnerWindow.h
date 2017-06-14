@@ -1,7 +1,7 @@
 #pragma once
 #include "UFrameLayout.h"
 
-enum Gravity;
+enum UGravity;
 class UCanvas;
 class UWindow;
 class UWidget;
@@ -66,8 +66,8 @@ public:
 	bool isShowing();
 	
 	void show(int x, int y);
-	void show(UWidget *anchor, Gravity gravity);
+	void show(UWidget *anchor, UGravity gravity);
 	void update(int x, int y);
-	void update(UWidget *anchor, Gravity gravity);
+	void update(UWidget *anchor, UGravity gravity);
 	void dismiss();
 };

@@ -5,6 +5,7 @@
 #include "UColor.h"
 #include "UInputEvent.h"
 #include "UTransition.h"
+#include "UDeviceManager.h"
 #include "USeekBar.h"
 
 
@@ -37,9 +38,9 @@ void USeekBar::initSeekBar()
 	mThumbInAnimator = new UAnimator(mWindow->getAnimationManager());
 	mThumbOutAnimator = new UAnimator(mWindow->getAnimationManager());
 
-	mSeekTrackHeight = (int)mWindow->calculateDip(2.f);
-	mSeekThumbMinDiameter = (int)mWindow->calculateDip(10.f);
-	mSeekThumbMaxDiameter = (int)mWindow->calculateDip(14.f);
+	mSeekTrackHeight = (int)UDeviceManager::dip(2);
+	mSeekThumbMinDiameter = (int)UDeviceManager::dip(10);
+	mSeekThumbMaxDiameter = (int)UDeviceManager::dip(14);
 
 	mSeekThumbCurDiameter = mSeekThumbMinDiameter;
 }

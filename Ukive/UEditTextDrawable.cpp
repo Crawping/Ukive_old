@@ -7,7 +7,7 @@
 UEditTextDrawable::UEditTextDrawable(UWindow *wnd)
 	:UDrawable(wnd)
 {
-	mPanelLineWidth = 1;
+	mPanelLineWidth = 2;
 	mPanelLineColor = UColor::Grey400;
 }
 
@@ -25,7 +25,7 @@ bool UEditTextDrawable::onFocusChanged(bool focus)
 	}
 	else
 	{
-		mPanelLineWidth = 1;
+		mPanelLineWidth = 2;
 		mPanelLineColor = UColor::Grey400;
 	}
 

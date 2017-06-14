@@ -3,7 +3,7 @@
 #include "ULayoutParams.h"
 #include "UColorDrawable.h"
 #include "URippleDrawable.h"
-#include "LinearLayoutParams.h"
+#include "ULinearLayoutParams.h"
 #include "UMenuItemImpl.h"
 #include "UMenuImpl.h"
 
@@ -70,7 +70,7 @@ UMenuItem *UMenuImpl::addItem(int id, std::int32_t order, std::wstring title)
 		}
 	}
 	
-	this->addWidget(insertedIndex, widget, new LinearLayoutParams(
+	this->addWidget(insertedIndex, widget, new ULinearLayoutParams(
 		ULayoutParams::MATCH_PARENT, 
 		mItemHeight));
 	return item;

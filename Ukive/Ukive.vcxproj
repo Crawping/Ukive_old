@@ -150,12 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TextWindow.cpp" />
-    <ClCompile Include="BaseLayoutParams.cpp" />
+    <ClCompile Include="UBaseLayoutParams.cpp" />
     <ClCompile Include="ClipboardManager.cpp" />
     <ClCompile Include="EffectSpan.cpp" />
     <ClCompile Include="InlineObjectSpan.cpp" />
     <ClCompile Include="InteractableSpan.cpp" />
-    <ClCompile Include="LinearLayoutParams.cpp" />
+    <ClCompile Include="ULinearLayoutParams.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestWindow.cpp" />
     <ClCompile Include="QTreeNode.cpp" />
@@ -181,6 +181,7 @@
     <ClCompile Include="UCanvas.cpp" />
     <ClCompile Include="UColor.cpp" />
     <ClCompile Include="UColorDrawable.cpp" />
+    <ClCompile Include="UContextMenu.cpp" />
     <ClCompile Include="UCycler.cpp" />
     <ClCompile Include="UDeviceManager.cpp" />
     <ClCompile Include="UDirect3DView.cpp" />
@@ -237,12 +238,13 @@
     <ClCompile Include="UWindow.cpp" />
     <ClCompile Include="UWindowClass.cpp" />
     <ClCompile Include="UWindowManager.cpp" />
+    <ClCompile Include="UWindowSlave.cpp" />
     <ClCompile Include="UWordBreaker.cpp" />
     <ClCompile Include="WICManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextWindow.h" />
-    <ClInclude Include="BaseLayoutParams.h" />
+    <ClInclude Include="UBaseLayoutParams.h" />
     <ClInclude Include="ClipboardManager.h" />
     <ClInclude Include="EffectSpan.h" />
     <ClInclude Include="IDeviceLostNotifier.h" />
@@ -250,7 +252,7 @@
     <ClInclude Include="InlineObjectSpan.h" />
     <ClInclude Include="InteractableSpan.h" />
     <ClInclude Include="ISwapChainResizeNotifier.h" />
-    <ClInclude Include="LinearLayoutParams.h" />
+    <ClInclude Include="ULinearLayoutParams.h" />
     <ClInclude Include="TestWindow.h" />
     <ClInclude Include="OnClickListener.h" />
     <ClInclude Include="OnSeekValueChangedListener.h" />
@@ -280,6 +282,8 @@
     <ClInclude Include="UColorDrawable.h" />
     <ClInclude Include="UCommon.h" />
     <ClInclude Include="UComPtr.h" />
+    <ClInclude Include="UContextMenu.h" />
+    <ClInclude Include="UContextMenuCallback.h" />
     <ClInclude Include="UCycler.h" />
     <ClInclude Include="UDeviceManager.h" />
     <ClInclude Include="UDirect3DView.h" />
@@ -343,6 +347,7 @@
     <ClInclude Include="UWindow.h" />
     <ClInclude Include="UWindowClass.h" />
     <ClInclude Include="UWindowManager.h" />
+    <ClInclude Include="UWindowSlave.h" />
     <ClInclude Include="UWordBreaker.h" />
     <ClInclude Include="WICManager.h" />
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include "UCanvas.h"
 #include "UWidget.h"
 #include "ULayoutParams.h"
-#include "BaseLayoutParams.h"
+#include "UBaseLayoutParams.h"
 #include "UBaseLayout.h"
 #include "UDrawable.h"
 #include "UWidgetAnimator.h"
@@ -154,18 +154,19 @@ void UInnerWindow::show(int x, int y)
 
 	createDecorView();
 
-	BaseLayoutParams *baselp
-		= new BaseLayoutParams(mWidth, mHeight);
+	UBaseLayoutParams *baselp
+		= new UBaseLayoutParams(mWidth, mHeight);
 	baselp->leftMargin = x;
 	baselp->topMargin = y;
-	baselp->viewType = BaseLayoutParams::TYPE_DIALOG;
 
-	mParent->getBaseLayout()->addWidget(mDecorView, baselp);
+	mDecorView->setLayoutParams(baselp);
+
+	mParent->getBaseLayout()->addShade(mDecorView);
 
 	mIsShowing = true;
 }
 
-void UInnerWindow::show(UWidget *anchor, Gravity gravity)
+void UInnerWindow::show(UWidget *anchor, UGravity gravity)
 {
 	if (mContentView == nullptr 
 		|| anchor == nullptr || mIsShowing)
@@ -181,15 +182,15 @@ void UInnerWindow::update(int x, int y)
 	if (mDecorView == nullptr || !mIsShowing)
 		return;
 
-	BaseLayoutParams *baselp
-		= (BaseLayoutParams*)mDecorView->getLayoutParams();
+	UBaseLayoutParams *baselp
+		= (UBaseLayoutParams*)mDecorView->getLayoutParams();
 	baselp->leftMargin = x;
 	baselp->topMargin = y;
 
 	mDecorView->setLayoutParams(baselp);
 }
 
-void UInnerWindow::update(UWidget *anchor, Gravity gravity)
+void UInnerWindow::update(UWidget *anchor, UGravity gravity)
 {
 
 }
@@ -197,7 +198,7 @@ void UInnerWindow::update(UWidget *anchor, Gravity gravity)
 void UInnerWindow::dismiss()
 {
 	if (mDecorView && mIsShowing)
-		mParent->getBaseLayout()->removeWidget(mDecorView);
+		mParent->getBaseLayout()->removeShade(mDecorView);
 	mIsShowing = false;
 }
 

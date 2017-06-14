@@ -25,7 +25,7 @@ UWidgetGroup 类继承于 UWidget 类，其中可添加 UWidget 和 UWidgetGroup，形成树形结
 目前有如下预定义控件：
 * UTextView: 文本框。支持常规键盘。支持编辑和查看模式。由 TSF 支持输入法输入， Windows10 自带输入法测试通过。暂不支持 RTL。
 * UButton: 按钮，使用 Ripple 特效。
-* UImageView: 图片框，可显示 Bitmap 图像。
+* UImageView: 图片框，可显示图像。
 * USeekBar: 拖动条。
 * UDirect3DView: 3D视图控件。其位置及大小，即是3D视图在窗体上的位置和大小。每个窗体上最多只能有一个。
 * USpinnerView: 下拉选择控件（未完成）。

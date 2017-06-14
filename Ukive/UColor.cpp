@@ -51,7 +51,7 @@ D2D1::ColorF UColor::argb(float r, float g, float b, float a)
 
 
 //Color White.
-D2D1::ColorF UColor::White = UColor::parse(L"#FFFFEE");
+D2D1::ColorF UColor::White = UColor::parse(L"#FFFFFF");
 //Color Black.
 D2D1::ColorF UColor::Black = UColor::parse(L"#000000");
 
