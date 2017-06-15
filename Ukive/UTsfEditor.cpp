@@ -37,14 +37,14 @@ void UTsfEditor::notifyTextChanged(bool correction, long start, long oldEnd, lon
 		textChange.acpNewEnd = newEnd;
 
 		mAdviseSink.textStoreACPSink->OnTextChange(
-			correction? TS_ST_CORRECTION:0, &textChange);
+			correction? TS_ST_CORRECTION : 0, &textChange);
 	}
 }
 
 void UTsfEditor::notifyTextLayoutChanged(TsLayoutCode reason)
 {
 	if (mInputConnection && mAdviseSink.textStoreACPSink)
-		mAdviseSink.textStoreACPSink->OnLayoutChange(reason, DOC_COOKIE);
+		mAdviseSink.textStoreACPSink->OnLayoutChange(reason, mViewCookie);
 }
 
 void UTsfEditor::notifyTextSelectionChanged()
@@ -146,7 +146,7 @@ STDMETHODIMP UTsfEditor::RequestLock(DWORD dwLockFlags, HRESULT *phrSession)
 		return E_FAIL;
 
 	//The document is locked.
-	if (!mLockQueue.empty() || mHasLock)
+	if (!mReqQueue.empty() || mHasLock)
 	{
 		if ((dwLockFlags & TS_LF_SYNC) == TS_LF_SYNC)
 		{
@@ -157,12 +157,10 @@ STDMETHODIMP UTsfEditor::RequestLock(DWORD dwLockFlags, HRESULT *phrSession)
 		{
 			*phrSession = TS_S_ASYNC;
 
-			LOCK_RECORD *record = new LOCK_RECORD;
+			LockRecord *record = new LockRecord();
 			record->dwLockFlags = dwLockFlags;
 
-			mQueueSync.lock();
-			mLockQueue.push(std::shared_ptr<LOCK_RECORD>(record));
-			mQueueSync.unlock();
+			mReqQueue.push(std::shared_ptr<LockRecord>(record));
 
 			return S_OK;
 		}
@@ -179,24 +177,17 @@ STDMETHODIMP UTsfEditor::RequestLock(DWORD dwLockFlags, HRESULT *phrSession)
 	mCurLockType = 0;
 	mInputConnection->onEndProcess();
 
-	while (!mLockQueue.empty())
+	while (!mReqQueue.empty())
 	{
-		LOCK_RECORD *lockRecord;
-
-		mQueueSync.lock();
-		lockRecord = mLockQueue.front().get();
-		mQueueSync.unlock();
+		auto lockRecord = mReqQueue.front();
+		mReqQueue.pop();
 
 		mInputConnection->onBeginProcess();
 
 		mHasLock = true;
-		mCurLockType = ((lockRecord->dwLockFlags&TS_LF_READ) == TS_LF_READ);
+		mCurLockType = ((lockRecord->dwLockFlags & TS_LF_READ) == TS_LF_READ);
 
 		*phrSession = mAdviseSink.textStoreACPSink->OnLockGranted(lockRecord->dwLockFlags);
-
-		mQueueSync.lock();
-		mLockQueue.pop();
-		mQueueSync.unlock();
 
 		mHasLock = false;
 		mCurLockType = 0;
@@ -468,7 +459,7 @@ STDMETHODIMP UTsfEditor::GetEndACP(LONG *pacp)
 
 STDMETHODIMP UTsfEditor::GetActiveView(TsViewCookie *pvcView)
 {
-	*pvcView = DOC_COOKIE;
+	*pvcView = mViewCookie;
 
 	return S_OK;
 }

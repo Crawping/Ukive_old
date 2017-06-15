@@ -3,10 +3,12 @@
 采用 Google 的 Material Design 设计标准。
 使用 DirectX 11.1 渲染。
 
+![Demo](https://github.com/ucclkp/Ukive/tree/master/Screenshot/demo.png)
+
 DirectXMath 文件夹下为微软的开源数学库。用于支持使用 SSE 指令集。
 
 此为 Windows 应用程序项目，使用 Visual Studio Community 2017 编写。
-最低运行环境为 Windows 7 SP1 with DirectX11.1。
+最低运行环境为 Windows 7 SP1 with DirectX 11.1。
 程序中使用了 C++ 的新标准中的特性，如 nullptr，lambda 表达式。
 程序中使用 C++ 标准库。
 

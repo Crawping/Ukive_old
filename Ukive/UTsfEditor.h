@@ -13,7 +13,7 @@ private:
 		DWORD dwMask;
 	};
 
-	struct LOCK_RECORD
+	struct LockRecord
 	{
 		DWORD dwLockFlags;
 	};
@@ -25,11 +25,9 @@ private:
 	ADVISE_SINK mAdviseSink;
 	UInputConnection *mInputConnection;
 
-	std::mutex mQueueSync;
-	std::queue<std::shared_ptr<LOCK_RECORD>> mLockQueue;
-	
+	std::queue<std::shared_ptr<LockRecord>> mReqQueue;
 
-	static const DWORD DOC_COOKIE = 0xDAFEC;
+	const TsViewCookie mViewCookie = 0xBEEFBEEF;
 
 public:
 	UTsfEditor();
