@@ -3,7 +3,7 @@
 采用 Google 的 Material Design 设计标准。
 使用 DirectX 11.1 渲染。
 
-![Demo](https://github.com/ucclkp/Ukive/tree/master/Screenshot/demo.png)
+![Demo](https://github.com/ucclkp/Ukive/blob/master/Screenshot/demo.png)
 
 DirectXMath 文件夹下为微软的开源数学库。用于支持使用 SSE 指令集。
 
