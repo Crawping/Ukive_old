@@ -16,7 +16,7 @@ private:
 	UComPtr<ITfDocumentMgr> mDocumentMgr;
 	UComPtr<ITfContextOwnerCompositionServices> mCompServices;
 
-	bool mIsInitializated;
+	bool mIsInitialized;
 	bool mIsEditorPushed;
 
 public:

@@ -12,7 +12,7 @@ UInputConnection::UInputConnection(UTextView *textView)
 	mTextView = textView;
 
 	mTsfEditor = nullptr;
-	mIsInitializated = false;
+	mIsInitialized = false;
 	mIsEditorPushed = false;
 }
 
@@ -23,7 +23,7 @@ UInputConnection::~UInputConnection()
 
 HRESULT UInputConnection::initialization(UTsfManager *tsfMgr)
 {
-	if (mIsInitializated)
+	if (mIsInitialized)
 		return S_OK;
 
 	mTsfEditor = new UTsfEditor();
@@ -38,14 +38,14 @@ HRESULT UInputConnection::initialization(UTsfManager *tsfMgr)
 	RH(mEditorContext->QueryInterface(
 		IID_ITfContextOwnerCompositionServices, (void**)&mCompServices));
 
-	mIsInitializated = true;
+	mIsInitialized = true;
 
 	return S_OK;
 }
 
 void UInputConnection::pushEditor()
 {
-	if (!mIsInitializated || mIsEditorPushed)
+	if (!mIsInitialized || mIsEditorPushed)
 		return;
 
 	mDocumentMgr->Push(mEditorContext.get());
@@ -55,7 +55,7 @@ void UInputConnection::pushEditor()
 
 void UInputConnection::popEditor()
 {
-	if (!mIsInitializated || !mIsEditorPushed)
+	if (!mIsInitialized || !mIsEditorPushed)
 		return;
 
 	mDocumentMgr->Pop(TF_POPF_ALL);
@@ -65,7 +65,7 @@ void UInputConnection::popEditor()
 
 bool UInputConnection::mount(UTsfManager *tsfMgr)
 {
-	if (!mIsInitializated)
+	if (!mIsInitialized)
 		return false;
 
 	HRESULT hr = tsfMgr->getThreadManager()->SetFocus(mDocumentMgr.get());
@@ -77,7 +77,7 @@ bool UInputConnection::mount(UTsfManager *tsfMgr)
 
 bool UInputConnection::unmount(UTsfManager *tsfMgr)
 {
-	if (!mIsInitializated)
+	if (!mIsInitialized)
 		return false;
 
 	HRESULT hr = tsfMgr->getThreadManager()->SetFocus(nullptr);
@@ -89,7 +89,7 @@ bool UInputConnection::unmount(UTsfManager *tsfMgr)
 
 bool UInputConnection::terminateComposition()
 {
-	if (!mIsInitializated)
+	if (!mIsInitialized)
 		return false;
 
 	HRESULT hr = mCompServices->TerminateComposition(nullptr);
