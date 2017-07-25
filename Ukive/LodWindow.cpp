@@ -20,6 +20,21 @@
 #include "LodWindow.h"
 
 
+LodWindow::LodWindow(UApplication *app)
+	:UWindow(app)
+{
+}
+
+LodWindow::LodWindow(UApplication *app, int id)
+	: UWindow(app, id)
+{
+}
+
+LodWindow::~LodWindow()
+{
+}
+
+
 void LodWindow::onCreate()
 {
 	UWindow::onCreate();

@@ -14,6 +14,21 @@
 #include "TextWindow.h"
 
 
+TextWindow::TextWindow(UApplication *app)
+	:UWindow(app)
+{
+}
+
+TextWindow::TextWindow(UApplication *app, int id)
+	: UWindow(app, id)
+{
+}
+
+TextWindow::~TextWindow()
+{
+}
+
+
 void TextWindow::onCreate()
 {
 	UWindow::onCreate();

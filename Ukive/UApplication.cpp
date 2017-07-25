@@ -149,19 +149,18 @@ void UApplication::initApplication()
 	int windowX = static_cast<int>((mScreenWidth - windowWidth) / 2.f);
 	int windowY = static_cast<int>((mScreenHeight - windowHeight) / 2.f);
 
-	//TODO: 有多个窗体时，在切换激活窗体时会出现渲染问题。
 	UWindow *lodWindow = new LodWindow(this);
 	lodWindow->setSize(windowWidth, windowHeight);
 	lodWindow->setPosition(windowX, windowY);
 	lodWindow->setAsStartupWindow();
 	lodWindow->show();
 
-	/*UWindow *d3dWindow = new TestWindow(this, UWindowId::MAIN_WINDOW);
+	/*UWindow *d3dWindow = new TestWindow(this);
 	d3dWindow->setSize(windowWidth, windowHeight);
 	d3dWindow->setPosition(windowX, windowY);
-	d3dWindow->show();*/
+	d3dWindow->show();
 
-	/*UWindow *textWindow = new TextWindow(this);
+	UWindow *textWindow = new TextWindow(this);
 	textWindow->setSize(windowWidth, windowHeight);
 	textWindow->setPosition(windowX, windowY);
 	textWindow->show();*/

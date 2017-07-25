@@ -49,7 +49,9 @@ public:
 	static const int ID_HELPER = 0x020;
 
 public:
-	using UWindow::UWindow;
+	LodWindow(UApplication *app);
+	LodWindow(UApplication *app, int id);
+	~LodWindow();
 
 	virtual void onCreate() override;
 

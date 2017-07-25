@@ -234,9 +234,8 @@ LRESULT CALLBACK UWindowClass::messageHandler(HWND hWnd, UINT uMsg, WPARAM wPara
 			break;
 		}
 
-		case WM_PAINT:
-			window->performRefresh();
-			break;
+		case WM_ERASEBKGND:
+			return TRUE;
 
 		case WM_SETCURSOR:
 		{

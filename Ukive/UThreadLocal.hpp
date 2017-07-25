@@ -5,50 +5,40 @@ template<class T>
 class UThreadLocal
 {
 private:
-	static thread_local std::list<T> sValueList;
+	static std::map<DWORD, T> sValueList;
 
 public:
-	UThreadLocal();
-	~UThreadLocal();
+	UThreadLocal()
+	{
+	}
 
-	void set(T value);
-	bool get(T &value);
-	void remove();
+	~UThreadLocal()
+	{
+	}
+
+	void set(T value)
+	{
+		sValueList.insert(
+			std::pair<DWORD, T>(
+				::GetCurrentThreadId(), value));
+	}
+
+	bool get(T &value)
+	{
+		auto it = sValueList.find(::GetCurrentThreadId());
+		if (it == sValueList.end())
+			return false;
+		else
+			value = it->second;
+
+		return true;
+	}
+
+	void remove()
+	{
+		sValueList.erase(::GetCurrentThreadId());
+	}
 };
 
-
 template<class T>
-thread_local std::list<T> UThreadLocal<T>::sValueList;
-
-
-template<class T>
-UThreadLocal<T>::UThreadLocal()
-{
-}
-
-template<class T>
-UThreadLocal<T>::~UThreadLocal()
-{
-}
-
-
-template<class T>
-void UThreadLocal<T>::set(T value)
-{
-	sValueList.push_front(value);
-}
-
-template<class T>
-bool UThreadLocal<T>::get(T &value)
-{
-	if (sValueList.empty())
-		return false;
-	value = sValueList.front();
-	return true;
-}
-
-template<class T>
-void UThreadLocal<T>::remove()
-{
-	sValueList.clear();
-}
+std::map<DWORD, T> UThreadLocal<T>::sValueList;

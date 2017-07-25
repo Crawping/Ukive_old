@@ -21,15 +21,16 @@ HRESULT URenderer::init(UWindow *window)
 {
 	mOwnerWindow = window;
 	mDeviceManager = window->getApplication()->getDeviceManager();
+	mD2DDeviceContext = mDeviceManager->createD2DDeviceContext();
 
 	return createRenderResource();
 }
 
 HRESULT URenderer::createRenderResource()
 {
-	RH(mDeviceManager->getD2DDeviceContext()->
+	RH(mD2DDeviceContext->
 		CreateEffect(CLSID_D2D1Shadow, &mShadowEffect));
-	RH(mDeviceManager->getD2DDeviceContext()->
+	RH(mD2DDeviceContext->
 		CreateEffect(CLSID_D2D12DAffineTransform, &mAffineTransEffect));
 
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
@@ -52,8 +53,7 @@ HRESULT URenderer::createRenderResource()
 	RH(mSwapChain->GetBuffer(0, __uuidof(IDXGISurface), (LPVOID*)&backBufferPtr));
 	RH(createBitmapRenderTarget(backBufferPtr.get(), &mBitmapRenderTarget));
 
-	mDeviceManager->getD2DDeviceContext()->
-		SetTarget(mBitmapRenderTarget.get());
+	mD2DDeviceContext->SetTarget(mBitmapRenderTarget.get());
 
 	DXGI_SWAP_CHAIN_DESC1 checkDesc;
 	mSwapChain->GetDesc1(&checkDesc);
@@ -74,7 +74,7 @@ void URenderer::releaseRenderResource()
 
 HRESULT URenderer::resize()
 {
-	mDeviceManager->getD2DDeviceContext()->SetTarget(0);
+	mD2DDeviceContext->SetTarget(0);
 	mBitmapRenderTarget.reset();
 
 	for (auto it = mSCResizeNotifierList.begin();
@@ -90,8 +90,7 @@ HRESULT URenderer::resize()
 	RH(mSwapChain->GetBuffer(0, __uuidof(IDXGISurface), (LPVOID*)&backBufferPtr));
 	RH(createBitmapRenderTarget(backBufferPtr.get(), &mBitmapRenderTarget));
 
-	mDeviceManager->getD2DDeviceContext()->
-		SetTarget(mBitmapRenderTarget.get());
+	mD2DDeviceContext->SetTarget(mBitmapRenderTarget.get());
 
 	DXGI_SWAP_CHAIN_DESC1 checkDesc;
 	mSwapChain->GetDesc1(&checkDesc);
@@ -117,12 +116,12 @@ void URenderer::render(
 	if (mD3DRenderListener)
 		mD3DRenderListener->onClear();
 
-	mDeviceManager->getD2DDeviceContext()->BeginDraw();
-	mDeviceManager->getD2DDeviceContext()->Clear(bkColor);
+	mD2DDeviceContext->BeginDraw();
+	mD2DDeviceContext->Clear(bkColor);
 
 	renderCallback();
 
-	hr = mDeviceManager->getD2DDeviceContext()->EndDraw();
+	hr = mD2DDeviceContext->EndDraw();
 
 	if (mD3DRenderListener)
 		mD3DRenderListener->onRender();
@@ -142,7 +141,7 @@ HRESULT URenderer::drawWithShadow(
 	std::function<void(UComPtr<ID2D1RenderTarget> rt)> drawer)
 {
 	UComPtr<ID2D1BitmapRenderTarget> bmpRenderTarget;
-	RH(mDeviceManager->getD2DDeviceContext()->CreateCompatibleRenderTarget(
+	RH(mD2DDeviceContext->CreateCompatibleRenderTarget(
 		D2D1::SizeF(width, height), &bmpRenderTarget));
 
 	bmpRenderTarget->BeginDraw();
@@ -163,8 +162,8 @@ HRESULT URenderer::drawWithShadow(
 	mAffineTransEffect->SetInputEffect(0, mShadowEffect.get());
 	RH(mAffineTransEffect->SetValue(D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX, matrix));
 
-	mDeviceManager->getD2DDeviceContext()->DrawImage(mAffineTransEffect.get());
-	mDeviceManager->getD2DDeviceContext()->DrawBitmap(bkBitmap.get());
+	mD2DDeviceContext->DrawImage(mAffineTransEffect.get());
+	mD2DDeviceContext->DrawBitmap(bkBitmap.get());
 
 	return S_OK;
 }
@@ -189,7 +188,7 @@ HRESULT URenderer::drawShadow(float elevation, float alpha, ID2D1Bitmap *bitmap)
 	mAffineTransEffect->SetInputEffect(0, mShadowEffect.get());
 	RH(mAffineTransEffect->SetValue(D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX, matrix));
 
-	mDeviceManager->getD2DDeviceContext()->DrawImage(mAffineTransEffect.get());
+	mD2DDeviceContext->DrawImage(mAffineTransEffect.get());
 
 	return S_OK;
 }
@@ -199,7 +198,7 @@ HRESULT URenderer::drawOnBitmap(
 	std::function<void(UComPtr<ID2D1RenderTarget> rt)> drawer)
 {
 	UComPtr<ID2D1BitmapRenderTarget> bmpRenderTarget;
-	RH(mDeviceManager->getD2DDeviceContext()->CreateCompatibleRenderTarget(
+	RH(mD2DDeviceContext->CreateCompatibleRenderTarget(
 		D2D1::SizeF(width, height), &bmpRenderTarget));
 
 	bmpRenderTarget->BeginDraw();
@@ -317,6 +316,11 @@ UComPtr<IDXGISwapChain1> URenderer::getSwapChain()
 	return mSwapChain;
 }
 
+UComPtr<ID2D1DeviceContext> URenderer::getD2DDeviceContext()
+{ 
+	return mD2DDeviceContext; 
+}
+
 
 HRESULT URenderer::createBitmapRenderTarget(IDXGISurface *dxgiSurface, ID2D1Bitmap1 **bitmap)
 {
@@ -334,7 +338,7 @@ HRESULT URenderer::createBitmapRenderTarget(IDXGISurface *dxgiSurface, ID2D1Bitm
 			dpiY
 		);
 
-	return mDeviceManager->getD2DDeviceContext()->
+	return mD2DDeviceContext->
 		CreateBitmapFromDxgiSurface(dxgiSurface, bitmapProperties, bitmap);
 }
 
@@ -342,7 +346,7 @@ HRESULT URenderer::createCompatBitmapRenderTarget(
 	float width, float height, ID2D1BitmapRenderTarget **bRT)
 {
 	UComPtr<ID2D1BitmapRenderTarget> bmpRenderTarget;
-	RH(mDeviceManager->getD2DDeviceContext()->CreateCompatibleRenderTarget(
+	RH(mD2DDeviceContext->CreateCompatibleRenderTarget(
 		D2D1::SizeF(width, height), bRT));
 
 	return S_OK;

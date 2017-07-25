@@ -317,17 +317,20 @@ UBaseLayout *UWindow::getBaseLayout()
 
 void UWindow::captureMouse(UWidget *widget)
 {
-	if (widget == 0)
+	if (widget == nullptr)
 		return;
 
 	//当已存在有捕获鼠标的Widget时，若此次调用该方法的Widget
 	//与之前不同，此次调用将被忽略。在使用中应避免此种情况产生。
-	if (mMouseHolderRef != 0 
+	if (mMouseHolderRef != 0
 		&& widget != mMouseHolder)
+	{
+		::OutputDebugString(L"abnormal capture mouse!!\n");
 		return;
+	}
 
 	++mMouseHolderRef;
-	//::OutputDebugString(L"captureMouse!!\n");
+	::OutputDebugString(L"capture mouse!!\n");
 
 	//该Widget第一次捕获鼠标。
 	if (mMouseHolderRef == 1)
@@ -343,7 +346,7 @@ void UWindow::releaseMouse()
 		return;
 
 	--mMouseHolderRef;
-	//::OutputDebugString(L"releaseMouse!!\n");
+	::OutputDebugString(L"release mouse!!\n");
 
 	//鼠标将被释放。
 	if (mMouseHolderRef == 0)
@@ -881,8 +884,7 @@ void UWindow::onCreate()
 	if (FAILED(hr))
 		throw std::runtime_error("UWindow-onCreate(): Init DirectX renderer failed.");
 
-	auto deviceContext =
-		this->getApplication()->getDeviceManager()->getD2DDeviceContext();
+	auto deviceContext = mRenderer->getD2DDeviceContext();
 
 	mCanvas = new UCanvas(deviceContext.cast<ID2D1RenderTarget>());
 	mBitmapFactory = new UBitmapFactory(this->getApplication()->getWICManager(), deviceContext);
@@ -1056,7 +1058,7 @@ void UWindow::onInputEvent(UInputEvent *e)
 			&& mMouseHolder->getVisibility() == UWidget::VISIBLE
 			&& mMouseHolder->isEnabled())
 		{
-			UInputEvent saved(e);
+			//UInputEvent saved(e);
 
 			//进行坐标变换，将目标Widget左上角映射为(0, 0)。
 			int totalLeft = 0;
@@ -1076,8 +1078,8 @@ void UWindow::onInputEvent(UInputEvent *e)
 
 			mMouseHolder->dispatchInputEvent(e);
 
-			if (e->getEvent() == UInputEvent::EVENT_MOUSE_KEY_UP)
-				mBaseLayout->dispatchInputEvent(&saved);
+			//if (e->getEvent() == UInputEvent::EVENT_MOUSE_KEY_UP)
+				//mBaseLayout->dispatchInputEvent(&saved);
 		}
 		else
 			mBaseLayout->dispatchInputEvent(e);

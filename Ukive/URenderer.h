@@ -19,6 +19,7 @@ private:
 
 	UComPtr<IDXGISwapChain1> mSwapChain;
 	UComPtr<ID2D1Bitmap1> mBitmapRenderTarget;
+	UComPtr<ID2D1DeviceContext> mD2DDeviceContext;
 
 	UComPtr<ID2D1Effect> mShadowEffect;
 	UComPtr<ID2D1Effect> mAffineTransEffect;
@@ -65,6 +66,7 @@ public:
 	UComPtr<ID2D1Effect> getShadowEffect();
 	UComPtr<ID2D1Effect> getAffineTransEffect();
 	UComPtr<IDXGISwapChain1> getSwapChain();
+	UComPtr<ID2D1DeviceContext> getD2DDeviceContext();
 
 	HRESULT createBitmapRenderTarget(
 		IDXGISurface *dxgiSurface, ID2D1Bitmap1 **bitmap);

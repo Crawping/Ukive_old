@@ -41,6 +41,8 @@ public:
 	HRESULT init();
 	void close();
 
+	UComPtr<ID2D1DeviceContext> createD2DDeviceContext();
+
 	UComPtr<IDXGIAdapter1> getCurAdapter();
 	UComPtr<IDXGIOutput> getCurOutput();
 
@@ -50,7 +52,6 @@ public:
 
 	UComPtr<IDXGIDevice2> getDXGIDevice();
 	UComPtr<ID2D1Device> getD2DDevice();
-	UComPtr<ID2D1DeviceContext> getD2DDeviceContext();
 
 	UComPtr<ID3D11Device> getD3DDevice();
 	UComPtr<ID3D11DeviceContext> getD3DDeviceContext();

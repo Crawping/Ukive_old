@@ -15,6 +15,21 @@
 #include "TestWindow.h"
 
 
+TestWindow::TestWindow(UApplication *app)
+	:UWindow(app)
+{
+}
+
+TestWindow::TestWindow(UApplication *app, int id)
+	: UWindow(app, id)
+{
+}
+
+TestWindow::~TestWindow()
+{
+}
+
+
 void TestWindow::onCreate()
 {
 	UWindow::onCreate();

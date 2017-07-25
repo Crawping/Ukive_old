@@ -1,16 +1,17 @@
 ﻿#pragma once
 
+#include <map>
+#include <list>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <mutex>
-#include <list>
 #include <stack>
 #include <queue>
 #include <atomic>
-#include <map>
 #include <cstdint>
 #include <fstream>
+#include <memory>
 
 #include "UUtility.h"
 #include "DirectXMath\Inc\DirectXMath.h"

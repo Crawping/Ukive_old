@@ -38,6 +38,18 @@ void UDeviceManager::close()
 }
 
 
+UComPtr<ID2D1DeviceContext> UDeviceManager::createD2DDeviceContext()
+{
+	UComPtr<ID2D1DeviceContext> dc;
+
+	mD2DDevice->CreateDeviceContext(
+		D2D1_DEVICE_CONTEXT_OPTIONS_NONE,
+		&dc);
+
+	return dc;
+}
+
+
 HRESULT UDeviceManager::createPersistance()
 {
 	RH(CreateDXGIFactory1(
@@ -174,8 +186,6 @@ UComPtr<IDWriteFactory1> UDeviceManager::getDWriteFactory() { return sDWriteFact
 UComPtr<IDXGIDevice2> UDeviceManager::getDXGIDevice() { return mDXGIDevice; }
 
 UComPtr<ID2D1Device> UDeviceManager::getD2DDevice() { return mD2DDevice; }
-
-UComPtr<ID2D1DeviceContext> UDeviceManager::getD2DDeviceContext() { return mD2DDeviceContext; }
 
 UComPtr<ID3D11Device> UDeviceManager::getD3DDevice() { return mD3DDevice; }
 

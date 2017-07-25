@@ -5,7 +5,9 @@
 class TestWindow : public UWindow
 {
 public:
-	using UWindow::UWindow;
+	TestWindow(UApplication *app);
+	TestWindow(UApplication *app, int id);
+	~TestWindow();
 
 	virtual void onCreate() override;
 };

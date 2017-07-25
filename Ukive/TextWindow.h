@@ -8,11 +8,11 @@ class UContextMenu;
 class TextWindow : public UWindow
 {
 private:
-	static const uint32_t ID_TV_EDITOR = 0x1;
-	static const uint32_t ID_LAYOUT_ROOT = 0x2;
-	static const uint32_t ID_TOOLBAR = 0x3;
-	static const uint32_t ID_TOOLBAR_ITEM_FONT = 0x10;
-	static const uint32_t ID_TOOLBAR_ITEM_FORMAT = 0x11;
+	static const int ID_TV_EDITOR = 0x1;
+	static const int ID_LAYOUT_ROOT = 0x2;
+	static const int ID_TOOLBAR = 0x3;
+	static const int ID_TOOLBAR_ITEM_FONT = 0x10;
+	static const int ID_TOOLBAR_ITEM_FORMAT = 0x11;
 
 	class ToolbarMenuCallback : public UContextMenuCallback
 	{
@@ -52,8 +52,9 @@ private:
 	UWidget *inflateToolbar(UWidget *parent);
 
 public:
-	//使用基类的构造函数。
-	using UWindow::UWindow;
+	TextWindow(UApplication *app);
+	TextWindow(UApplication *app, int id);
+	~TextWindow();
 
 	virtual void onCreate() override;
 	virtual bool onMoving(RECT *rect) override;
