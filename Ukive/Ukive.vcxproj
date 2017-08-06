@@ -229,6 +229,7 @@
     <ClCompile Include="UTextKeyListener.cpp" />
     <ClCompile Include="UTextRenderer.cpp" />
     <ClCompile Include="UTextView.cpp" />
+    <ClCompile Include="UTextView2.cpp" />
     <ClCompile Include="UTransition.cpp" />
     <ClCompile Include="UTsfEditor.cpp" />
     <ClCompile Include="UTsfManager.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="UTextKeyListener.h" />
     <ClInclude Include="UTextRenderer.h" />
     <ClInclude Include="UTextView.h" />
+    <ClInclude Include="UTextView2.h" />
     <ClInclude Include="UThreadLocal.hpp" />
     <ClInclude Include="UTransition.h" />
     <ClInclude Include="UTsfEditor.h" />

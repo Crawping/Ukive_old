@@ -57,7 +57,9 @@ int UWidgetGroup::getWrappedWidth()
 		UWidget *widget = this->getChildAt(i);
 		if (widget->getVisibility() != UWidget::VANISHED)
 		{
-			int childWidth = widget->getMeasuredWidth();
+			auto lp = widget->getLayoutParams();
+
+			int childWidth = widget->getMeasuredWidth() + lp->leftMargin + lp->rightMargin;
 			if (childWidth > wrappedWidth)
 				wrappedWidth = childWidth;
 		}
@@ -74,7 +76,9 @@ int UWidgetGroup::getWrappedHeight()
 		UWidget *widget = this->getChildAt(i);
 		if (widget->getVisibility() != UWidget::VANISHED)
 		{
-			int childHeight = widget->getMeasuredHeight();
+			auto lp = widget->getLayoutParams();
+
+			int childHeight = widget->getMeasuredHeight() + lp->topMargin + lp->bottomMargin;
 			if (childHeight > wrappedHeight)
 				wrappedHeight = childHeight;
 		}
@@ -383,8 +387,8 @@ bool UWidgetGroup::dispatchMouseEvent(UInputEvent *e)
 	bool consumed = false;
 	bool isIntercepted = false;
 
-	e->setMouseX(e->getMouseX() - mLeft - mScrollX);
-	e->setMouseY(e->getMouseY() - mTop - mScrollY);
+	e->setMouseX(e->getMouseX() - mLeft + mScrollX);
+	e->setMouseY(e->getMouseY() - mTop + mScrollY);
 
 	if (this->onInterceptInputEvent(e)
 		|| this->onInterceptMouseEvent(e))

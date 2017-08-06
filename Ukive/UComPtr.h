@@ -66,22 +66,22 @@ public:
 		return (&mPtr);
 	}
 
-	bool operator ==(nullptr_t)
+	bool operator ==(nullptr_t) const
 	{
 		return (mPtr == nullptr);
 	}
 
-	bool operator !=(nullptr_t)
+	bool operator !=(nullptr_t) const
 	{
 		return (mPtr != nullptr);
 	}
 
-	bool operator !()
+	explicit operator bool() const
 	{
-		return (mPtr == nullptr);
+		return (mPtr != nullptr);
 	}
 
-	T* get()
+	T* get() const
 	{
 		return mPtr;
 	}

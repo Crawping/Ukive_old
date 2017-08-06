@@ -75,15 +75,13 @@ STDMETHODIMP UTextRenderer::DrawGlyphRun(
 		UTextView *textView = (UTextView*)clientDrawingContext;
 		textView->computeVisibleRegion(&region);
 
-		float dpiX, dpiY;
-		mRenderTarget->GetDpi(&dpiX, &dpiY);
-
 		if ((int)UMath::floor(baselineOriginX) > (int)UMath::ceil(region.right))
 			return S_OK;
-
+		if ((int)UMath::ceil(baselineOriginX) < (int)UMath::floor(region.left))
+			return S_OK;
 		if ((int)UMath::ceil(baselineOriginY) < (int)UMath::floor(region.top))
 			return S_OK;
-		if ((int)UMath::floor(baselineOriginY - glyphRun->fontEmSize*(dpiY / 96.f)) > (int)UMath::ceil(region.bottom))
+		if ((int)UMath::floor(baselineOriginY - glyphRun->fontEmSize) > (int)UMath::ceil(region.bottom))
 			return S_OK;
 	}
 

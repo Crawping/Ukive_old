@@ -91,12 +91,9 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c1LabelLp = new RestrainLayoutParams(
 		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
-	c1LabelLp->startHandledId = ID_RIGHT_RESTRAIN;
-	c1LabelLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	c1LabelLp->leftMargin = 8;
-	c1LabelLp->topHandledId = ID_RIGHT_RESTRAIN;
-	c1LabelLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	c1LabelLp->topMargin = 12;
+	c1LabelLp
+		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
+		->topHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_TOP, 12);
 
 	rightLayout->addWidget(c1Label, c1LabelLp);
 
@@ -108,16 +105,11 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c1SeekBarLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	c1SeekBarLp->topHandledId = ID_C1_LABEL;
-	c1SeekBarLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	c1SeekBarLp->bottomHandledId = ID_C1_LABEL;
-	c1SeekBarLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	c1SeekBarLp->startHandledId = ID_C1_LABEL;
-	c1SeekBarLp->startHandledEdge = RestrainLayoutParams::EDGE_END;
-	c1SeekBarLp->leftMargin = 4;
-	c1SeekBarLp->endHandledId = ID_C1_VALUE;
-	c1SeekBarLp->endHandledEdge = RestrainLayoutParams::EDGE_START;
-	c1SeekBarLp->rightMargin = 4;
+	c1SeekBarLp
+		->startHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_END, 4)
+		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_C1_VALUE, RestrainLayoutParams::EDGE_START, 4)
+		->bottomHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
 
 	mC1SeekBar = c1SeekBar;
 	rightLayout->addWidget(c1SeekBar, c1SeekBarLp);
@@ -131,13 +123,10 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c1ValueLp = new RestrainLayoutParams(
 		36, ULayoutParams::FIT_CONTENT);
-	c1ValueLp->topHandledId = ID_C1_LABEL;
-	c1ValueLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	c1ValueLp->bottomHandledId = ID_C1_LABEL;
-	c1ValueLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	c1ValueLp->endHandledId = ID_RIGHT_RESTRAIN;
-	c1ValueLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	c1ValueLp->rightMargin = 8;
+	c1ValueLp
+		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8)
+		->bottomHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
 
 	mC1ValueTV = c1Value;
 	rightLayout->addWidget(c1Value, c1ValueLp);
@@ -152,12 +141,9 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c2LabelLp = new RestrainLayoutParams(
 		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
-	c2LabelLp->startHandledId = ID_RIGHT_RESTRAIN;
-	c2LabelLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	c2LabelLp->leftMargin = 8;
-	c2LabelLp->topHandledId = ID_C1_LABEL;
-	c2LabelLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	c2LabelLp->topMargin = 8;
+	c2LabelLp
+		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
+		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM, 8);
 
 	rightLayout->addWidget(c2Label, c2LabelLp);
 
@@ -169,16 +155,11 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c2SeekBarLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	c2SeekBarLp->topHandledId = ID_C2_LABEL;
-	c2SeekBarLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	c2SeekBarLp->bottomHandledId = ID_C2_LABEL;
-	c2SeekBarLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	c2SeekBarLp->startHandledId = ID_C2_LABEL;
-	c2SeekBarLp->startHandledEdge = RestrainLayoutParams::EDGE_END;
-	c2SeekBarLp->leftMargin = 4;
-	c2SeekBarLp->endHandledId = ID_C2_VALUE;
-	c2SeekBarLp->endHandledEdge = RestrainLayoutParams::EDGE_START;
-	c2SeekBarLp->rightMargin = 4;
+	c2SeekBarLp
+		->startHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_END, 4)
+		->topHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_C2_VALUE, RestrainLayoutParams::EDGE_START, 4)
+		->bottomHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
 
 	mC2SeekBar = c2SeekBar;
 	rightLayout->addWidget(c2SeekBar, c2SeekBarLp);
@@ -192,13 +173,10 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *c2ValueLp = new RestrainLayoutParams(
 		36, ULayoutParams::FIT_CONTENT);
-	c2ValueLp->topHandledId = ID_C2_LABEL;
-	c2ValueLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	c2ValueLp->bottomHandledId = ID_C2_LABEL;
-	c2ValueLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	c2ValueLp->endHandledId = ID_RIGHT_RESTRAIN;
-	c2ValueLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	c2ValueLp->rightMargin = 8;
+	c2ValueLp
+		->topHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8)
+		->bottomHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
 
 	mC2ValueTV = c2Value;
 	rightLayout->addWidget(c2Value, c2ValueLp);
@@ -230,16 +208,11 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *splitSeekBarLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	splitSeekBarLp->topHandledId = ID_SPLIT_LABEL;
-	splitSeekBarLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	splitSeekBarLp->bottomHandledId = ID_SPLIT_LABEL;
-	splitSeekBarLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	splitSeekBarLp->startHandledId = ID_C2_SEEKBAR;
-	splitSeekBarLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	splitSeekBarLp->leftMargin = 0;
-	splitSeekBarLp->endHandledId = ID_SPLIT_VALUE;
-	splitSeekBarLp->endHandledEdge = RestrainLayoutParams::EDGE_START;
-	splitSeekBarLp->rightMargin = 4;
+	splitSeekBarLp
+		->startHandle(ID_C2_SEEKBAR, RestrainLayoutParams::EDGE_START)
+		->topHandle(ID_SPLIT_LABEL, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_SPLIT_VALUE, RestrainLayoutParams::EDGE_START, 4)
+		->bottomHandle(ID_SPLIT_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
 
 	mSplitSeekBar = splitSeekBar;
 	rightLayout->addWidget(splitSeekBar, splitSeekBarLp);
@@ -312,15 +285,10 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *renderInfoTVLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	renderInfoTVLp->topMargin = 16;
-	renderInfoTVLp->topHandledId = ID_VSYNC_BUTTON;
-	renderInfoTVLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	renderInfoTVLp->startHandledId = ID_RIGHT_RESTRAIN;
-	renderInfoTVLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	renderInfoTVLp->leftMargin = 8;
-	renderInfoTVLp->endHandledId = ID_RIGHT_RESTRAIN;
-	renderInfoTVLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	renderInfoTVLp->rightMargin = 8;
+	renderInfoTVLp
+		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
+		->topHandle(ID_VSYNC_BUTTON, RestrainLayoutParams::EDGE_BOTTOM, 16)
+		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8);
 
 	rightLayout->addWidget(renderInfoTV, renderInfoTVLp);
 
@@ -340,15 +308,10 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	RestrainLayoutParams *helperTVLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	helperTVLp->topMargin = 24;
-	helperTVLp->topHandledId = ID_LOD_INFO;
-	helperTVLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	helperTVLp->startHandledId = ID_RIGHT_RESTRAIN;
-	helperTVLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	helperTVLp->leftMargin = 8;
-	helperTVLp->endHandledId = ID_RIGHT_RESTRAIN;
-	helperTVLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	helperTVLp->rightMargin = 8;
+	helperTVLp
+		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
+		->topHandle(ID_LOD_INFO, RestrainLayoutParams::EDGE_BOTTOM, 24)
+		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8);
 
 	rightLayout->addWidget(helperTV, helperTVLp);
 }

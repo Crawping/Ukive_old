@@ -138,6 +138,8 @@ public:
 	URenderer *getRenderer();
 	UBitmapFactory *getBitmapFactory();
 
+	void setHandleForCreate(HWND hWnd);
+
 	void setTitle(std::wstring title);
 	void setX(int x);
 	void setY(int y);

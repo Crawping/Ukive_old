@@ -26,6 +26,10 @@ UWindowClass::UWindowClass(UApplication *app)
 
 UWindowClass::~UWindowClass()
 {
+	::UnregisterClassW(
+		mWindowClassName.c_str(), 
+		::GetModuleHandleW(nullptr));
+
 	delete mInputEvent;
 }
 
@@ -173,23 +177,28 @@ void UWindowClass::processInputEvent(UWindow *window, UINT uMsg, WPARAM wParam, 
 
 LRESULT CALLBACK UWindowClass::messageHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	bool isHittedWindow = false;
-	UWindow *window = 0;
-
-	for (std::size_t i = 0; i < mApplication->getWindowManager()->getWindowCount(); ++i)
+	if (uMsg == WM_NCCREATE)
 	{
-		window = mApplication->getWindowManager()->getWindowByPos(i);
-		if (window->getWindowHandle() == hWnd)
-		{
-			isHittedWindow = true;
-			break;
-		}
+		CREATESTRUCTW *cs = (CREATESTRUCTW*)lParam;
+		UWindow *window = (UWindow*)cs->lpCreateParams;
+		if (window == nullptr)
+			throw std::runtime_error("UWindowClass::messageHandler(): null create param.");
+
+		window->setHandleForCreate(hWnd);
+		::SetWindowLongPtrW(hWnd, GWLP_USERDATA, (LONG)window);
+
+		return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
 	}
 
-	if (isHittedWindow)
+	UWindow *window = (UWindow*)::GetWindowLongPtrW(hWnd, GWL_USERDATA);
+	if (window != nullptr)
 	{
 		switch (uMsg)
 		{
+		case WM_CREATE:
+			window->onCreate();
+			return TRUE;
+
 		case WM_CLOSE:
 			if (mApplication->getAppQuitStrategy() == UApplication::QUIT_WHEN_STARTUP_WINDOW_CLOSED
 				&& window->isStartupWindow())
@@ -329,10 +338,10 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 		// Extend the frame into the client area.
 		MARGINS margins;
 
-		margins.cxLeftWidth = 0;
-		margins.cxRightWidth = 0;
-		margins.cyBottomHeight = 0;
-		margins.cyTopHeight = 50;
+		margins.cxLeftWidth = 8;
+		margins.cxRightWidth = 8;
+		margins.cyBottomHeight = 8;
+		margins.cyTopHeight = 8;
 
 		hr = DwmExtendFrameIntoClientArea(hWnd, &margins);
 
@@ -355,7 +364,7 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 	if (message == WM_NCCALCSIZE && wParam == TRUE)
 	{
 		// Calculate new NCCALCSIZE_PARAMS based on custom NCA inset.
-		/*NCCALCSIZE_PARAMS *pncsp = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
+		NCCALCSIZE_PARAMS *pncsp = reinterpret_cast<NCCALCSIZE_PARAMS*>(lParam);
 
 		RECT newW, oldW, oldWC;
 		CopyRect(&newW, &pncsp->rgrc[0]);
@@ -363,7 +372,7 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 		pncsp->rgrc[0].left = newW.left + 0;
 		pncsp->rgrc[0].top = newW.top + 0;
 		pncsp->rgrc[0].right = newW.right - 0;
-		pncsp->rgrc[0].bottom = newW.bottom - 0;*/
+		pncsp->rgrc[0].bottom = newW.bottom - 0;
 
 		lRet = 0;
 
@@ -374,7 +383,7 @@ LRESULT UWindowClass::processDWMProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 	// Handle hit testing in the NCA if not handled by DwmDefWindowProc.
 	if ((message == WM_NCHITTEST) && (lRet == 0))
 	{
-		lRet = HitTestNCA(hWnd, wParam, lParam, 8, 50, 0, 0);
+		lRet = HitTestNCA(hWnd, wParam, lParam, 8, 8, 8, 8);
 
 		if (lRet != HTNOWHERE)
 		{

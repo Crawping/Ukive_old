@@ -84,8 +84,8 @@ private:
 	float mVerticalOffset;
 	uint32_t mTextOffsetAtViewTop;
 
-	std::list<std::shared_ptr<SelectionBlock>> mSelectionList;
 	std::vector<UComPtr<UTextDrawingEffect>> mTDEffectList;
+	std::vector<std::shared_ptr<SelectionBlock>> mSelectionList;
 
 private:
 	void initTextView();

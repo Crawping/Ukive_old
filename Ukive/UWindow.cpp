@@ -137,6 +137,17 @@ void UWindow::setMouseTrack()
 }
 
 
+void UWindow::setHandleForCreate(HWND hWnd)
+{
+	mWindowHandle = hWnd;
+
+	RECT clientRect;
+	::GetClientRect(mWindowHandle, &clientRect);
+	mClientWidth = clientRect.right - clientRect.left;
+	mClientHeight = clientRect.bottom - clientRect.top;
+}
+
+
 void UWindow::setTitle(std::wstring title)
 {
 	if (mTitle == title)
@@ -556,7 +567,6 @@ void UWindow::show()
 	{
 		if (this->onRequestCreate())
 		{
-			this->onCreate();
 			mIsCreated = true;
 			mApplication->getWindowManager()->addWindow(this);
 			if (this->onRequestShow(true))
@@ -766,24 +776,14 @@ void UWindow::performRefresh(int left, int top, int right, int bottom)
 
 bool UWindow::onRequestCreate()
 {
-	HWND wndHandle = ::CreateWindowExW(WS_EX_APPWINDOW,
+	HWND hWnd = ::CreateWindowExW(WS_EX_APPWINDOW,
 		getApplication()->getWindowClass()->getWindowClassName().c_str(),
 		mTitle.c_str(),
 		WS_OVERLAPPEDWINDOW,
 		mX, mY, mWidth, mHeight, 0, 0,
-		::GetModuleHandleW(nullptr), nullptr);
+		::GetModuleHandleW(nullptr), this);
 
-	if (wndHandle == nullptr)
-		return false;
-
-	mWindowHandle = wndHandle;
-
-	RECT clientRect;
-	::GetClientRect(mWindowHandle, &clientRect);
-	mClientWidth = clientRect.right - clientRect.left;
-	mClientHeight = clientRect.bottom - clientRect.top;
-
-	return true;
+	return (hWnd != nullptr);
 }
 
 bool UWindow::onRequestResize(int newWidth, int newHeight, int oldWidth, int oldHeight)
@@ -1058,16 +1058,14 @@ void UWindow::onInputEvent(UInputEvent *e)
 			&& mMouseHolder->getVisibility() == UWidget::VISIBLE
 			&& mMouseHolder->isEnabled())
 		{
-			//UInputEvent saved(e);
-
 			//进行坐标变换，将目标Widget左上角映射为(0, 0)。
 			int totalLeft = 0;
 			int totalTop = 0;
 			UWidget *parent = mMouseHolder->getParent();
 			while (parent)
 			{
-				totalLeft += (parent->getLeft() + parent->getScrollX());
-				totalTop += (parent->getTop() + parent->getScrollY());
+				totalLeft += (parent->getLeft() - parent->getScrollX());
+				totalTop += (parent->getTop() - parent->getScrollY());
 
 				parent = parent->getParent();
 			}
@@ -1077,9 +1075,6 @@ void UWindow::onInputEvent(UInputEvent *e)
 			e->setIsMouseCaptured(true);
 
 			mMouseHolder->dispatchInputEvent(e);
-
-			//if (e->getEvent() == UInputEvent::EVENT_MOUSE_KEY_UP)
-				//mBaseLayout->dispatchInputEvent(&saved);
 		}
 		else
 			mBaseLayout->dispatchInputEvent(e);

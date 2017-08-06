@@ -38,6 +38,39 @@ void RestrainLayoutParams::initLayoutParams()
 }
 
 
+RestrainLayoutParams* RestrainLayoutParams::startHandle(int handleId, int handleEdge, int margin)
+{
+	startHandledId = handleId;
+	startHandledEdge = handleEdge;
+	leftMargin = margin;
+	return this;
+}
+
+RestrainLayoutParams* RestrainLayoutParams::topHandle(int handleId, int handleEdge, int margin)
+{
+	topHandledId = handleId;
+	topHandledEdge = handleEdge;
+	topMargin = margin;
+	return this;
+}
+
+RestrainLayoutParams* RestrainLayoutParams::endHandle(int handleId, int handleEdge, int margin)
+{
+	endHandledId = handleId;
+	endHandledEdge = handleEdge;
+	rightMargin = margin;
+	return this;
+}
+
+RestrainLayoutParams* RestrainLayoutParams::bottomHandle(int handleId, int handleEdge, int margin)
+{
+	bottomHandledId = handleId;
+	bottomHandledEdge = handleEdge;
+	bottomMargin = margin;
+	return this;
+}
+
+
 bool RestrainLayoutParams::hasStart()
 {
 	return startHandledEdge != EDGE_NONE;

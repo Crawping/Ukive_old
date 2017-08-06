@@ -53,15 +53,17 @@ int UScrollView::computeScrollExtend()
 void UScrollView::processVerticalScroll(int dy)
 {
 	int finalDy = 0;
-	int scrollY = getScrollY();
 	if (dy > 0)
 	{
-		finalDy = UMath::minimum(scrollY + dy, 0) - scrollY;
+		int scrollY = getScrollY();
+		finalDy = UMath::maximum(scrollY - dy, 0) - scrollY;
 	}
 	else if (dy < 0)
 	{
+		int scrollY = getScrollY();
 		int extend = this->computeScrollExtend();
-		finalDy = UMath::maximum(scrollY + dy, -extend) - scrollY;
+		if (extend > 0)
+			finalDy = UMath::minimum(scrollY - dy, extend) - scrollY;
 	}
 
 	if (finalDy != 0)
@@ -180,12 +182,12 @@ void UScrollView::onSizeChanged(
 
 		if (canScroll())
 		{
-			if (getScrollY() > 0)
+			if (getScrollY() < 0)
 				changed = -getScrollY();
 
 			int extend = this->computeScrollExtend();
-			if (getScrollY() < -extend)
-				changed = UMath::maximum(getScrollY(), -extend) - getScrollY();
+			if (getScrollY() > extend)
+				changed = extend - getScrollY();
 		}
 		else
 		{
@@ -205,8 +207,8 @@ void UScrollView::onScrollChanged(
 
 	UInputEvent e;
 	e.setEvent(UInputEvent::EVENT_MOUSE_SCROLL_ENTER);
-	e.setMouseX(mMouseXCache + mLeft + mScrollX - (scrollX - oldScrollX));
-	e.setMouseY(mMouseYCache + mTop + mScrollY - (scrollY - oldScrollY));
+	e.setMouseX(mMouseXCache + mLeft - mScrollX - (oldScrollX - scrollX));
+	e.setMouseY(mMouseYCache + mTop - mScrollY - (oldScrollY - scrollY));
 	this->dispatchInputEvent(&e);
 }
 

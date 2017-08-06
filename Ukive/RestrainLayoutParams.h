@@ -53,6 +53,11 @@ public:
 	int bottomHandledId;
 	int bottomHandledEdge;
 
+	RestrainLayoutParams* startHandle(int handleId, int handleEdge, int margin = 0);
+	RestrainLayoutParams* topHandle(int handleId, int handleEdge, int margin = 0);
+	RestrainLayoutParams* endHandle(int handleId, int handleEdge, int margin = 0);
+	RestrainLayoutParams* bottomHandle(int handleId, int handleEdge, int margin = 0);
+
 public:
 	bool hasStart();
 	bool hasTop();

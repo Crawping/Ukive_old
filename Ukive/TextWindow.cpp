@@ -44,24 +44,16 @@ void TextWindow::onCreate()
 	setContentView(rootLayout);
 
 	//Toolbar.
-	auto toolbar = inflateToolbar(rootLayout);
+	/*auto toolbar = inflateToolbar(rootLayout);
 
 	RestrainLayoutParams *toolbarLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
-	toolbarLp->startHandledId = ID_LAYOUT_ROOT;
-	toolbarLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	toolbarLp->leftMargin = 0;
-	toolbarLp->topHandledId = ID_LAYOUT_ROOT;
-	toolbarLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
-	toolbarLp->topMargin = 0;
-	toolbarLp->endHandledId = ID_LAYOUT_ROOT;
-	toolbarLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	toolbarLp->rightMargin = 0;
-	//toolbarLp->bottomHandledId = ID_LAYOUT_ROOT;
-	//toolbarLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	//toolbarLp->bottomMargin = 0;
+	toolbarLp
+		->startHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_START)
+		->topHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_END);
 
-	rootLayout->addWidget(toolbar, toolbarLp);
+	rootLayout->addWidget(toolbar, toolbarLp);*/
 	
 
 	//编辑器。
@@ -71,25 +63,17 @@ void TextWindow::onCreate()
 	editorTV->setFontFamilyName(L"Consolas");
 	editorTV->setTextSize(15);
 	editorTV->setPadding(18, 18, 18, 18);
-	//editorTV->setBackground(new UColorDrawable(this, UColor::Grey100));
 	editorTV->setLineSpacing(true, 1.2f);
 	editorTV->autoWrap(false);
 	editorTV->requestFocus();
 
 	RestrainLayoutParams *editorTVLp = new RestrainLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::MATCH_PARENT);
-	editorTVLp->startHandledId = ID_LAYOUT_ROOT;
-	editorTVLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
-	editorTVLp->leftMargin = 0;
-	editorTVLp->topHandledId = ID_TOOLBAR;
-	editorTVLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	editorTVLp->topMargin = 0;
-	editorTVLp->endHandledId = ID_LAYOUT_ROOT;
-	editorTVLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
-	editorTVLp->rightMargin = 0;
-	editorTVLp->bottomHandledId = ID_LAYOUT_ROOT;
-	editorTVLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
-	editorTVLp->bottomMargin = 0;
+	editorTVLp
+		->startHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_START)
+		->topHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_TOP)
+		->endHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_END)
+		->bottomHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_BOTTOM);
 
 	rootLayout->addWidget(editorTV, editorTVLp);
 }
@@ -110,7 +94,7 @@ bool TextWindow::onResizing(WPARAM edge, RECT *rect)
 void TextWindow::onMove(int x, int y)
 {
 	::OutputDebugStringW(L"onMove()\n");
-	return UWindow::onMove(x, y);
+	UWindow::onMove(x, y);
 }
 
 void TextWindow::onResize(
@@ -118,7 +102,7 @@ void TextWindow::onResize(
 	int clientWidth, int clientHeight)
 {
 	::OutputDebugStringW(L"onResize()\n");
-	return UWindow::onResize(param, width, height, clientWidth, clientHeight);
+	UWindow::onResize(param, width, height, clientWidth, clientHeight);
 }
 
 

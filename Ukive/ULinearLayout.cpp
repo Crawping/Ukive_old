@@ -126,22 +126,6 @@ void ULinearLayout::measureSequenceChildren(
 				childParams->height, &childHeight, &childHeightSpec);
 
 			child->measure(childWidth, childHeight, childWidthSpec, childHeightSpec);
-
-			if (i + 1 < getChildCount())
-			{
-				if (mOrientation == VERTICAL)
-				{
-					parentHeight -= childHeight;
-					if (parentHeight <= 0)
-						break;
-				}
-				else if (mOrientation == HORIZONTAL)
-				{
-					parentWidth -= childWidth;
-					if (parentWidth <= 0)
-						break;
-				}
-			}
 		}
 	}
 }

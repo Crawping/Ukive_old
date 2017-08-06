@@ -400,7 +400,7 @@ void UTextView::blinkNavigator(int keyCode)
 void UTextView::makeNewTextFormat()
 {
 	mTextFormat.reset();
-	mWindow->getRenderer()->createTextFormat(
+	getWindow()->getRenderer()->createTextFormat(
 		mFontFamilyName,
 		mTextSize,
 		L"zh-cn",
@@ -569,9 +569,15 @@ void UTextView::onMeasure(int width, int height, int widthSpec, int heightSpec)
 			+ horizontalPadding, width);
 
 		finalWidth = UMath::maximum(finalWidth, mMinimumWidth);
+
+		if (width != finalWidth)
+		{
+			mTextLayout->SetMaxWidth(
+				static_cast<float>(finalWidth - horizontalPadding));
+		}
 		break;
 	}
-
+	
 	case EXACTLY:
 		mTextLayout->SetMaxWidth(
 			static_cast<float>(width - horizontalPadding));
@@ -581,11 +587,15 @@ void UTextView::onMeasure(int width, int height, int widthSpec, int heightSpec)
 	case UNKNOWN:
 		mTextLayout->SetMaxWidth(0.f);
 		mTextLayout->SetWordWrapping(DWRITE_WORD_WRAPPING_NO_WRAP);
+
 		finalWidth = static_cast<int>(
 			UMath::ceil(getTextWidth()
 				+ mTextBlink->getThickness()))
 			+ horizontalPadding;
 		finalWidth = UMath::maximum(finalWidth, mMinimumWidth);
+
+		mTextLayout->SetMaxWidth(
+			static_cast<float>(finalWidth - horizontalPadding));
 		break;
 	}
 
@@ -597,10 +607,16 @@ void UTextView::onMeasure(int width, int height, int widthSpec, int heightSpec)
 			static_cast<float>(height - verticalPadding));
 
 		finalHeight = UMath::minimum(
-			static_cast<int>(UMath::ceil(getTextHeight())) 
+			static_cast<int>(UMath::ceil(getTextHeight()))
 			+ verticalPadding, height);
 
 		finalHeight = UMath::maximum(finalHeight, mMinimumHeight);
+
+		if (finalHeight != height)
+		{
+			mTextLayout->SetMaxHeight(
+				static_cast<float>(finalHeight - verticalPadding));
+		}
 		break;
 	}
 
@@ -612,8 +628,12 @@ void UTextView::onMeasure(int width, int height, int widthSpec, int heightSpec)
 
 	case UNKNOWN:
 		mTextLayout->SetMaxHeight(0.f);
+
 		finalHeight = static_cast<int>(UMath::ceil(getTextHeight())) + verticalPadding;
 		finalHeight = UMath::maximum(finalHeight, mMinimumHeight);
+
+		mTextLayout->SetMaxHeight(
+			static_cast<float>(finalHeight - verticalPadding));
 		break;
 	}
 

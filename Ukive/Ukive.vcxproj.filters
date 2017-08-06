@@ -264,6 +264,7 @@
     <ClCompile Include="ULinearLayoutParams.cpp">
       <Filter>ui\widget</Filter>
     </ClCompile>
+    <ClCompile Include="UTextView2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UApplication.h" />
@@ -541,6 +542,7 @@
     <ClInclude Include="ULinearLayoutParams.h">
       <Filter>ui\widget</Filter>
     </ClInclude>
+    <ClInclude Include="UTextView2.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="AssistPixelShader.hlsl">
