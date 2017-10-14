@@ -1,17 +1,17 @@
 ﻿#include "UCommon.h"
 #include "UTags.h"
-#include "UButton.h"
-#include "UTextView.h"
-#include "UImageView.h"
-#include "UBaseLayout.h"
-#include "ULinearLayout.h"
-#include "ULayoutParams.h"
+#include "Button.h"
+#include "TextView.h"
+#include "ImageView.h"
+#include "BaseLayout.h"
+#include "LinearLayout.h"
+#include "LayoutParams.h"
 #include "UBitmapFactory.h"
 #include "UColorDrawable.h"
 #include "UnderlineSpan.h"
 #include "UApplication.h"
 #include "UDeviceManager.h"
-#include "UScrollView.h"
+#include "ScrollView.h"
 #include "TestWindow.h"
 
 
@@ -34,15 +34,15 @@ void TestWindow::onCreate()
 {
 	UWindow::onCreate();
 
-	UScrollView *scrollView = new UScrollView(this);
+	ScrollView *scrollView = new ScrollView(this);
 	scrollView->setLayoutParams(
-		new ULayoutParams(ULayoutParams::MATCH_PARENT, ULayoutParams::MATCH_PARENT));
+		new LayoutParams(LayoutParams::MATCH_PARENT, LayoutParams::MATCH_PARENT));
 
 	setContentView(scrollView);
 
-	ULinearLayout *linearLayout = new ULinearLayout(this);
+	LinearLayout *linearLayout = new LinearLayout(this);
 	scrollView->addWidget(linearLayout, 
-		new ULayoutParams(ULayoutParams::MATCH_PARENT, ULayoutParams::MATCH_PARENT));
+		new LayoutParams(LayoutParams::MATCH_PARENT, LayoutParams::MATCH_PARENT));
 
 
 	DXGI_ADAPTER_DESC1 adapterDesc;
@@ -61,28 +61,28 @@ void TestWindow::onCreate()
 		.append(L"\n").append(L"Monitor: ").append(outputName);
 
 
-	UTextView *deviceTextView = new UTextView(this);
+	TextView *deviceTextView = new TextView(this);
 	deviceTextView->setIsSelectable(false);
 	deviceTextView->setIsEditable(false);
 	deviceTextView->setText(deviceDesc);
 	deviceTextView->setPadding(6, 6, 6, 6);
 
-	ULayoutParams *deviceTextParams = new ULayoutParams(
-		ULayoutParams::FIT_CONTENT,
-		ULayoutParams::FIT_CONTENT);
+	LayoutParams *deviceTextParams = new LayoutParams(
+		LayoutParams::FIT_CONTENT,
+		LayoutParams::FIT_CONTENT);
 	deviceTextParams->leftMargin = deviceTextParams->rightMargin
 		= deviceTextParams->topMargin = deviceTextParams->bottomMargin = 12;
 
 	linearLayout->addWidget(deviceTextView, deviceTextParams);
 
 
-	ULayoutParams *textParams = new ULayoutParams(
-		ULayoutParams::MATCH_PARENT,
-		ULayoutParams::FIT_CONTENT);
+	LayoutParams *textParams = new LayoutParams(
+		LayoutParams::MATCH_PARENT,
+		LayoutParams::FIT_CONTENT);
 	textParams->leftMargin = textParams->rightMargin
 		= textParams->topMargin = textParams->bottomMargin = 12;
 
-	UTextView *textView = new UTextView(this, UWidgetId::TEXTVIEW);
+	TextView *textView = new TextView(this, UWidgetId::TEXTVIEW);
 	textView->setIsSelectable(true);
 	textView->setIsEditable(true);
 	textView->setText(L"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii这是一个示例程序，\n\n在这里可以显示文本。\n这是一个示例程序，\n在这里可以显示文本。\n这是一个示例程序，\n在这里可以显示文本。");
@@ -97,16 +97,16 @@ void TestWindow::onCreate()
 
 	std::wstring imgFileName(::_wgetcwd(nullptr, 0));
 	auto bitmap = this->getBitmapFactory()->decodeFile(imgFileName + L"\\freshpaint.png");
-	UImageView *imageView = new UImageView(this, UWidgetId::IMAGEVIEW);
+	ImageView *imageView = new ImageView(this, UWidgetId::IMAGEVIEW);
 	imageView->setImageBitmap(bitmap);
 
 	linearLayout->addWidget(imageView);
 
 
-	UButton *button = new UButton(this);
-	ULayoutParams *buttonParams = new ULayoutParams(
-		ULayoutParams::FIT_CONTENT,
-		ULayoutParams::FIT_CONTENT);
+	Button *button = new Button(this);
+	LayoutParams *buttonParams = new LayoutParams(
+		LayoutParams::FIT_CONTENT,
+		LayoutParams::FIT_CONTENT);
 	buttonParams->leftMargin = buttonParams->rightMargin
 		= buttonParams->topMargin = buttonParams->bottomMargin = 12;
 

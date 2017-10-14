@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 class UWindow;
-class UTextView;
+class TextView;
 class UTsfEditor;
 class UTsfManager;
 
 class UInputConnection
 {
 private:
-	UTextView *mTextView;
+	TextView *mTextView;
 
 	UTsfEditor *mTsfEditor;
 	TfEditCookie mEditorCookie;
@@ -20,7 +20,7 @@ private:
 	bool mIsEditorPushed;
 
 public:
-	UInputConnection(UTextView *textView);
+	UInputConnection(TextView *textView);
 	~UInputConnection();
 
 	HRESULT initialization(UTsfManager *tsfMgr);

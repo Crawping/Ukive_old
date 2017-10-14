@@ -1,7 +1,7 @@
 ﻿#include "UCommon.h"
 #include "UTextRenderer.h"
 #include "UDeviceManager.h"
-#include "UWidget.h"
+#include "View.h"
 #include "UCanvas.h"
 
 
@@ -425,7 +425,7 @@ void UCanvas::drawTextLayout(
 }
 
 void UCanvas::drawTextLayoutWithEffect(
-	UWidget *widget, 
+	View *widget, 
 	float x, float y, 
 	IDWriteTextLayout *textLayout, D2D1_COLOR_F &color)
 {

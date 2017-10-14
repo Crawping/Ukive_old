@@ -1,17 +1,17 @@
 #pragma once
-#include "UFrameLayout.h"
+#include "FrameLayout.h"
 
-enum UGravity;
+enum Gravity;
 class UCanvas;
 class UWindow;
-class UWidget;
+class View;
 class UInputEvent;
 class UDrawable;
 
 class UInnerWindow
 {
 public:
-	class InnerDecorView : public UFrameLayout
+	class InnerDecorView : public FrameLayout
 	{
 	private:
 		UInnerWindow *mInnerWindow;
@@ -34,7 +34,7 @@ private:
 	UDrawable *mBackgroundDrawable;
 
 	UWindow *mParent;
-	UWidget *mContentView;
+	View *mContentView;
 	InnerDecorView *mDecorView;
 	bool mIsShowing;
 
@@ -51,7 +51,7 @@ public:
 	void setBackground(UDrawable *drawable);
 	void setOutsideTouchable(bool touchable);
 	void setDismissByTouchOutside(bool enable);
-	void setContentView(UWidget *contentView);
+	void setContentView(View *contentView);
 
 	int getWidth();
 	int getHeight();
@@ -60,14 +60,14 @@ public:
 	bool isOutsideTouchable();
 	bool isDismissByTouchOutside();
 	UWindow *getParent();
-	UWidget *getContentView();
-	UWidget *getDecorView();
+	View *getContentView();
+	View *getDecorView();
 
 	bool isShowing();
 	
 	void show(int x, int y);
-	void show(UWidget *anchor, UGravity gravity);
+	void show(View *anchor, Gravity gravity);
 	void update(int x, int y);
-	void update(UWidget *anchor, UGravity gravity);
+	void update(View *anchor, Gravity gravity);
 	void dismiss();
 };

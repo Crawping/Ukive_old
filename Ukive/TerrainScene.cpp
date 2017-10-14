@@ -2,10 +2,10 @@
 #include "UTags.h"
 #include "UCamera.h"
 #include "UWindow.h"
-#include "UTextView.h"
+#include "TextView.h"
 #include "URenderer.h"
 #include "UInputEvent.h"
-#include "UDirect3DView.h"
+#include "Direct3DView.h"
 #include "ULodGenerator.h"
 #include "UModelConfigure.h"
 #include "UAssistConfigure.h"
@@ -14,7 +14,7 @@
 #include "USystemClock.h"
 #include "TerrainScene.h"
 
-TerrainScene::TerrainScene(UDirect3DView *d3dView,
+TerrainScene::TerrainScene(Direct3DView *d3dView,
 	unsigned int width, unsigned int height)
 	:UScene(d3dView, width, height)
 {
@@ -314,7 +314,7 @@ void TerrainScene::onSceneRender()
 	if (mLodInfoTV)
 		mLodInfoTV->setText(ss.str());
 	else
-		mLodInfoTV = (UTextView*)getWidget()->getWindow()->findWidgetById(0x010);
+		mLodInfoTV = (TextView*)getWidget()->getWindow()->findWidgetById(0x010);
 
 
 	XMFLOAT4X4 wvpMatrix;

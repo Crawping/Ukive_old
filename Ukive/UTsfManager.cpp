@@ -1,6 +1,6 @@
 ﻿#include "UCommon.h"
 #include "UTsfEditor.h"
-#include "UTextView.h"
+#include "TextView.h"
 #include "UTsfManager.h"
 
 UTsfManager::UTsfManager()

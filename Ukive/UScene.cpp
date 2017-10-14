@@ -6,10 +6,10 @@
 #include "UDrawingObjectManager.h"
 #include "UDeviceManager.h"
 #include "UInputEvent.h"
-#include "UDirect3DView.h"
+#include "Direct3DView.h"
 #include "UScene.h"
 
-UScene::UScene(UDirect3DView *d3dView,
+UScene::UScene(Direct3DView *d3dView,
 	unsigned int width, unsigned int height)
 {
 	mWidth = width;
@@ -126,7 +126,7 @@ UDrawingObjectManager *UScene::getDrawingObjectManager()
 	return mDrawingObjectManager;
 }
 
-UDirect3DView *UScene::getWidget()
+Direct3DView *UScene::getWidget()
 {
 	return mD3DView;
 }

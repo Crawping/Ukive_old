@@ -5,13 +5,13 @@
 #include "UAnimationManager.h"
 #include "UMenuCallback.h"
 
-enum UGravity;
+enum Gravity;
 
 class UCanvas;
-class UWidget;
+class View;
 class UMessage;
 class UInputEvent;
-class UBaseLayout;
+class BaseLayout;
 class UApplication;
 class UWindowManager;
 class UInputConnection;
@@ -34,7 +34,7 @@ private:
 	UAnimationManager *mAnimationManager;
 	UAnimationManager::OnStateChangedListener *mStateChangedListener;
 
-	UBaseLayout *mBaseLayout;
+	BaseLayout *mBaseLayout;
 	UContextMenu *mContextMenu;
 	TextActionMode *mTextActionMode;
 	UWindowSlave *mSlave;
@@ -103,9 +103,9 @@ protected:
 	int mId;
 	std::wstring mTitle;
 
-	UWidget *mMouseHolder;
-	UWidget *mFocusHolder;
-	UWidget *mFocusHolderBackup;
+	View *mMouseHolder;
+	View *mFocusHolder;
+	View *mFocusHolderBackup;
 	unsigned int mMouseHolderRef;
 
 	void setMouseTrack();
@@ -128,7 +128,7 @@ public:
 	static const UINT MSG_INVALIDATE = 0;
 	static const UINT MSG_RELAYOUT = 1;
 
-	UWidget *findWidgetById(int id);
+	View *findWidgetById(int id);
 
 	HWND getWindowHandle();
 	UApplication *getApplication();
@@ -151,7 +151,7 @@ public:
 	void setSize(int width, int height);
 	void setAsStartupWindow();
 	void setCurrentCursor(LPCWSTR cursor);
-	void setContentView(UWidget *content);
+	void setContentView(View *content);
 	void setBackgroundColor(D2D1_COLOR_F color);
 
 	int getId();
@@ -167,23 +167,23 @@ public:
 	int getClientHeight();
 	HCURSOR getCurrentCursor();
 	D2D1_COLOR_F getBackgroundColor();
-	UBaseLayout *getBaseLayout();
+	BaseLayout *getBaseLayout();
 
-	void captureMouse(UWidget *widget);
+	void captureMouse(View *widget);
 	void releaseMouse();
-	UWidget *getMouseHolder();
+	View *getMouseHolder();
 	unsigned int getMouseHolderRef();
 
 	//当一个widget获取到焦点时，应调用此方法。
-	void captureKeyboard(UWidget *widget);
+	void captureKeyboard(View *widget);
 
 	//当一个widget放弃焦点时，应调用此方法。
 	void releaseKeyboard();
-	UWidget *getKeyboardHolder();
+	View *getKeyboardHolder();
 
 
 	UContextMenu *startContextMenu(
-		UContextMenuCallback *callback, UWidget *anchor, UGravity gravity);
+		UContextMenuCallback *callback, View *anchor, Gravity gravity);
 	TextActionMode *startTextActionMode(TextActionModeCallback *callback);
 
 	bool isCreated();

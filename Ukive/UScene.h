@@ -6,7 +6,7 @@ class URenderer;
 class UGraphCreator;
 class UDrawingObjectManager;
 class UDeviceManager;
-class UDirect3DView;
+class Direct3DView;
 
 class UScene
 {
@@ -22,10 +22,10 @@ private:
 	URenderer *mRenderer;
 	UGraphCreator *mGraphCreator;
 	UDrawingObjectManager *mDrawingObjectManager;
-	UDirect3DView *mD3DView;
+	Direct3DView *mD3DView;
 
 public:
-	UScene(UDirect3DView *d3dView,
+	UScene(Direct3DView *d3dView,
 		unsigned int width, unsigned int height);
 	~UScene();
 
@@ -45,5 +45,5 @@ public:
 	URenderer *getRenderer();
 	UGraphCreator *getGraphCreator();
 	UDrawingObjectManager *getDrawingObjectManager();
-	UDirect3DView *getWidget();
+	Direct3DView *getWidget();
 };

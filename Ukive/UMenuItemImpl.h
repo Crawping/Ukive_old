@@ -1,10 +1,10 @@
 #pragma once
-#include "UTextView.h"
+#include "TextView.h"
 #include "UMenuItem.h"
 
 class UWindow;
 
-class UMenuItemImpl : public UTextView, public UMenuItem
+class UMenuItemImpl : public TextView, public UMenuItem
 {
 private:
 	int mMenuId;

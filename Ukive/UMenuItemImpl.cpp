@@ -4,7 +4,7 @@
 
 
 UMenuItemImpl::UMenuItemImpl(UWindow *wnd, int menuId, std::int32_t order)
-	:UTextView(wnd)
+	:TextView(wnd)
 {
 	mOrder = order;
 	mMenuId = menuId;
@@ -13,7 +13,7 @@ UMenuItemImpl::UMenuItemImpl(UWindow *wnd, int menuId, std::int32_t order)
 }
 
 UMenuItemImpl::UMenuItemImpl(UWindow *wnd, int id, int menuId, std::int32_t order)
-	: UTextView(wnd, id)
+	: TextView(wnd, id)
 {
 	mOrder = order;
 	mMenuId = menuId;
@@ -48,7 +48,7 @@ void UMenuItemImpl::setItemVisible(bool visible)
 	if (mIsVisible == visible) return;
 
 	mIsVisible = visible;
-	this->setVisibility(visible ? UWidget::VISIBLE : UWidget::VANISHED);
+	this->setVisibility(visible ? View::VISIBLE : View::VANISHED);
 }
 
 void UMenuItemImpl::setItemEnabled(bool enable)

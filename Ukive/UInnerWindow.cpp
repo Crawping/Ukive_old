@@ -2,12 +2,12 @@
 #include "UWindow.h"
 #include "UInputEvent.h"
 #include "UCanvas.h"
-#include "UWidget.h"
-#include "ULayoutParams.h"
-#include "UBaseLayoutParams.h"
-#include "UBaseLayout.h"
+#include "View.h"
+#include "LayoutParams.h"
+#include "BaseLayoutParams.h"
+#include "BaseLayout.h"
 #include "UDrawable.h"
-#include "UWidgetAnimator.h"
+#include "ViewAnimator.h"
 #include "UInnerWindow.h"
 
 
@@ -22,8 +22,8 @@ UInnerWindow::UInnerWindow(UWindow *wnd)
 	mOutsideTouchable = false;
 	mDismissByTouchOutside = false;
 	mBackgroundDrawable = nullptr;
-	mWidth = ULayoutParams::FIT_CONTENT;
-	mHeight = ULayoutParams::FIT_CONTENT;
+	mWidth = LayoutParams::FIT_CONTENT;
+	mHeight = LayoutParams::FIT_CONTENT;
 }
 
 UInnerWindow::~UInnerWindow()
@@ -38,7 +38,7 @@ void UInnerWindow::createDecorView()
 	InnerDecorView *decorView
 		= new InnerDecorView(this);
 	decorView->addWidget(
-		mContentView, new ULayoutParams(mWidth, mHeight));
+		mContentView, new LayoutParams(mWidth, mHeight));
 
 	decorView->setElevation(mElevation);
 	decorView->setBackground(mBackgroundDrawable);
@@ -84,7 +84,7 @@ void UInnerWindow::setDismissByTouchOutside(bool enable)
 	mDismissByTouchOutside = enable;
 }
 
-void UInnerWindow::setContentView(UWidget *contentView)
+void UInnerWindow::setContentView(View *contentView)
 {
 	if (contentView == nullptr)
 		throw std::invalid_argument("setContentView: null param");
@@ -128,12 +128,12 @@ UWindow *UInnerWindow::getParent()
 	return mParent;
 }
 
-UWidget *UInnerWindow::getContentView()
+View *UInnerWindow::getContentView()
 {
 	return mContentView;
 }
 
-UWidget *UInnerWindow::getDecorView()
+View *UInnerWindow::getDecorView()
 {
 	return mDecorView;
 }
@@ -154,8 +154,8 @@ void UInnerWindow::show(int x, int y)
 
 	createDecorView();
 
-	UBaseLayoutParams *baselp
-		= new UBaseLayoutParams(mWidth, mHeight);
+	BaseLayoutParams *baselp
+		= new BaseLayoutParams(mWidth, mHeight);
 	baselp->leftMargin = x;
 	baselp->topMargin = y;
 
@@ -166,7 +166,7 @@ void UInnerWindow::show(int x, int y)
 	mIsShowing = true;
 }
 
-void UInnerWindow::show(UWidget *anchor, UGravity gravity)
+void UInnerWindow::show(View *anchor, Gravity gravity)
 {
 	if (mContentView == nullptr 
 		|| anchor == nullptr || mIsShowing)
@@ -182,15 +182,15 @@ void UInnerWindow::update(int x, int y)
 	if (mDecorView == nullptr || !mIsShowing)
 		return;
 
-	UBaseLayoutParams *baselp
-		= (UBaseLayoutParams*)mDecorView->getLayoutParams();
+	BaseLayoutParams *baselp
+		= (BaseLayoutParams*)mDecorView->getLayoutParams();
 	baselp->leftMargin = x;
 	baselp->topMargin = y;
 
 	mDecorView->setLayoutParams(baselp);
 }
 
-void UInnerWindow::update(UWidget *anchor, UGravity gravity)
+void UInnerWindow::update(View *anchor, Gravity gravity)
 {
 
 }
@@ -204,13 +204,13 @@ void UInnerWindow::dismiss()
 
 
 UInnerWindow::InnerDecorView::InnerDecorView(UInnerWindow *inner)
-	:UFrameLayout(inner->getParent())
+	:FrameLayout(inner->getParent())
 {
 	mInnerWindow = inner;
 }
 
 UInnerWindow::InnerDecorView::InnerDecorView(UInnerWindow *inner, int id)
-	: UFrameLayout(inner->getParent(), id)
+	: FrameLayout(inner->getParent(), id)
 {
 	mInnerWindow = inner;
 }

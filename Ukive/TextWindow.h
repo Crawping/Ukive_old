@@ -33,7 +33,7 @@ private:
 		TextWindow *mWindow;
 	public:
 		FontItemClickListener(TextWindow *w) { mWindow = w; }
-		void onClick(UWidget *widget) override;
+		void onClick(View *widget) override;
 	};
 
 	class FormatItemClickListener : public OnClickListener
@@ -42,14 +42,14 @@ private:
 		TextWindow *mWindow;
 	public:
 		FormatItemClickListener(TextWindow *w) { mWindow = w; }
-		void onClick(UWidget *widget) override;
+		void onClick(View *widget) override;
 	};
 
 private:
 	UContextMenu *mContextMenu;
 	ToolbarMenuCallback *mTBMCallback;
 
-	UWidget *inflateToolbar(UWidget *parent);
+	View *inflateToolbar(View *parent);
 
 public:
 	TextWindow(UApplication *app);

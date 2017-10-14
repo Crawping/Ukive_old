@@ -1,10 +1,10 @@
 #pragma once
 
-class USeekBar;
+class SeekBar;
 
 class OnSeekValueChangedListener
 {
 public:
-	virtual void onSeekValueChanged(USeekBar *seekBar, float value) = 0;
-	virtual void onSeekIntegerValueChanged(USeekBar *seekBar, int value) = 0;
+	virtual void onSeekValueChanged(SeekBar *seekBar, float value) = 0;
+	virtual void onSeekIntegerValueChanged(SeekBar *seekBar, int value) = 0;
 };

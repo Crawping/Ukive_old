@@ -6,10 +6,10 @@
 #include "UColorDrawable.h"
 #include "UShapeDrawable.h"
 #include "UInnerWindow.h"
-#include "UWidgetGroup.h"
-#include "ULayoutParams.h"
+#include "ViewGroup.h"
+#include "LayoutParams.h"
 #include "UContextMenuCallback.h"
-#include "UWidgetAnimator.h"
+#include "ViewAnimator.h"
 #include "UContextMenu.h"
 
 

@@ -149,18 +149,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NASMCompiler.cpp" />
     <ClCompile Include="TextWindow.cpp" />
-    <ClCompile Include="UBaseLayoutParams.cpp" />
+    <ClCompile Include="BaseLayoutParams.cpp" />
     <ClCompile Include="ClipboardManager.cpp" />
     <ClCompile Include="EffectSpan.cpp" />
     <ClCompile Include="InlineObjectSpan.cpp" />
     <ClCompile Include="InteractableSpan.cpp" />
-    <ClCompile Include="ULinearLayoutParams.cpp" />
+    <ClCompile Include="LinearLayoutParams.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestWindow.cpp" />
     <ClCompile Include="QTreeNode.cpp" />
-    <ClCompile Include="RestrainLayout.cpp" />
-    <ClCompile Include="RestrainLayoutParams.cpp" />
+    <ClCompile Include="RestraintLayout.cpp" />
+    <ClCompile Include="RestraintLayoutParams.cpp" />
     <ClCompile Include="TerrainScene.cpp" />
     <ClCompile Include="LodWindow.cpp" />
     <ClCompile Include="TextActionMode.cpp" />
@@ -173,10 +174,10 @@
     <ClCompile Include="UAnimatorStateHandler.cpp" />
     <ClCompile Include="UApplication.cpp" />
     <ClCompile Include="UAssistConfigure.cpp" />
-    <ClCompile Include="UBaseLayout.cpp" />
+    <ClCompile Include="BaseLayout.cpp" />
     <ClCompile Include="UBitmapDrawable.cpp" />
     <ClCompile Include="UBitmapFactory.cpp" />
-    <ClCompile Include="UButton.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="UCamera.cpp" />
     <ClCompile Include="UCanvas.cpp" />
     <ClCompile Include="UColor.cpp" />
@@ -184,23 +185,24 @@
     <ClCompile Include="UContextMenu.cpp" />
     <ClCompile Include="UCycler.cpp" />
     <ClCompile Include="UDeviceManager.cpp" />
-    <ClCompile Include="UDirect3DView.cpp" />
+    <ClCompile Include="Direct3DView.cpp" />
     <ClCompile Include="UDouble.cpp" />
     <ClCompile Include="UDrawable.cpp" />
     <ClCompile Include="UDrawingObjectManager.cpp" />
     <ClCompile Include="UEditable.cpp" />
     <ClCompile Include="UEditTextDrawable.cpp" />
     <ClCompile Include="UFloat.cpp" />
-    <ClCompile Include="UFrameLayout.cpp" />
+    <ClCompile Include="FrameLayout.cpp" />
     <ClCompile Include="UGraphCreator.cpp" />
-    <ClCompile Include="UImageView.cpp" />
+    <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="UInnerWindow.cpp" />
     <ClCompile Include="UInputConnection.cpp" />
     <ClCompile Include="UInputEvent.cpp" />
     <ClCompile Include="ULanguageDetector.cpp" />
     <ClCompile Include="ULayerDrawable.cpp" />
-    <ClCompile Include="ULayoutParams.cpp" />
-    <ClCompile Include="ULinearLayout.cpp" />
+    <ClCompile Include="LayoutParams.cpp" />
+    <ClCompile Include="LinearLayout.cpp" />
+    <ClCompile Include="UListAdapter.cpp" />
     <ClCompile Include="UListView.cpp" />
     <ClCompile Include="ULodGenerator.cpp" />
     <ClCompile Include="UMath.cpp" />
@@ -216,26 +218,29 @@
     <ClCompile Include="URippleDrawable.cpp" />
     <ClCompile Include="UScene.cpp" />
     <ClCompile Include="UScroller.cpp" />
-    <ClCompile Include="UScrollView.cpp" />
-    <ClCompile Include="USeekBar.cpp" />
+    <ClCompile Include="ScrollView.cpp" />
+    <ClCompile Include="SeekBar.cpp" />
     <ClCompile Include="UShapeDrawable.cpp" />
     <ClCompile Include="USpan.cpp" />
-    <ClCompile Include="USpinnerView.cpp" />
-    <ClCompile Include="USwitchView.cpp" />
+    <ClCompile Include="SpinnerView.cpp" />
+    <ClCompile Include="SwitchView.cpp" />
     <ClCompile Include="USystemClock.cpp" />
     <ClCompile Include="UTerrainConfigure.cpp" />
-    <ClCompile Include="UTextBlink.cpp" />
+    <ClCompile Include="TextBlink.cpp" />
     <ClCompile Include="UTextDrawingEffect.cpp" />
     <ClCompile Include="UTextKeyListener.cpp" />
     <ClCompile Include="UTextRenderer.cpp" />
-    <ClCompile Include="UTextView.cpp" />
-    <ClCompile Include="UTextView2.cpp" />
+    <ClCompile Include="TextView.cpp" />
+    <ClCompile Include="TextView2.cpp" />
     <ClCompile Include="UTransition.cpp" />
     <ClCompile Include="UTsfEditor.cpp" />
     <ClCompile Include="UTsfManager.cpp" />
-    <ClCompile Include="UWidget.cpp" />
-    <ClCompile Include="UWidgetAnimator.cpp" />
-    <ClCompile Include="UWidgetGroup.cpp" />
+    <ClCompile Include="UWallpaperEffect.cpp" />
+    <ClCompile Include="UWallpaperTransform.cpp" />
+    <ClCompile Include="UWallpaperWindow.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="ViewAnimator.cpp" />
+    <ClCompile Include="ViewGroup.cpp" />
     <ClCompile Include="UWindow.cpp" />
     <ClCompile Include="UWindowClass.cpp" />
     <ClCompile Include="UWindowManager.cpp" />
@@ -244,8 +249,9 @@
     <ClCompile Include="WICManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NASMCompiler.h" />
     <ClInclude Include="TextWindow.h" />
-    <ClInclude Include="UBaseLayoutParams.h" />
+    <ClInclude Include="BaseLayoutParams.h" />
     <ClInclude Include="ClipboardManager.h" />
     <ClInclude Include="EffectSpan.h" />
     <ClInclude Include="IDeviceLostNotifier.h" />
@@ -253,13 +259,13 @@
     <ClInclude Include="InlineObjectSpan.h" />
     <ClInclude Include="InteractableSpan.h" />
     <ClInclude Include="ISwapChainResizeNotifier.h" />
-    <ClInclude Include="ULinearLayoutParams.h" />
+    <ClInclude Include="LinearLayoutParams.h" />
     <ClInclude Include="TestWindow.h" />
     <ClInclude Include="OnClickListener.h" />
     <ClInclude Include="OnSeekValueChangedListener.h" />
     <ClInclude Include="QTreeNode.h" />
-    <ClInclude Include="RestrainLayout.h" />
-    <ClInclude Include="RestrainLayoutParams.h" />
+    <ClInclude Include="RestraintLayout.h" />
+    <ClInclude Include="RestraintLayoutParams.h" />
     <ClInclude Include="TerrainScene.h" />
     <ClInclude Include="LodWindow.h" />
     <ClInclude Include="TextActionMode.h" />
@@ -273,10 +279,10 @@
     <ClInclude Include="UAnimatorStateHandler.h" />
     <ClInclude Include="UApplication.h" />
     <ClInclude Include="UAssistConfigure.h" />
-    <ClInclude Include="UBaseLayout.h" />
+    <ClInclude Include="BaseLayout.h" />
     <ClInclude Include="UBitmapDrawable.h" />
     <ClInclude Include="UBitmapFactory.h" />
-    <ClInclude Include="UButton.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="UCamera.h" />
     <ClInclude Include="UCanvas.h" />
     <ClInclude Include="UColor.h" />
@@ -287,7 +293,7 @@
     <ClInclude Include="UContextMenuCallback.h" />
     <ClInclude Include="UCycler.h" />
     <ClInclude Include="UDeviceManager.h" />
-    <ClInclude Include="UDirect3DView.h" />
+    <ClInclude Include="Direct3DView.h" />
     <ClInclude Include="UDouble.h" />
     <ClInclude Include="UDrawable.h" />
     <ClInclude Include="UDrawingObjectManager.h" />
@@ -295,16 +301,17 @@
     <ClInclude Include="UEditTextDrawable.h" />
     <ClInclude Include="UExecutable.h" />
     <ClInclude Include="UFloat.h" />
-    <ClInclude Include="UFrameLayout.h" />
+    <ClInclude Include="FrameLayout.h" />
     <ClInclude Include="UGraphCreator.h" />
-    <ClInclude Include="UImageView.h" />
+    <ClInclude Include="ImageView.h" />
     <ClInclude Include="UInnerWindow.h" />
     <ClInclude Include="UInputConnection.h" />
     <ClInclude Include="UInputEvent.h" />
     <ClInclude Include="ULanguageDetector.h" />
     <ClInclude Include="ULayerDrawable.h" />
-    <ClInclude Include="ULayoutParams.h" />
-    <ClInclude Include="ULinearLayout.h" />
+    <ClInclude Include="LayoutParams.h" />
+    <ClInclude Include="LinearLayout.h" />
+    <ClInclude Include="UListAdapter.h" />
     <ClInclude Include="UListView.h" />
     <ClInclude Include="ULodGenerator.h" />
     <ClInclude Include="UMath.h" />
@@ -323,29 +330,32 @@
     <ClInclude Include="URippleDrawable.h" />
     <ClInclude Include="UScene.h" />
     <ClInclude Include="UScroller.h" />
-    <ClInclude Include="UScrollView.h" />
-    <ClInclude Include="USeekBar.h" />
+    <ClInclude Include="ScrollView.h" />
+    <ClInclude Include="SeekBar.h" />
     <ClInclude Include="UShapeDrawable.h" />
     <ClInclude Include="USpan.h" />
-    <ClInclude Include="USpinnerView.h" />
-    <ClInclude Include="USwitchView.h" />
+    <ClInclude Include="SpinnerView.h" />
+    <ClInclude Include="SwitchView.h" />
     <ClInclude Include="USystemClock.h" />
     <ClInclude Include="UTags.h" />
     <ClInclude Include="UTerrainConfigure.h" />
-    <ClInclude Include="UTextBlink.h" />
+    <ClInclude Include="TextBlink.h" />
     <ClInclude Include="UTextDrawingEffect.h" />
     <ClInclude Include="UTextKeyListener.h" />
     <ClInclude Include="UTextRenderer.h" />
-    <ClInclude Include="UTextView.h" />
-    <ClInclude Include="UTextView2.h" />
+    <ClInclude Include="TextView.h" />
+    <ClInclude Include="TextView2.h" />
     <ClInclude Include="UThreadLocal.hpp" />
     <ClInclude Include="UTransition.h" />
     <ClInclude Include="UTsfEditor.h" />
     <ClInclude Include="UTsfManager.h" />
     <ClInclude Include="UUtility.h" />
-    <ClInclude Include="UWidget.h" />
-    <ClInclude Include="UWidgetAnimator.h" />
-    <ClInclude Include="UWidgetGroup.h" />
+    <ClInclude Include="UWallpaperEffect.h" />
+    <ClInclude Include="UWallpaperTransform.h" />
+    <ClInclude Include="UWallpaperWindow.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="ViewAnimator.h" />
+    <ClInclude Include="ViewGroup.h" />
     <ClInclude Include="UWindow.h" />
     <ClInclude Include="UWindowClass.h" />
     <ClInclude Include="UWindowManager.h" />
@@ -414,10 +424,20 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="UWallpaperPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" />
     <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="DeclareDPIAware.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="uwallpaper_props.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

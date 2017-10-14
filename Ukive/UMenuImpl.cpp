@@ -1,21 +1,21 @@
 #include "UCommon.h"
 #include "UMath.h"
-#include "ULayoutParams.h"
+#include "LayoutParams.h"
 #include "UColorDrawable.h"
 #include "URippleDrawable.h"
-#include "ULinearLayoutParams.h"
+#include "LinearLayoutParams.h"
 #include "UMenuItemImpl.h"
 #include "UMenuImpl.h"
 
 
 UMenuImpl::UMenuImpl(UWindow *wnd)
-	:ULinearLayout(wnd)
+	:LinearLayout(wnd)
 {
 	initMenu();
 }
 
 UMenuImpl::UMenuImpl(UWindow *wnd, int id)
-	: ULinearLayout(wnd, id)
+	: LinearLayout(wnd, id)
 {
 	initMenu();
 }
@@ -28,7 +28,7 @@ UMenuImpl::~UMenuImpl()
 void UMenuImpl::initMenu()
 {
 	mCallback = nullptr;
-	mItemHeight = ULayoutParams::FIT_CONTENT;
+	mItemHeight = LayoutParams::FIT_CONTENT;
 }
 
 
@@ -54,14 +54,14 @@ UMenuItem *UMenuImpl::addItem(int id, std::int32_t order, std::wstring title)
 	UMenuItem *item = new UMenuItemImpl(mWindow, id, order);
 	item->setItemTitle(title);
 
-	UWidget *widget = dynamic_cast<UWidget*>(item);
+	View *widget = dynamic_cast<View*>(item);
 	widget->setBackground(new URippleDrawable(mWindow));
 	widget->setOnClickListener(this);
 
 	int insertedIndex = getChildCount();
 	for (std::size_t i = 0; i < getChildCount(); ++i)
 	{
-		UWidget *child = getChildAt(i);
+		View *child = getChildAt(i);
 		UMenuItem *childItem = dynamic_cast<UMenuItem*>(child);
 		if (childItem->getItemOrder() > order)
 		{
@@ -70,8 +70,8 @@ UMenuItem *UMenuImpl::addItem(int id, std::int32_t order, std::wstring title)
 		}
 	}
 	
-	this->addWidget(insertedIndex, widget, new ULinearLayoutParams(
-		ULayoutParams::MATCH_PARENT, 
+	this->addWidget(insertedIndex, widget, new LinearLayoutParams(
+		LayoutParams::MATCH_PARENT, 
 		mItemHeight));
 	return item;
 }
@@ -82,7 +82,7 @@ bool UMenuImpl::removeItem(int id)
 
 	for (std::size_t i = 0; i < getChildCount(); ++i)
 	{
-		UWidget *child = getChildAt(i);
+		View *child = getChildAt(i);
 		UMenuItem *item = dynamic_cast<UMenuItem*>(child);
 		if (item && item->getItemId() == id)
 		{
@@ -100,7 +100,7 @@ bool UMenuImpl::hasItem(int id)
 {
 	for (std::size_t i = 0; i < getChildCount(); ++i)
 	{
-		UWidget *child = getChildAt(i);
+		View *child = getChildAt(i);
 		UMenuItem *item = dynamic_cast<UMenuItem*>(child);
 		if (item && item->getItemId() == id)
 			return true;
@@ -113,7 +113,7 @@ UMenuItem *UMenuImpl::findItem(int id)
 {
 	for (std::size_t i = 0; i < getChildCount(); ++i)
 	{
-		UWidget *child = getChildAt(i);
+		View *child = getChildAt(i);
 		UMenuItem *item = dynamic_cast<UMenuItem*>(child);
 		if (item && item->getItemId() == id)
 			return item;
@@ -127,7 +127,7 @@ std::size_t UMenuImpl::getItemCount()
 	return getChildCount();
 }
 
-void UMenuImpl::onClick(UWidget *widget)
+void UMenuImpl::onClick(View *widget)
 {
 	mCallback->onMenuItemClicked(this, dynamic_cast<UMenuItem*>(widget));
 }

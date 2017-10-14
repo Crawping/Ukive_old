@@ -2,13 +2,13 @@
 #include "UColor.h"
 #include "UColorDrawable.h"
 #include "URippleDrawable.h"
-#include "UButton.h"
-#include "UTextView.h"
-#include "ULinearLayout.h"
-#include "ULinearLayoutParams.h"
-#include "RestrainLayout.h"
-#include "UBaseLayoutParams.h"
-#include "RestrainLayoutParams.h"
+#include "Button.h"
+#include "TextView.h"
+#include "LinearLayout.h"
+#include "LinearLayoutParams.h"
+#include "BaseLayoutParams.h"
+#include "RestraintLayout.h"
+#include "RestraintLayoutParams.h"
 #include "OnClickListener.h"
 #include "UContextMenu.h"
 #include "TextWindow.h"
@@ -33,12 +33,14 @@ void TextWindow::onCreate()
 {
 	UWindow::onCreate();
 
+	typedef RestraintLayoutParams Rlp;
+
 	mTBMCallback = new ToolbarMenuCallback(this);
 
 	//root view.
-	RestrainLayout *rootLayout = new RestrainLayout(this, ID_LAYOUT_ROOT);
-	UBaseLayoutParams *rightViewLp = new UBaseLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::MATCH_PARENT);
+	RestraintLayout *rootLayout = new RestraintLayout(this, ID_LAYOUT_ROOT);
+	BaseLayoutParams *rightViewLp = new BaseLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::MATCH_PARENT);
 	rootLayout->setLayoutParams(rightViewLp);
 
 	setContentView(rootLayout);
@@ -46,18 +48,18 @@ void TextWindow::onCreate()
 	//Toolbar.
 	/*auto toolbar = inflateToolbar(rootLayout);
 
-	RestrainLayoutParams *toolbarLp = new RestrainLayoutParams(
+	RestraintLayoutParams *toolbarLp = new RestraintLayoutParams(
 		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
 	toolbarLp
-		->startHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_START)
-		->topHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_END);
+		->startHandle(ID_LAYOUT_ROOT, RestraintLayoutParams::EDGE_START)
+		->topHandle(ID_LAYOUT_ROOT, RestraintLayoutParams::EDGE_TOP)
+		->endHandle(ID_LAYOUT_ROOT, RestraintLayoutParams::EDGE_END);
 
 	rootLayout->addWidget(toolbar, toolbarLp);*/
 	
 
 	//编辑器。
-	UTextView *editorTV = new UTextView(this, ID_TV_EDITOR);
+	TextView *editorTV = new TextView(this, ID_TV_EDITOR);
 	editorTV->setIsEditable(true);
 	editorTV->setIsSelectable(true);
 	editorTV->setFontFamilyName(L"Consolas");
@@ -67,13 +69,12 @@ void TextWindow::onCreate()
 	editorTV->autoWrap(false);
 	editorTV->requestFocus();
 
-	RestrainLayoutParams *editorTVLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::MATCH_PARENT);
-	editorTVLp
-		->startHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_START)
-		->topHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_END)
-		->bottomHandle(ID_LAYOUT_ROOT, RestrainLayoutParams::EDGE_BOTTOM);
+	Rlp *editorTVLp = Rlp::Builder(
+		LayoutParams::MATCH_PARENT, LayoutParams::MATCH_PARENT)
+		.start(ID_LAYOUT_ROOT, RestraintLayoutParams::START)
+		.top(ID_LAYOUT_ROOT, RestraintLayoutParams::TOP)
+		.end(ID_LAYOUT_ROOT, RestraintLayoutParams::END)
+		.bottom(ID_LAYOUT_ROOT, RestraintLayoutParams::BOTTOM).build();
 
 	rootLayout->addWidget(editorTV, editorTVLp);
 }
@@ -106,14 +107,14 @@ void TextWindow::onResize(
 }
 
 
-UWidget *TextWindow::inflateToolbar(UWidget *parent)
+View *TextWindow::inflateToolbar(View *parent)
 {
-	ULinearLayout *toolbar = new ULinearLayout(this, ID_TOOLBAR);
+	LinearLayout *toolbar = new LinearLayout(this, ID_TOOLBAR);
 	toolbar->setElevation(1);
-	toolbar->setOrientation(ULinearLayout::HORIZONTAL);
+	toolbar->setOrientation(LinearLayout::HORIZONTAL);
 	toolbar->setBackground(new UColorDrawable(this, UColor::White));
 
-	UTextView *font = new UTextView(this, ID_TOOLBAR_ITEM_FONT);
+	TextView *font = new TextView(this, ID_TOOLBAR_ITEM_FONT);
 	font->setText(L"字体");
 	font->setTextSize(13);
 	font->setPadding(16, 8, 16, 8);
@@ -121,12 +122,12 @@ UWidget *TextWindow::inflateToolbar(UWidget *parent)
 	font->setOnClickListener(new FontItemClickListener(this));
 	font->setFocusable(true);
 
-	ULinearLayoutParams *fontParams
-		= new ULinearLayoutParams(
-			ULinearLayoutParams::FIT_CONTENT, ULinearLayoutParams::MATCH_PARENT);
+	LinearLayoutParams *fontParams
+		= new LinearLayoutParams(
+			LinearLayoutParams::FIT_CONTENT, LinearLayoutParams::MATCH_PARENT);
 	toolbar->addWidget(font, fontParams);
 
-	UTextView *format = new UTextView(this, ID_TOOLBAR_ITEM_FORMAT);
+	TextView *format = new TextView(this, ID_TOOLBAR_ITEM_FORMAT);
 	format->setText(L"格式");
 	format->setTextSize(13);
 	format->setPadding(16, 8, 16, 8);
@@ -134,9 +135,9 @@ UWidget *TextWindow::inflateToolbar(UWidget *parent)
 	format->setOnClickListener(new FormatItemClickListener(this));
 	format->setFocusable(true);
 
-	ULinearLayoutParams *formatParams
-		= new ULinearLayoutParams(
-			ULinearLayoutParams::FIT_CONTENT, ULinearLayoutParams::MATCH_PARENT);
+	LinearLayoutParams *formatParams
+		= new LinearLayoutParams(
+			LinearLayoutParams::FIT_CONTENT, LinearLayoutParams::MATCH_PARENT);
 	toolbar->addWidget(format, formatParams);
 
 	return toolbar;
@@ -174,23 +175,23 @@ void TextWindow::ToolbarMenuCallback::onDestroyContextMenu(
 }
 
 
-void TextWindow::FontItemClickListener::onClick(UWidget *widget)
+void TextWindow::FontItemClickListener::onClick(View *widget)
 {
 	if (mWindow->mContextMenu == nullptr)
 	{
 		mWindow->mContextMenu = mWindow->startContextMenu(
-			mWindow->mTBMCallback, widget, UGravity::LEFT);
+			mWindow->mTBMCallback, widget, Gravity::LEFT);
 
 		mWindow->findWidgetById(TextWindow::ID_TOOLBAR_ITEM_FONT)->requestFocus();
 	}
 }
 
-void TextWindow::FormatItemClickListener::onClick(UWidget *widget)
+void TextWindow::FormatItemClickListener::onClick(View *widget)
 {
 	if (mWindow->mContextMenu == nullptr)
 	{
 		mWindow->mContextMenu = mWindow->startContextMenu(
-			mWindow->mTBMCallback, widget, UGravity::LEFT);
+			mWindow->mTBMCallback, widget, Gravity::LEFT);
 
 		mWindow->findWidgetById(TextWindow::ID_TOOLBAR_ITEM_FORMAT)->requestFocus();
 	}

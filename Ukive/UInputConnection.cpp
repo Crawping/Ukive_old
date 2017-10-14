@@ -1,13 +1,13 @@
 ﻿#include "UCommon.h"
 #include "UWindow.h"
-#include "UTextView.h"
+#include "TextView.h"
 #include "UEditable.h"
 #include "UTsfEditor.h"
 #include "UTsfManager.h"
 #include "UInputConnection.h"
 
 
-UInputConnection::UInputConnection(UTextView *textView)
+UInputConnection::UInputConnection(TextView *textView)
 {
 	mTextView = textView;
 

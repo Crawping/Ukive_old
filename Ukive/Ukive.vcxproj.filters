@@ -10,9 +10,6 @@
     <Filter Include="ui\drawable">
       <UniqueIdentifier>{012697a4-ebef-441d-bc9a-d98b9c072e08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ui\widget">
-      <UniqueIdentifier>{e59780b4-f3bd-4e79-a82d-0e5d6a02f8be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ui\animator">
       <UniqueIdentifier>{2f2b9a84-1866-4bb9-869d-96cc0234747e}</UniqueIdentifier>
     </Filter>
@@ -21,6 +18,15 @@
     </Filter>
     <Filter Include="lod">
       <UniqueIdentifier>{c28d7e20-8b14-40cd-91f4-9fde11c430d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\views">
+      <UniqueIdentifier>{e59780b4-f3bd-4e79-a82d-0e5d6a02f8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\views\listview">
+      <UniqueIdentifier>{8d9bed0b-3ae9-45a6-8d5a-b8e00c12b60b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\wallpaper">
+      <UniqueIdentifier>{bbb683f1-bf60-4236-af79-dea055ff6577}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,56 +102,8 @@
     <ClCompile Include="UAnimatorStateHandler.cpp">
       <Filter>ui\animator</Filter>
     </ClCompile>
-    <ClCompile Include="RestrainLayout.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="RestrainLayoutParams.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
     <ClCompile Include="TextSpan.cpp">
       <Filter>ui\text</Filter>
-    </ClCompile>
-    <ClCompile Include="UBaseLayout.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UWidget.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UWidgetAnimator.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UWidgetGroup.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UDirect3DView.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UFrameLayout.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UImageView.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="ULayoutParams.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="ULinearLayout.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UListView.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UScrollView.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="USeekBar.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="USpinnerView.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UTextView.cpp">
-      <Filter>ui\widget</Filter>
     </ClCompile>
     <ClCompile Include="UTextKeyListener.cpp">
       <Filter>ui\text</Filter>
@@ -216,13 +174,6 @@
     <ClCompile Include="UWordBreaker.cpp">
       <Filter>ui\text</Filter>
     </ClCompile>
-    <ClCompile Include="UButton.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UTextBlink.cpp">
-      <Filter>ui\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="UInputConnection.cpp" />
     <ClCompile Include="ClipboardManager.cpp" />
     <ClCompile Include="UTransition.cpp">
       <Filter>ui\animator</Filter>
@@ -238,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="TextActionMode.cpp">
       <Filter>ui\text</Filter>
-    </ClCompile>
-    <ClCompile Include="USwitchView.cpp">
-      <Filter>ui\widget</Filter>
     </ClCompile>
     <ClCompile Include="TextWindow.cpp">
       <Filter>ui</Filter>
@@ -258,13 +206,88 @@
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="UWindowSlave.cpp" />
-    <ClCompile Include="UBaseLayoutParams.cpp">
-      <Filter>ui\widget</Filter>
+    <ClCompile Include="UInputConnection.cpp">
+      <Filter>ui\text</Filter>
     </ClCompile>
-    <ClCompile Include="ULinearLayoutParams.cpp">
-      <Filter>ui\widget</Filter>
+    <ClCompile Include="UListView.cpp">
+      <Filter>ui\views\listview</Filter>
     </ClCompile>
-    <ClCompile Include="UTextView2.cpp" />
+    <ClCompile Include="UListAdapter.cpp">
+      <Filter>ui\views\listview</Filter>
+    </ClCompile>
+    <ClCompile Include="RestraintLayout.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="RestraintLayoutParams.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewGroup.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewAnimator.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="View.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLayout.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLayoutParams.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutParams.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearLayout.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearLayoutParams.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="SeekBar.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinnerView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBlink.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="TextView.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="TextView2.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameLayout.cpp">
+      <Filter>ui\views</Filter>
+    </ClCompile>
+    <ClCompile Include="NASMCompiler.cpp" />
+    <ClCompile Include="UWallpaperEffect.cpp">
+      <Filter>ui\wallpaper</Filter>
+    </ClCompile>
+    <ClCompile Include="UWallpaperTransform.cpp">
+      <Filter>ui\wallpaper</Filter>
+    </ClCompile>
+    <ClCompile Include="UWallpaperWindow.cpp">
+      <Filter>ui\wallpaper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UApplication.h" />
@@ -278,7 +301,6 @@
     <ClInclude Include="UDouble.h" />
     <ClInclude Include="UExecutable.h" />
     <ClInclude Include="UFloat.h" />
-    <ClInclude Include="UInputConnection.h" />
     <ClInclude Include="UInputEvent.h" />
     <ClInclude Include="UMath.h" />
     <ClInclude Include="UNumber.h" />
@@ -363,59 +385,11 @@
     <ClInclude Include="UAnimatorStateHandler.h">
       <Filter>ui\animator</Filter>
     </ClInclude>
-    <ClInclude Include="RestrainLayout.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="RestrainLayoutParams.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
     <ClInclude Include="OnClickListener.h">
-      <Filter>ui\widget</Filter>
+      <Filter>ui\views</Filter>
     </ClInclude>
     <ClInclude Include="TextSpan.h">
       <Filter>ui\text</Filter>
-    </ClInclude>
-    <ClInclude Include="UBaseLayout.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UWidget.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UWidgetAnimator.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UWidgetGroup.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UDirect3DView.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UFrameLayout.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UImageView.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="ULayoutParams.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="ULinearLayout.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UListView.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UScrollView.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="USeekBar.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="USpinnerView.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UTextView.h">
-      <Filter>ui\widget</Filter>
     </ClInclude>
     <ClInclude Include="UTextKeyListener.h">
       <Filter>ui\text</Filter>
@@ -486,18 +460,12 @@
     <ClInclude Include="UWordBreaker.h">
       <Filter>ui\text</Filter>
     </ClInclude>
-    <ClInclude Include="UButton.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="UTextBlink.h">
-      <Filter>ui\widget</Filter>
-    </ClInclude>
     <ClInclude Include="ClipboardManager.h" />
     <ClInclude Include="UTransition.h">
       <Filter>ui\animator</Filter>
     </ClInclude>
     <ClInclude Include="OnSeekValueChangedListener.h">
-      <Filter>ui\widget</Filter>
+      <Filter>ui\views</Filter>
     </ClInclude>
     <ClInclude Include="QTreeNode.h">
       <Filter>lod</Filter>
@@ -513,9 +481,6 @@
     </ClInclude>
     <ClInclude Include="TextActionModeCallback.h">
       <Filter>ui\text</Filter>
-    </ClInclude>
-    <ClInclude Include="USwitchView.h">
-      <Filter>ui\widget</Filter>
     </ClInclude>
     <ClInclude Include="TextWindow.h">
       <Filter>ui</Filter>
@@ -536,13 +501,88 @@
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="UWindowSlave.h" />
-    <ClInclude Include="UBaseLayoutParams.h">
-      <Filter>ui\widget</Filter>
+    <ClInclude Include="UInputConnection.h">
+      <Filter>ui\text</Filter>
     </ClInclude>
-    <ClInclude Include="ULinearLayoutParams.h">
-      <Filter>ui\widget</Filter>
+    <ClInclude Include="UListView.h">
+      <Filter>ui\views\listview</Filter>
     </ClInclude>
-    <ClInclude Include="UTextView2.h" />
+    <ClInclude Include="UListAdapter.h">
+      <Filter>ui\views\listview</Filter>
+    </ClInclude>
+    <ClInclude Include="RestraintLayout.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="RestraintLayoutParams.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewGroup.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewAnimator.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLayout.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLayoutParams.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="LayoutParams.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearLayout.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearLayoutParams.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct3DView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekBar.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinnerView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBlink.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="TextView.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="TextView2.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameLayout.h">
+      <Filter>ui\views</Filter>
+    </ClInclude>
+    <ClInclude Include="NASMCompiler.h" />
+    <ClInclude Include="UWallpaperEffect.h">
+      <Filter>ui\wallpaper</Filter>
+    </ClInclude>
+    <ClInclude Include="UWallpaperTransform.h">
+      <Filter>ui\wallpaper</Filter>
+    </ClInclude>
+    <ClInclude Include="UWallpaperWindow.h">
+      <Filter>ui\wallpaper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="AssistPixelShader.hlsl">
@@ -563,9 +603,20 @@
     <FxCompile Include="TerrainVertexShader.hlsl">
       <Filter>direct3d</Filter>
     </FxCompile>
+    <FxCompile Include="UWallpaperPixelShader.hlsl">
+      <Filter>ui\wallpaper</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" />
     <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="DeclareDPIAware.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="uwallpaper_props.xml">
+      <Filter>ui\wallpaper</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

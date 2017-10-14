@@ -7,12 +7,12 @@
 #include "UWindowClass.h"
 #include "UDeviceManager.h"
 #include "UInputEvent.h"
-#include "UBaseLayout.h"
-#include "UBaseLayoutParams.h"
-#include "ULayoutParams.h"
+#include "BaseLayout.h"
+#include "BaseLayoutParams.h"
+#include "LayoutParams.h"
 #include "UInputConnection.h"
 #include "UTsfManager.h"
-#include "UWidget.h"
+#include "View.h"
 #include "UMessage.h"
 #include "UBitmapFactory.h"
 #include "UAnimationManager.h"
@@ -85,7 +85,7 @@ UWindow::~UWindow()
 }
 
 
-UWidget *UWindow::findWidgetById(int id)
+View *UWindow::findWidgetById(int id)
 {
 	return mBaseLayout->findWidgetById(id);
 }
@@ -239,7 +239,7 @@ void UWindow::setCurrentCursor(LPCWSTR cursor)
 	::SetCursor(mCursor);
 }
 
-void UWindow::setContentView(UWidget *content)
+void UWindow::setContentView(View *content)
 {
 	mBaseLayout->addContent(content);
 }
@@ -320,13 +320,13 @@ D2D1_COLOR_F UWindow::getBackgroundColor()
 	return mBackgroundColor;
 }
 
-UBaseLayout *UWindow::getBaseLayout()
+BaseLayout *UWindow::getBaseLayout()
 {
 	return mBaseLayout;
 }
 
 
-void UWindow::captureMouse(UWidget *widget)
+void UWindow::captureMouse(View *widget)
 {
 	if (widget == nullptr)
 		return;
@@ -367,7 +367,7 @@ void UWindow::releaseMouse()
 	}
 }
 
-UWidget *UWindow::getMouseHolder()
+View *UWindow::getMouseHolder()
 {
 	return mMouseHolder;
 }
@@ -378,7 +378,7 @@ unsigned int UWindow::getMouseHolderRef()
 }
 
 
-void UWindow::captureKeyboard(UWidget *widget)
+void UWindow::captureKeyboard(View *widget)
 {
 	mFocusHolder = widget;
 	//::OutputDebugString(L"captureKeyboard!!\n");
@@ -390,14 +390,14 @@ void UWindow::releaseKeyboard()
 	//::OutputDebugString(L"releaseKeyboard!!\n");
 }
 
-UWidget *UWindow::getKeyboardHolder()
+View *UWindow::getKeyboardHolder()
 {
 	return mFocusHolder;
 }
 
 
 UContextMenu *UWindow::startContextMenu(
-	UContextMenuCallback *callback, UWidget *anchor, UGravity gravity)
+	UContextMenuCallback *callback, View *anchor, Gravity gravity)
 {
 	UContextMenu *contextMenu
 		= new UContextMenu(this, callback);
@@ -698,49 +698,49 @@ void UWindow::performLayout()
 	if (!mIsCreated)
 		return;
 
-	ULayoutParams *params = mBaseLayout->getLayoutParams();
+	LayoutParams *params = mBaseLayout->getLayoutParams();
 
 	int width = mClientWidth;
 	int height = mClientHeight;
-	int widthSpec = UWidget::EXACTLY;
-	int heightSpec = UWidget::EXACTLY;
+	int widthSpec = View::EXACTLY;
+	int heightSpec = View::EXACTLY;
 
 	if (params->width < 0)
 	{
 		switch (params->width)
 		{
-		case ULayoutParams::FIT_CONTENT:
-			widthSpec = UWidget::FIT;
+		case LayoutParams::FIT_CONTENT:
+			widthSpec = View::FIT;
 			break;
 
-		case ULayoutParams::MATCH_PARENT:
-			widthSpec = UWidget::EXACTLY;
+		case LayoutParams::MATCH_PARENT:
+			widthSpec = View::EXACTLY;
 			break;
 		}
 	}
 	else
 	{
 		width = params->width;
-		widthSpec = UWidget::EXACTLY;
+		widthSpec = View::EXACTLY;
 	}
 
 	if (params->height < 0)
 	{
 		switch (params->height)
 		{
-		case ULayoutParams::FIT_CONTENT:
-			heightSpec = UWidget::FIT;
+		case LayoutParams::FIT_CONTENT:
+			heightSpec = View::FIT;
 			break;
 
-		case ULayoutParams::MATCH_PARENT:
-			heightSpec = UWidget::EXACTLY;
+		case LayoutParams::MATCH_PARENT:
+			heightSpec = View::EXACTLY;
 			break;
 		}
 	}
 	else
 	{
 		height = params->height;
-		heightSpec = UWidget::EXACTLY;
+		heightSpec = View::EXACTLY;
 	}
 
 	mBaseLayout->measure(width, height, widthSpec, heightSpec);
@@ -855,11 +855,11 @@ void UWindow::onCreate()
 	mSlave = new UWindowSlave(this);
 	mLabourCycler = new UpdateCycler(this);
 
-	mBaseLayout = new UBaseLayout(this, UWidgetId::ROOT_LAYOUT);
+	mBaseLayout = new BaseLayout(this, UWidgetId::ROOT_LAYOUT);
 	mBaseLayout->setLayoutParams(
-		new ULayoutParams(
-			ULayoutParams::MATCH_PARENT,
-			ULayoutParams::MATCH_PARENT));
+		new LayoutParams(
+			LayoutParams::MATCH_PARENT,
+			LayoutParams::MATCH_PARENT));
 
 	/*UFrameLayout *titleBar = new UFrameLayout(this);
 	titleBar->setBackground(new UColorDrawable(this, UColor::Blue100));
@@ -1055,13 +1055,13 @@ void UWindow::onInputEvent(UInputEvent *e)
 		//若有之前捕获过鼠标的Widget存在，则直接将所有事件
 		//直接发送至该Widget。
 		if (mMouseHolder
-			&& mMouseHolder->getVisibility() == UWidget::VISIBLE
+			&& mMouseHolder->getVisibility() == View::VISIBLE
 			&& mMouseHolder->isEnabled())
 		{
 			//进行坐标变换，将目标Widget左上角映射为(0, 0)。
 			int totalLeft = 0;
 			int totalTop = 0;
-			UWidget *parent = mMouseHolder->getParent();
+			View *parent = mMouseHolder->getParent();
 			while (parent)
 			{
 				totalLeft += (parent->getLeft() - parent->getScrollX());

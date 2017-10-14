@@ -1,9 +1,9 @@
 #pragma once
 
-class UWidget;
+class View;
 
 class OnClickListener
 {
 public:
-	virtual void onClick(UWidget *widget) = 0;
+	virtual void onClick(View *widget) = 0;
 };

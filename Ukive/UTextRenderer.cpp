@@ -1,10 +1,10 @@
 ﻿#include "UCommon.h"
-#include "UWidget.h"
+#include "View.h"
 #include "UColor.h"
 #include "UMath.h"
 #include "UDeviceManager.h"
 #include "EffectSpan.h"
-#include "UTextView.h"
+#include "TextView.h"
 #include "UnderlineSpan.h"
 #include "UTextDrawingEffect.h"
 #include "UTextRenderer.h"
@@ -72,7 +72,7 @@ STDMETHODIMP UTextRenderer::DrawGlyphRun(
 	if (clientDrawingContext != nullptr)
 	{
 		URectF region;
-		UTextView *textView = (UTextView*)clientDrawingContext;
+		TextView *textView = (TextView*)clientDrawingContext;
 		textView->computeVisibleRegion(&region);
 
 		if ((int)UMath::floor(baselineOriginX) > (int)UMath::ceil(region.right))
@@ -94,7 +94,7 @@ STDMETHODIMP UTextRenderer::DrawGlyphRun(
 		mSolidBrush->SetColor(span->mTextColor);
 
 		if (!span->onDrawText(
-			(UWidget*)clientDrawingContext,
+			(View*)clientDrawingContext,
 			baselineOriginX, baselineOriginY,
 			glyphRun, glyphRunDescription,
 			mRenderTarget.get(), mSolidBrush.get()))
@@ -148,7 +148,7 @@ STDMETHODIMP UTextRenderer::DrawUnderline(
 		mSolidBrush->SetColor(span->mUnderlineColor);
 
 		if (!span->onDrawUnderline(
-			(UWidget*)clientDrawingContext,
+			(View*)clientDrawingContext,
 			baselineOriginX, baselineOriginY,
 			underline,
 			mRenderTarget.get(), mSolidBrush.get()))
@@ -195,7 +195,7 @@ STDMETHODIMP UTextRenderer::DrawStrikethrough(
 		mSolidBrush->SetColor(span->mStrikethroughColor);
 
 		if (!span->onDrawStrikethrough(
-			(UWidget*)clientDrawingContext,
+			(View*)clientDrawingContext,
 			baselineOriginX, baselineOriginY,
 			strikethrough,
 			mRenderTarget.get(), mSolidBrush.get()))

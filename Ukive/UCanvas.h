@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "UComPtr.h"
 
-class UWidget;
+class View;
 class UTextRenderer;
 
 class UCanvas
@@ -93,7 +93,7 @@ public:
 		float x, float y, 
 		IDWriteTextLayout *textLayout, D2D1_COLOR_F &color);
 	void drawTextLayoutWithEffect(
-		UWidget *widget, 
+		View *widget, 
 		float x, float y, 
 		IDWriteTextLayout *textLayout, D2D1_COLOR_F &color);
 };

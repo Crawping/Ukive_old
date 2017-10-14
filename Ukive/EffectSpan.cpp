@@ -1,5 +1,5 @@
 #include "UCommon.h"
-#include "UWidget.h"
+#include "View.h"
 #include "EffectSpan.h"
 
 
@@ -28,7 +28,7 @@ int EffectSpan::getBaseType()
 
 
 bool EffectSpan::onDrawText(
-	UWidget *widget,
+	View *widget,
 	float baselineOriginX, float baselineOriginY,
 	DWRITE_GLYPH_RUN const* glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION const* glyphRunDescription,
 	ID2D1RenderTarget *rt, ID2D1SolidColorBrush *brush)
@@ -37,7 +37,7 @@ bool EffectSpan::onDrawText(
 }
 
 bool EffectSpan::onDrawUnderline(
-	UWidget *widget,
+	View *widget,
 	float baselineOriginX, float baselineOriginY,
 	DWRITE_UNDERLINE const* underline,
 	ID2D1RenderTarget *rt, ID2D1SolidColorBrush *brush)
@@ -46,7 +46,7 @@ bool EffectSpan::onDrawUnderline(
 }
 
 bool EffectSpan::onDrawStrikethrough(
-	UWidget *widget,
+	View *widget,
 	float baselineOriginX, float baselineOriginY,
 	DWRITE_STRIKETHROUGH const* strikethrough,
 	ID2D1RenderTarget *rt, ID2D1SolidColorBrush *brush)
@@ -55,7 +55,7 @@ bool EffectSpan::onDrawStrikethrough(
 }
 
 bool EffectSpan::onDrawInlineObject(
-	UWidget *widget,
+	View *widget,
 	float originX, float originY,
 	IDWriteInlineObject* inlineObject, BOOL isSideways, BOOL isRightToLeft,
 	ID2D1RenderTarget *rt, ID2D1SolidColorBrush *brush)

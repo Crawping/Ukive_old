@@ -5,10 +5,10 @@
 #include "UWindow.h"
 #include "UShapeDrawable.h"
 #include "UInnerWindow.h"
-#include "UWidgetGroup.h"
-#include "ULayoutParams.h"
+#include "ViewGroup.h"
+#include "LayoutParams.h"
 #include "TextActionModeCallback.h"
-#include "UWidgetAnimator.h"
+#include "ViewAnimator.h"
 #include "TextActionMode.h"
 
 
@@ -102,7 +102,7 @@ void TextActionMode::show()
 
 	mInnerWindow->show(x, y);
 
-	UWidgetAnimator::createCirculeReveal(
+	ViewAnimator::createCirculeReveal(
 		mInnerWindow->getDecorView(), cCenterX, cCenterY, 0, 150)->start();
 
 	mIsFinished = false;

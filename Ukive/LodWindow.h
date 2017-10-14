@@ -3,10 +3,10 @@
 #include "OnClickListener.h"
 #include "OnSeekValueChangedListener.h"
 
-class UTextView;
-class USeekBar;
-class UDirect3DView;
-class RestrainLayout;
+class TextView;
+class SeekBar;
+class Direct3DView;
+class RestraintLayout;
 
 
 class LodWindow 
@@ -15,16 +15,16 @@ class LodWindow
 	public OnClickListener
 {
 private:
-	UTextView *mC1ValueTV;
-	UTextView *mC2ValueTV;
-	UTextView *mSplitValueTV;
-	UDirect3DView *mDirect3DView;
+	TextView *mC1ValueTV;
+	TextView *mC2ValueTV;
+	TextView *mSplitValueTV;
+	Direct3DView *mDirect3DView;
 
-	USeekBar *mC1SeekBar;
-	USeekBar *mC2SeekBar;
-	USeekBar *mSplitSeekBar;
+	SeekBar *mC1SeekBar;
+	SeekBar *mC2SeekBar;
+	SeekBar *mSplitSeekBar;
 
-	void inflateCtlLayout(RestrainLayout *rightLayout);
+	void inflateCtlLayout(RestraintLayout *rightLayout);
 
 public:
 	static const int ID_LOD_INFO = 0x010;
@@ -55,9 +55,9 @@ public:
 
 	virtual void onCreate() override;
 
-	void onClick(UWidget *widget);
+	void onClick(View *widget);
 
-	void onSeekValueChanged(USeekBar *seekBar, float value);
-	void onSeekIntegerValueChanged(USeekBar *seekBar, int value);
+	void onSeekValueChanged(SeekBar *seekBar, float value);
+	void onSeekIntegerValueChanged(SeekBar *seekBar, int value);
 };
 

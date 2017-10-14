@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 class USpan;
-class UWidget;
+class View;
 class UInputEvent;
 
 class UEditable

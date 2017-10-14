@@ -1,14 +1,14 @@
 #pragma once
-#include "ULinearLayout.h"
+#include "LinearLayout.h"
 #include "UMenu.h"
 #include "OnClickListener.h"
 #include "UMenuCallback.h"
 
 class UWindow;
 class UMenuCallback;
-class UWidget;
+class View;
 
-class UMenuImpl : public ULinearLayout, public UMenu, public OnClickListener
+class UMenuImpl : public LinearLayout, public UMenu, public OnClickListener
 {
 private:
 	int mItemHeight;
@@ -32,6 +32,6 @@ public:
 	UMenuItem *findItem(int id) override;
 	std::size_t getItemCount() override;
 
-	void onClick(UWidget *widget) override;
+	void onClick(View *widget) override;
 };
 

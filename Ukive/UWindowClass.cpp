@@ -185,12 +185,12 @@ LRESULT CALLBACK UWindowClass::messageHandler(HWND hWnd, UINT uMsg, WPARAM wPara
 			throw std::runtime_error("UWindowClass::messageHandler(): null create param.");
 
 		window->setHandleForCreate(hWnd);
-		::SetWindowLongPtrW(hWnd, GWLP_USERDATA, (LONG)window);
+		::SetWindowLongPtrW(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(window));
 
 		return ::DefWindowProcW(hWnd, uMsg, wParam, lParam);
 	}
 
-	UWindow *window = (UWindow*)::GetWindowLongPtrW(hWnd, GWL_USERDATA);
+	UWindow *window = (UWindow*)::GetWindowLongPtrW(hWnd, GWLP_USERDATA);
 	if (window != nullptr)
 	{
 		switch (uMsg)

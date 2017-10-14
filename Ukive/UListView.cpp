@@ -1,15 +1,16 @@
 #include "UCommon.h"
+#include "UListAdapter.h"
 #include "UListView.h"
 
 
 UListView::UListView(UWindow *wnd)
-	:UWidgetGroup(wnd)
+	:ViewGroup(wnd)
 {
 	initListView();
 }
 
 UListView::UListView(UWindow *wnd, int id)
-	: UWidgetGroup(wnd, id)
+	: ViewGroup(wnd, id)
 {
 	initListView();
 }
@@ -21,5 +22,15 @@ UListView::~UListView()
 
 void UListView::initListView()
 {
+	mAdapter = nullptr;
+}
 
+
+void UListView::setAdapter(UListAdapter *adapter)
+{
+	if (mAdapter != nullptr)
+	{
+	}
+
+	mAdapter = adapter;
 }

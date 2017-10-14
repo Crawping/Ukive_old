@@ -2,18 +2,18 @@
 #include "UTags.h"
 #include "UColor.h"
 #include "UFloat.h"
-#include "UButton.h"
-#include "USeekBar.h"
-#include "UTextView.h"
-#include "UDirect3DView.h"
-#include "ULayoutParams.h"
-#include "UFrameLayout.h"
-#include "ULinearLayout.h"
-#include "UWidgetAnimator.h"
-#include "ULinearLayoutParams.h"
+#include "Button.h"
+#include "SeekBar.h"
+#include "TextView.h"
+#include "Direct3DView.h"
+#include "LayoutParams.h"
+#include "FrameLayout.h"
+#include "LinearLayout.h"
+#include "ViewAnimator.h"
+#include "LinearLayoutParams.h"
 #include "UEditTextDrawable.h"
-#include "RestrainLayout.h"
-#include "RestrainLayoutParams.h"
+#include "RestraintLayout.h"
+#include "RestraintLayoutParams.h"
 #include "UColorDrawable.h"
 #include "TerrainScene.h"
 #include "UApplication.h"
@@ -40,16 +40,16 @@ void LodWindow::onCreate()
 	UWindow::onCreate();
 
 	//root layout.
-	ULinearLayout *rootLayout = new ULinearLayout(this);
-	rootLayout->setOrientation(ULinearLayout::HORIZONTAL);
-	rootLayout->setLayoutParams(new ULayoutParams(
-		ULayoutParams::MATCH_PARENT,
-		ULayoutParams::MATCH_PARENT));
+	LinearLayout *rootLayout = new LinearLayout(this);
+	rootLayout->setOrientation(LinearLayout::HORIZONTAL);
+	rootLayout->setLayoutParams(new LayoutParams(
+		LayoutParams::MATCH_PARENT,
+		LayoutParams::MATCH_PARENT));
 
 	//3d view.
-	UDirect3DView *d3dView = new UDirect3DView(this);
-	ULinearLayoutParams *d3dViewLp = new ULinearLayoutParams(
-		0, ULayoutParams::MATCH_PARENT);
+	Direct3DView *d3dView = new Direct3DView(this);
+	LinearLayoutParams *d3dViewLp = new LinearLayoutParams(
+		0, LayoutParams::MATCH_PARENT);
 	d3dViewLp->leftMargin = d3dViewLp->topMargin 
 		= d3dViewLp->rightMargin = d3dViewLp->bottomMargin = 8;
 	d3dViewLp->weight = 2;
@@ -60,9 +60,9 @@ void LodWindow::onCreate()
 	mDirect3DView = d3dView;
 
 	//right view.
-	RestrainLayout *rightLayout = new RestrainLayout(this, ID_RIGHT_RESTRAIN);
-	ULinearLayoutParams *rightViewLp = new ULinearLayoutParams(
-		0, ULayoutParams::MATCH_PARENT);
+	RestraintLayout *rightLayout = new RestraintLayout(this, ID_RIGHT_RESTRAIN);
+	LinearLayoutParams *rightViewLp = new LinearLayoutParams(
+		0, LayoutParams::MATCH_PARENT);
 	rightViewLp->weight = 1;
 	rightLayout->setLayoutParams(rightViewLp);
 
@@ -79,159 +79,159 @@ void LodWindow::onCreate()
 }
 
 
-void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
+void LodWindow::inflateCtlLayout(RestraintLayout *rightLayout)
 {
 	/////////////////////////////第一行//////////////////////////////////
 	//c1 label.
-	UTextView *c1Label = new UTextView(this, ID_C1_LABEL);
+	TextView *c1Label = new TextView(this, ID_C1_LABEL);
 	c1Label->setIsEditable(false);
 	c1Label->setIsSelectable(false);
 	c1Label->setText(L"C1值:");
 	c1Label->setTextSize(13.f);
 
-	RestrainLayoutParams *c1LabelLp = new RestrainLayoutParams(
-		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c1LabelLp = new RestraintLayoutParams(
+		LayoutParams::FIT_CONTENT, LayoutParams::FIT_CONTENT);
 	c1LabelLp
-		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
-		->topHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_TOP, 12);
+		->startHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::START, 8)
+		->topHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::TOP, 12);
 
 	rightLayout->addWidget(c1Label, c1LabelLp);
 
 	//c1 seekbar.
-	USeekBar *c1SeekBar = new USeekBar(this, ID_C1_SEEKBAR);
+	SeekBar *c1SeekBar = new SeekBar(this, ID_C1_SEEKBAR);
 	c1SeekBar->setMaximum(60.f);
 	c1SeekBar->setProgress(2.f-1.f);
 	c1SeekBar->setOnSeekValueChangedListener(this);
 
-	RestrainLayoutParams *c1SeekBarLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c1SeekBarLp = new RestraintLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::FIT_CONTENT);
 	c1SeekBarLp
-		->startHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_END, 4)
-		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_C1_VALUE, RestrainLayoutParams::EDGE_START, 4)
-		->bottomHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
+		->startHandle(ID_C1_LABEL, RestraintLayoutParams::END, 4)
+		->topHandle(ID_C1_LABEL, RestraintLayoutParams::TOP)
+		->endHandle(ID_C1_VALUE, RestraintLayoutParams::START, 4)
+		->bottomHandle(ID_C1_LABEL, RestraintLayoutParams::BOTTOM);
 
 	mC1SeekBar = c1SeekBar;
 	rightLayout->addWidget(c1SeekBar, c1SeekBarLp);
 
 	//c1 value.
-	UTextView *c1Value = new UTextView(this, ID_C1_VALUE);
+	TextView *c1Value = new TextView(this, ID_C1_VALUE);
 	c1Value->setIsEditable(false);
 	c1Value->setIsSelectable(false);
 	c1Value->setText(L"2.00");
 	c1Value->setTextSize(13.f);
 
-	RestrainLayoutParams *c1ValueLp = new RestrainLayoutParams(
-		36, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c1ValueLp = new RestraintLayoutParams(
+		36, LayoutParams::FIT_CONTENT);
 	c1ValueLp
-		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8)
-		->bottomHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
+		->topHandle(ID_C1_LABEL, RestraintLayoutParams::TOP)
+		->endHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::END, 8)
+		->bottomHandle(ID_C1_LABEL, RestraintLayoutParams::BOTTOM);
 
 	mC1ValueTV = c1Value;
 	rightLayout->addWidget(c1Value, c1ValueLp);
 
 	/////////////////////////////第二行//////////////////////////////////
 	//c2 label.
-	UTextView *c2Label = new UTextView(this, ID_C2_LABEL);
+	TextView *c2Label = new TextView(this, ID_C2_LABEL);
 	c2Label->setIsEditable(false);
 	c2Label->setIsSelectable(false);
 	c2Label->setText(L"C2值:");
 	c2Label->setTextSize(13.f);
 
-	RestrainLayoutParams *c2LabelLp = new RestrainLayoutParams(
-		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c2LabelLp = new RestraintLayoutParams(
+		LayoutParams::FIT_CONTENT, LayoutParams::FIT_CONTENT);
 	c2LabelLp
-		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
-		->topHandle(ID_C1_LABEL, RestrainLayoutParams::EDGE_BOTTOM, 8);
+		->startHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::START, 8)
+		->topHandle(ID_C1_LABEL, RestraintLayoutParams::BOTTOM, 8);
 
 	rightLayout->addWidget(c2Label, c2LabelLp);
 
 	//c2 seekbar.
-	USeekBar *c2SeekBar = new USeekBar(this, ID_C2_SEEKBAR);
+	SeekBar *c2SeekBar = new SeekBar(this, ID_C2_SEEKBAR);
 	c2SeekBar->setMaximum(60.f);
 	c2SeekBar->setProgress(30.f-1.f);
 	c2SeekBar->setOnSeekValueChangedListener(this);
 
-	RestrainLayoutParams *c2SeekBarLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c2SeekBarLp = new RestraintLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::FIT_CONTENT);
 	c2SeekBarLp
-		->startHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_END, 4)
-		->topHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_C2_VALUE, RestrainLayoutParams::EDGE_START, 4)
-		->bottomHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
+		->startHandle(ID_C2_LABEL, RestraintLayoutParams::END, 4)
+		->topHandle(ID_C2_LABEL, RestraintLayoutParams::TOP)
+		->endHandle(ID_C2_VALUE, RestraintLayoutParams::START, 4)
+		->bottomHandle(ID_C2_LABEL, RestraintLayoutParams::BOTTOM);
 
 	mC2SeekBar = c2SeekBar;
 	rightLayout->addWidget(c2SeekBar, c2SeekBarLp);
 
 	//c2 value.
-	UTextView *c2Value = new UTextView(this, ID_C2_VALUE);
+	TextView *c2Value = new TextView(this, ID_C2_VALUE);
 	c2Value->setIsEditable(false);
 	c2Value->setIsSelectable(false);
 	c2Value->setText(L"30.00");
 	c2Value->setTextSize(13.f);
 
-	RestrainLayoutParams *c2ValueLp = new RestrainLayoutParams(
-		36, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *c2ValueLp = new RestraintLayoutParams(
+		36, LayoutParams::FIT_CONTENT);
 	c2ValueLp
-		->topHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8)
-		->bottomHandle(ID_C2_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
+		->topHandle(ID_C2_LABEL, RestraintLayoutParams::TOP)
+		->endHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::END, 8)
+		->bottomHandle(ID_C2_LABEL, RestraintLayoutParams::BOTTOM);
 
 	mC2ValueTV = c2Value;
 	rightLayout->addWidget(c2Value, c2ValueLp);
 
 	/////////////////////////////第三行//////////////////////////////////
 	//split label.
-	UTextView *splitLabel = new UTextView(this, ID_SPLIT_LABEL);
+	TextView *splitLabel = new TextView(this, ID_SPLIT_LABEL);
 	splitLabel->setIsEditable(false);
 	splitLabel->setIsSelectable(false);
 	splitLabel->setText(L"分割:");
 	splitLabel->setTextSize(13.f);
 
-	RestrainLayoutParams *splitLabelLp = new RestrainLayoutParams(
-		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *splitLabelLp = new RestraintLayoutParams(
+		LayoutParams::FIT_CONTENT, LayoutParams::FIT_CONTENT);
 	splitLabelLp->startHandledId = ID_RIGHT_RESTRAIN;
-	splitLabelLp->startHandledEdge = RestrainLayoutParams::EDGE_START;
+	splitLabelLp->startHandledEdge = RestraintLayoutParams::START;
 	splitLabelLp->leftMargin = 8;
 	splitLabelLp->topHandledId = ID_C2_LABEL;
-	splitLabelLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
+	splitLabelLp->topHandledEdge = RestraintLayoutParams::BOTTOM;
 	splitLabelLp->topMargin = 16;
 
 	rightLayout->addWidget(splitLabel, splitLabelLp);
 
 	//split seekbar.
-	USeekBar *splitSeekBar = new USeekBar(this, ID_SPLIT_SEEKBAR);
+	SeekBar *splitSeekBar = new SeekBar(this, ID_SPLIT_SEEKBAR);
 	splitSeekBar->setMaximum(10.f);
 	splitSeekBar->setProgress(5.f-1.f);
 	splitSeekBar->setOnSeekValueChangedListener(this);
 
-	RestrainLayoutParams *splitSeekBarLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *splitSeekBarLp = new RestraintLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::FIT_CONTENT);
 	splitSeekBarLp
-		->startHandle(ID_C2_SEEKBAR, RestrainLayoutParams::EDGE_START)
-		->topHandle(ID_SPLIT_LABEL, RestrainLayoutParams::EDGE_TOP)
-		->endHandle(ID_SPLIT_VALUE, RestrainLayoutParams::EDGE_START, 4)
-		->bottomHandle(ID_SPLIT_LABEL, RestrainLayoutParams::EDGE_BOTTOM);
+		->startHandle(ID_C2_SEEKBAR, RestraintLayoutParams::START)
+		->topHandle(ID_SPLIT_LABEL, RestraintLayoutParams::TOP)
+		->endHandle(ID_SPLIT_VALUE, RestraintLayoutParams::START, 4)
+		->bottomHandle(ID_SPLIT_LABEL, RestraintLayoutParams::BOTTOM);
 
 	mSplitSeekBar = splitSeekBar;
 	rightLayout->addWidget(splitSeekBar, splitSeekBarLp);
 
 	//split value.
-	UTextView *splitValue = new UTextView(this, ID_SPLIT_VALUE);
+	TextView *splitValue = new TextView(this, ID_SPLIT_VALUE);
 	splitValue->setIsEditable(false);
 	splitValue->setIsSelectable(false);
 	splitValue->setText(L"5");
 	splitValue->setTextSize(13.f);
 
-	RestrainLayoutParams *splitValueLp = new RestrainLayoutParams(
-		36, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *splitValueLp = new RestraintLayoutParams(
+		36, LayoutParams::FIT_CONTENT);
 	splitValueLp->topHandledId = ID_SPLIT_LABEL;
-	splitValueLp->topHandledEdge = RestrainLayoutParams::EDGE_TOP;
+	splitValueLp->topHandledEdge = RestraintLayoutParams::TOP;
 	splitValueLp->bottomHandledId = ID_SPLIT_LABEL;
-	splitValueLp->bottomHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
+	splitValueLp->bottomHandledEdge = RestraintLayoutParams::BOTTOM;
 	splitValueLp->endHandledId = ID_RIGHT_RESTRAIN;
-	splitValueLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
+	splitValueLp->endHandledEdge = RestraintLayoutParams::END;
 	splitValueLp->rightMargin = 8;
 
 	mSplitValueTV = splitValue;
@@ -239,24 +239,24 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 
 	
 	//submit button.
-	UButton *submitBT = new UButton(this, ID_SUBMIT_BUTTON);
+	Button *submitBT = new Button(this, ID_SUBMIT_BUTTON);
 	submitBT->setText(L"提交");
 	submitBT->setTextSize(12.f);
 	submitBT->setOnClickListener(this);
 
-	RestrainLayoutParams *submitBTLp = new RestrainLayoutParams(
-		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *submitBTLp = new RestraintLayoutParams(
+		LayoutParams::FIT_CONTENT, LayoutParams::FIT_CONTENT);
 	submitBTLp->topMargin = 16;
 	submitBTLp->topHandledId = ID_SPLIT_LABEL;
-	submitBTLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
+	submitBTLp->topHandledEdge = RestraintLayoutParams::BOTTOM;
 	submitBTLp->endHandledId = ID_RIGHT_RESTRAIN;
-	submitBTLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
+	submitBTLp->endHandledEdge = RestraintLayoutParams::END;
 	submitBTLp->rightMargin = 8;
 
 	rightLayout->addWidget(submitBT, submitBTLp);
 
 	//vsync button.
-	UButton *vsyncBT = new UButton(this, ID_VSYNC_BUTTON);
+	Button *vsyncBT = new Button(this, ID_VSYNC_BUTTON);
 	vsyncBT->setText(L"VSYNC ON");
 	vsyncBT->setTextSize(12.f);
 	vsyncBT->setTextColor(UColor::White);
@@ -264,37 +264,37 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 	vsyncBT->setButtonColor(UColor::Blue500);
 	vsyncBT->setOnClickListener(this);
 
-	RestrainLayoutParams *vsyncBTLp = new RestrainLayoutParams(
-		ULayoutParams::FIT_CONTENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *vsyncBTLp = new RestraintLayoutParams(
+		LayoutParams::FIT_CONTENT, LayoutParams::FIT_CONTENT);
 	vsyncBTLp->topMargin = 8;
 	vsyncBTLp->topHandledId = ID_SUBMIT_BUTTON;
-	vsyncBTLp->topHandledEdge = RestrainLayoutParams::EDGE_BOTTOM;
+	vsyncBTLp->topHandledEdge = RestraintLayoutParams::BOTTOM;
 	vsyncBTLp->endHandledId = ID_RIGHT_RESTRAIN;
-	vsyncBTLp->endHandledEdge = RestrainLayoutParams::EDGE_END;
+	vsyncBTLp->endHandledEdge = RestraintLayoutParams::END;
 	vsyncBTLp->rightMargin = 8;
 
 	rightLayout->addWidget(vsyncBT, vsyncBTLp);
 
 
 	//渲染参数显示器
-	UTextView *renderInfoTV = new UTextView(this, ID_LOD_INFO);
+	TextView *renderInfoTV = new TextView(this, ID_LOD_INFO);
 	renderInfoTV->setIsEditable(false);
 	renderInfoTV->setIsSelectable(false);
 	renderInfoTV->setText(L"Render info.");
 	renderInfoTV->setTextSize(12.f);
 
-	RestrainLayoutParams *renderInfoTVLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *renderInfoTVLp = new RestraintLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::FIT_CONTENT);
 	renderInfoTVLp
-		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
-		->topHandle(ID_VSYNC_BUTTON, RestrainLayoutParams::EDGE_BOTTOM, 16)
-		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8);
+		->startHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::START, 8)
+		->topHandle(ID_VSYNC_BUTTON, RestraintLayoutParams::BOTTOM, 16)
+		->endHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::END, 8);
 
 	rightLayout->addWidget(renderInfoTV, renderInfoTVLp);
 
 
 	//帮助说明
-	UTextView *helperTV = new UTextView(this);
+	TextView *helperTV = new TextView(this);
 	helperTV->setIsEditable(true);
 	helperTV->setIsSelectable(true);
 	helperTV->setText(
@@ -306,18 +306,18 @@ void LodWindow::inflateCtlLayout(RestrainLayout *rightLayout)
 	helperTV->setBackground(new UEditTextDrawable(this));
 	helperTV->setPadding(4, 4, 4, 4);
 
-	RestrainLayoutParams *helperTVLp = new RestrainLayoutParams(
-		ULayoutParams::MATCH_PARENT, ULayoutParams::FIT_CONTENT);
+	RestraintLayoutParams *helperTVLp = new RestraintLayoutParams(
+		LayoutParams::MATCH_PARENT, LayoutParams::FIT_CONTENT);
 	helperTVLp
-		->startHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_START, 8)
-		->topHandle(ID_LOD_INFO, RestrainLayoutParams::EDGE_BOTTOM, 24)
-		->endHandle(ID_RIGHT_RESTRAIN, RestrainLayoutParams::EDGE_END, 8);
+		->startHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::START, 8)
+		->topHandle(ID_LOD_INFO, RestraintLayoutParams::BOTTOM, 24)
+		->endHandle(ID_RIGHT_RESTRAIN, RestraintLayoutParams::END, 8);
 
 	rightLayout->addWidget(helperTV, helperTVLp);
 }
 
 
-void LodWindow::onClick(UWidget *widget)
+void LodWindow::onClick(View *widget)
 {
 	switch (widget->getId())
 	{
@@ -338,7 +338,7 @@ void LodWindow::onClick(UWidget *widget)
 
 	case ID_VSYNC_BUTTON:
 	{
-		UButton *vsyncButton = (UButton*)widget;
+		Button *vsyncButton = (Button*)widget;
 		if (vsyncButton->getText() == L"VSYNC ON")
 		{
 			UApplication::setVSync(false);
@@ -356,7 +356,7 @@ void LodWindow::onClick(UWidget *widget)
 	}
 }
 
-void LodWindow::onSeekValueChanged(USeekBar *seekBar, float value)
+void LodWindow::onSeekValueChanged(SeekBar *seekBar, float value)
 {
 	switch (seekBar->getId())
 	{
@@ -370,7 +370,7 @@ void LodWindow::onSeekValueChanged(USeekBar *seekBar, float value)
 	}
 }
 
-void LodWindow::onSeekIntegerValueChanged(USeekBar *seekBar, int value)
+void LodWindow::onSeekIntegerValueChanged(SeekBar *seekBar, int value)
 {
 	switch (seekBar->getId())
 	{

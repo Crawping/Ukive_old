@@ -2,7 +2,7 @@
 #include "UScene.h"
 #include "UGraphCreator.h"
 
-class UTextView;
+class TextView;
 class UInputEvent;
 class UAssistConfigure;
 class UModelConfigure;
@@ -14,7 +14,7 @@ class ULodGenerator;
 class TerrainScene : public UScene
 {
 private:
-	UTextView *mLodInfoTV;
+	TextView *mLodInfoTV;
 	ID3D11Buffer* mIndexBuffer;
 	ID3D11Buffer* mVertexBuffer;
 
@@ -45,7 +45,7 @@ private:
 	void elementAwareness(int ex, int ey);
 
 public:
-	TerrainScene(UDirect3DView *d3dView,
+	TerrainScene(Direct3DView *d3dView,
 		unsigned int width, unsigned int height);
 	~TerrainScene();
 
