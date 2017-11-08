@@ -44,10 +44,18 @@ HRESULT URenderer::createRenderResource()
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.Scaling = DXGI_SCALING_STRETCH;
 
+    DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullscreen_desc;
+    fullscreen_desc.RefreshRate = { 0, 0 };
+    fullscreen_desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+    fullscreen_desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+    fullscreen_desc.Windowed = FALSE;
+
 	RH(mDeviceManager->getDXGIFactory()->CreateSwapChainForHwnd(
 		mDeviceManager->getD3DDevice().get(),
 		mOwnerWindow->getWindowHandle(),
 		&swapChainDesc, 0, 0, &mSwapChain));
+
+    mSwapChain->SetFullscreenState(TRUE, NULL);
 
 	UComPtr<IDXGISurface> backBufferPtr;
 	RH(mSwapChain->GetBuffer(0, __uuidof(IDXGISurface), (LPVOID*)&backBufferPtr));
@@ -107,7 +115,7 @@ HRESULT URenderer::resize()
 	return S_OK;
 }
 
-void URenderer::render(
+bool URenderer::render(
 	D2D1_COLOR_F bkColor,
 	std::function<void()> renderCallback)
 {
@@ -127,6 +135,8 @@ void URenderer::render(
 		mD3DRenderListener->onRender();
 
 	hr = mSwapChain->Present(UApplication::isVSyncEnabled() ? 1 : 0, 0);
+
+    return !FAILED(hr);
 }
 
 void URenderer::close()
@@ -317,8 +327,8 @@ UComPtr<IDXGISwapChain1> URenderer::getSwapChain()
 }
 
 UComPtr<ID2D1DeviceContext> URenderer::getD2DDeviceContext()
-{ 
-	return mD2DDeviceContext; 
+{
+	return mD2DDeviceContext;
 }
 
 
@@ -390,8 +400,8 @@ HRESULT URenderer::createWindowRenderTarget(
 }
 
 HRESULT URenderer::createTextFormat(
-	std::wstring fontFamilyName, 
-	float fontSize, std::wstring localeName, 
+	std::wstring fontFamilyName,
+	float fontSize, std::wstring localeName,
 	IDWriteTextFormat **textFormat)
 {
 	return mDeviceManager->getDWriteFactory()->CreateTextFormat(
@@ -405,9 +415,9 @@ HRESULT URenderer::createTextFormat(
 }
 
 HRESULT URenderer::createTextLayout(
-	std::wstring text, 
-	IDWriteTextFormat *textFormat, 
-	float maxWidth, float maxHeight, 
+	std::wstring text,
+	IDWriteTextFormat *textFormat,
+	float maxWidth, float maxHeight,
 	IDWriteTextLayout **textLayout)
 {
 	return mDeviceManager->getDWriteFactory()->CreateTextLayout(

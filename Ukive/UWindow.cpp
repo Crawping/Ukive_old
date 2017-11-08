@@ -128,7 +128,7 @@ void UWindow::setMouseTrack()
 		TRACKMOUSEEVENT csTME;
 		csTME.cbSize = sizeof(csTME);
 		csTME.dwFlags = TME_LEAVE | TME_HOVER;
-		csTME.hwndTrack = mWindowHandle;// 指定要 追踪 的窗口 
+		csTME.hwndTrack = mWindowHandle;// 指定要 追踪 的窗口
 		csTME.dwHoverTime = 1000;  // 鼠标在按钮上停留超过 1s ，才认为状态为 HOVER
 		::_TrackMouseEvent(&csTME); // 开启 Windows 的 WM_MOUSELEAVE ， WM_MOUSEHOVER 事件支持
 
@@ -636,7 +636,7 @@ void UWindow::close(bool notify)
 
 void UWindow::notifyWindowSizeChanged(
 	int param,
-	int width, int height, 
+	int width, int height,
 	int clientWidth, int clientHeight)
 {
 	if (clientWidth <= 0 || clientHeight <= 0)
@@ -832,9 +832,12 @@ bool UWindow::onRequestDraw(URect rect)
 	{
 		getAnimationManager()->update();
 
-		mRenderer->render(
+		bool ret = mRenderer->render(
 			mBackgroundColor,
 			[this]() {this->onDraw(mCanvas); });
+        if (!ret) {
+            exit(0);
+        }
 
 		if (getAnimationManager()->isBusy())
 			invalidate();
@@ -935,7 +938,7 @@ void UWindow::onMove(int x, int y)
 
 void UWindow::onResize(
 	int param,
-	int width, int height, 
+	int width, int height,
 	int clientWidth, int clientHeight)
 {
 	switch (param)

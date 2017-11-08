@@ -33,7 +33,7 @@ public:
 
 	HRESULT init(UWindow *window);
 	HRESULT resize();
-	void render(
+	bool render(
 		D2D1_COLOR_F bkColor,
 		std::function<void()> renderCallback);
 	void close();
